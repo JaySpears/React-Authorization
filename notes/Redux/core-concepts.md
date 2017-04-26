@@ -10,7 +10,7 @@ If state of a todo application looks like this:
 
 ```
 {
-  todos : [{
+  todos : [
     {
       text: 'Clean some shit',
       completed: false
@@ -19,7 +19,7 @@ If state of a todo application looks like this:
       text: 'Wash Car',
       completed: false
     }
-  }]
+  ]
 }
 ```
 
