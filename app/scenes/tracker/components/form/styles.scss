@@ -1,0 +1,90 @@
+@import './../../../../assets/styles/base.scss';
+
+form{
+  text-align: center;
+  legend{
+    margin: 10px auto 0 auto;
+    font-size: 20px;
+    font-weight: 900;
+    font-family: $roboto-stack;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  i{
+    font-size: 12px;
+    font-family: $roboto-stack;
+  }
+  input{
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill{
+       -webkit-box-shadow: 0 0 0px 1000px #f3f3f3 inset;
+    }
+    &.task-name{
+      padding-left: 5px;
+      margin-top: 20px;
+      background-color: #f3f3f3;
+      outline: none;
+      border: none;
+      font-size: 16px;
+      width: 250px;
+      border-bottom: 1px solid #cccccc;
+      height: 30px;
+    }
+    &.task-number{
+      height: 25px;
+      width: 220px;
+      padding-left: 10px;
+      outline: none;
+      border-radius: 5px;
+      border: 1px solid #cccccc;
+      transition: border 0.5s;
+      font-size: 12px;
+      &:focus{
+        border: 1px solid #41c134;
+      }
+    }
+  }
+  button{
+    background-color: #f3f3f3;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 6px;
+    &.invalid{
+      cursor: default;
+      i{
+        opacity: 0;
+      }
+    }
+    i{
+      transition: opacity 0.5s;
+      color: #41c134;
+      position: relative;
+      top: 3.5px;
+    }
+  }
+  p{
+    padding: 5px 15px;
+    font-size: 14px;
+    font-family: $roboto-stack;
+    margin-bottom: 0px;
+    margin-top: 20px;
+    font-weight: 600;
+    -webkit-font-smoothing: antialiased;
+  }
+  select{
+    height: 28px;
+    padding: 0px 30px 0px 10px;
+    width: 170px;
+    font-family: $roboto-stack;
+    font-size: 12px;
+    border-bottom: 1px solid #cccccc;
+    outline: none;
+    &:focus{
+      border: 1px solid #41c134;
+    }
+  }
+}
