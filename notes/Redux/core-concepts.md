@@ -4,8 +4,9 @@ Predictable state container for JavaScript applications.
 ## Core Concepts
 #### Actions<br>
 >  To update state of your current application, you must dispatch an event (obviously), in Redux, these events are called Actions.
-<br>
+
 If state of a todo application looks like this:
+<br>
 
 ```
 {
