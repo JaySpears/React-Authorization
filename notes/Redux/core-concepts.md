@@ -7,6 +7,7 @@ Predictable state container for JavaScript applications.
 <br>
 <br>
 If state of a todo application looks like this:
+
 ```
 {
   todos : [{
@@ -21,6 +22,7 @@ If state of a todo application looks like this:
   }]
 }
 ```
+
 To update state, an Action is required. It's simply an object. Example:
 <br>
 ```
