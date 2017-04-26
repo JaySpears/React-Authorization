@@ -25,6 +25,7 @@ If state of a todo application looks like this:
 
 To update state, an Action is required. It's simply an object. Example:
 <br>
+
 ```
 { type: 'ADD_TODO', text: 'Pay bills' }
 ```
@@ -32,6 +33,7 @@ To update state, an Action is required. It's simply an object. Example:
 #### Reducers
 >Now that Actions are defined to update current state of the application, a Reducer is needed. It's a just a function that takes two arguments. State, and the actions argument, then it returns the updated state.
 <br>
+
 ```
 function todos(state = [], action){
   if(action.type === 'ADD_TODO'){
@@ -44,7 +46,9 @@ function todos(state = [], action){
   }
 }
 ```
+
 Having individual functions to update state is the idea. The you would have a main reducer for our application to call our individual reducers. Example:
+
 ```
   function application(state = {}, action){
     return {
