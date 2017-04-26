@@ -1,3 +1,4 @@
+// Import styling base.
 @import './../../../../assets/styles/base.scss';
 
 form{
@@ -24,12 +25,12 @@ form{
     &.task-name{
       padding-left: 5px;
       margin-top: 20px;
-      background-color: #f3f3f3;
+      background-color: $light-grey;
       outline: none;
       border: none;
       font-size: 16px;
       width: 250px;
-      border-bottom: 1px solid #cccccc;
+      border-bottom: 1px solid $dark-grey;
       height: 30px;
     }
     &.task-number{
@@ -38,16 +39,16 @@ form{
       padding-left: 10px;
       outline: none;
       border-radius: 5px;
-      border: 1px solid #cccccc;
+      border: 1px solid $dark-grey;
       transition: border 0.5s;
       font-size: 12px;
       &:focus{
-        border: 1px solid #41c134;
+        border: 1px solid $green;
       }
     }
   }
   button{
-    background-color: #f3f3f3;
+    background-color: $light-grey;
     border: none;
     cursor: pointer;
     text-transform: uppercase;
@@ -61,7 +62,7 @@ form{
     }
     i{
       transition: opacity 0.5s;
-      color: #41c134;
+      color: $green;
       position: relative;
       top: 3.5px;
     }
@@ -81,10 +82,10 @@ form{
     width: 170px;
     font-family: $roboto-stack;
     font-size: 12px;
-    border-bottom: 1px solid #cccccc;
+    border-bottom: 1px solid $dark-grey;
     outline: none;
     &:focus{
-      border: 1px solid #41c134;
+      border: 1px solid $green;
     }
   }
 }

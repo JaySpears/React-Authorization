@@ -4,9 +4,6 @@ import React, { Component } from 'react';
 // Import styles.
 import ComponentStyles from './styles.scss';
 
-// Export component.
-export default
-
 class TrackerForm extends Component {
   // Component constructor.
   constructor(props){
@@ -78,3 +75,7 @@ class TrackerForm extends Component {
     )
   }
 }
+
+
+// Export component.
+export default TrackerForm

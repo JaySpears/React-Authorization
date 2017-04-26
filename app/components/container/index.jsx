@@ -4,9 +4,6 @@ import React, { Component } from 'react';
 // Import styles.
 import ContainerStyles from './styles.scss';
 
-// Export component.
-export default
-
 class Container extends Component {
   // Render element.
   render() {
@@ -17,3 +14,6 @@ class Container extends Component {
     )
   }
 }
+
+// Export component.
+export default Container

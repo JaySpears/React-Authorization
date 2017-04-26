@@ -1,0 +1,24 @@
+// Import styling base.
+@import './../../../../assets/styles/base.scss';
+
+.timer {
+  text-align: center;
+  margin-top: 20px;
+  button{
+    border: none;
+    background-color: transparent;
+    margin: 0px 20px;
+    i{
+      font-size: 32px;
+      &.start {
+        color: $green;
+      }
+      &.stop{
+        color: red;
+      }
+    }
+    p{
+      margin-top: 0px;
+    }
+  }
+}

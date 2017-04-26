@@ -10,6 +10,12 @@ import TrackerTimer from './components/timer/index.jsx';
 export default
 
 class Tracker extends React.Component{
+  // Component constructor.
+  constructor(props){
+    super(props);
+    console.log(this);
+  }
+
   render(){
     return(
       <div>

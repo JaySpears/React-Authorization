@@ -4,9 +4,6 @@ import React, { Component } from 'react';
 // Import styles.
 import ComponentStyles from './styles.scss';
 
-// Export component.
-export default
-
 class TrackerTimer extends Component {
   // Component constructor.
   constructor(props){
@@ -18,8 +15,19 @@ class TrackerTimer extends Component {
 
   render(){
     return (
-      <div>
+      <div className="timer">
+        <button>
+          <i className="start fa fa-2x fa-play-circle" aria-hidden="true"></i>
+          <p>Start</p>
+        </button>
+        <button>
+          <i className="stop fa fa-2x fa-stop-circle" aria-hidden="true"></i>
+          <p>Stop</p>
+        </button>
       </div>
     )
   }
 }
+
+// Export component.
+export default TrackerTimer
