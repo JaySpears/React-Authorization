@@ -13,14 +13,13 @@ class Tracker extends React.Component{
   // Component constructor.
   constructor(props){
     super(props);
-    console.log(this);
   }
 
   render(){
     return(
       <div>
         <TrackerForm />
-        <TrackerTimer />
+        <TrackerTimer hours="0" minutes="0" seconds="0" />
       </div>
     );
   }

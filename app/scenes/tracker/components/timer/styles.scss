@@ -4,17 +4,30 @@
 .timer {
   text-align: center;
   margin-top: 20px;
+  .start-wrapper{
+
+  }
+  .stop-wrapper{
+
+  }
   button{
     border: none;
     background-color: transparent;
     margin: 0px 20px;
     i{
+      cursor: pointer;
       font-size: 32px;
+      transition: color 0.5s;
+      color: black;
       &.start {
-        color: $green;
+        &:hover{
+          color: $green;
+        }
       }
       &.stop{
-        color: red;
+        &:hover{
+          color: red;
+        }
       }
     }
     p{
