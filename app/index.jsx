@@ -11,12 +11,19 @@
 // Import dependencies.
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import trackerApp from './reducers/index.js'
+
 
 // Import components.
 import Container from './components/container/index.jsx';
 
 // Import scenes.
 import Tracker from './scenes/tracker/index.jsx';
+
+// Create store for state.
+let store = createStore(trackerApp);
 
 // Application Element.
 class TrackIt extends React.Component{

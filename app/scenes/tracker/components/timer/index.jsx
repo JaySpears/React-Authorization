@@ -4,6 +4,12 @@ import React, { Component } from 'react';
 // Import styles.
 import ComponentStyles from './styles.scss';
 
+// Need this for the dispatch event.
+import { connect } from 'react-redux';
+
+// Import Redux Actions.
+import { increment } from '../../../../actions/index.js'
+
 class TrackerTimer extends Component {
   // Component constructor.
   constructor(props){
@@ -16,6 +22,7 @@ class TrackerTimer extends Component {
       }
     }
     this.timeCalculation = this.timeCalculation.bind(this);
+    setInterval(this.timeCalculation, 1000);
   }
 
   timeCalculation() {
