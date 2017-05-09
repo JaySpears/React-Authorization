@@ -16,15 +16,25 @@ class TrackerTimer extends Component {
     super(props);
     this.state = {
       metricTime: {
-        seconds: null,
-        minutes: null,
-        hours: null
+        seconds: 0,
+        minutes: 0,
+        hours: 0
       }
     }
     this.startWorkload = this.startWorkload.bind(this);
     this.endWorkload = this.endWorkload.bind(this);
     this.determineCurrentWorkloadTime = this.determineCurrentWorkloadTime.bind(this);
-    setInterval(this.determineCurrentWorkloadTime, 1000);
+    this.workloadInterval = this.workloadInterval.bind(this);
+    if (localStorage.getItem('workloadStartTime')) {
+      this.workloadInterval();
+    }
+  }
+  // Interval function for workload.
+  workloadInterval(option){
+    let workloadInterval = setInterval(this.determineCurrentWorkloadTime, 1000);
+    if (option === 'kill') {
+      clearInterval(workloadInterval);
+    }
   }
 
   // Determine difference in time of start time and end time.
@@ -49,33 +59,40 @@ class TrackerTimer extends Component {
     calculatedSeconds = calculatedSeconds % 1;
     calculatedSeconds = Math.round((60 * calculatedSeconds) * -1);
 
-    this.setState({
-      metricTime:{
-        seconds: calculatedSeconds,
-        minutes: calculatedMinutes,
-        hours: durationHours * -1
-      }
-    });
+    if (workloadStartTime) {
+      this.setState({
+        metricTime:{
+          seconds: calculatedSeconds,
+          minutes: calculatedMinutes,
+          hours: durationHours * -1
+        }
+      });
+    }
   }
 
   // Starts the users workload time.
   startWorkload(){
     // Store time of start date in localStorage.
-    localStorage.setItem('workloadStartTime', moment().format());
+    localStorage.setItem('workloadStartTime', Moment().format());
+    this.workloadInterval();
   }
 
   // Ends the users workload time.
   endWorkload(){
-    // Reset time of start date in localStorage.
-    localStorage.setItem('workloadStartTime', null);
+    // Clear workloadInterval.
+    this.workloadInterval('kill');
+
     // Reset state.
     this.setState({
       metricTime:{
-        seconds: null,
-        minutes: null,
-        hours: null
+        seconds: 0,
+        minutes: 0,
+        hours: 0
       }
     });
+
+    // Remove start time from localStorage.
+    localStorage.removeItem('workloadStartTime');
   }
 
   render(){
