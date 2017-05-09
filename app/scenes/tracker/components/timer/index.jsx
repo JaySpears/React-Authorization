@@ -15,7 +15,11 @@ class TrackerTimer extends Component {
   constructor(props){
     super(props);
     this.state = {
-      metricTime: null
+      metricTime: {
+        seconds: null,
+        minutes: null,
+        hours: null
+      }
     }
     this.startWorkload = this.startWorkload.bind(this);
     this.endWorkload = this.endWorkload.bind(this);
@@ -23,9 +27,7 @@ class TrackerTimer extends Component {
     setInterval(this.determineCurrentWorkloadTime, 1000);
   }
 
-  // Checks to see if current task is running.
-  // Uses localStorage to track that time for when
-  // a user closes the plugin. This will be executed every second.
+  // Determine difference in time of start time and end time.
   determineCurrentWorkloadTime(){
     const moment = extendMoment(Moment);
     let currentTime = moment().format();
@@ -37,11 +39,23 @@ class TrackerTimer extends Component {
     let durationMinutes = duration.diff('minutes');
     let durationHours = duration.diff('hours');
 
-    // NOTE: Continue working on time difference between start and end time.
-    // This will need to be applied in scope. Use format HH:MM:SS.
-    console.log(
+    // Calculate remaining amount of minutes that do not evenly divide into an hour.
+    let calculatedMinutes = durationMinutes / 60;
+    calculatedMinutes = calculatedMinutes % 1;
+    calculatedMinutes = Math.round((60 * calculatedMinutes) * -1);
 
-    );
+    // Calculate remaining amount of seconds that do not evenly divide into an minute.
+    let calculatedSeconds = durationSeconds / 60;
+    calculatedSeconds = calculatedSeconds % 1;
+    calculatedSeconds = Math.round((60 * calculatedSeconds) * -1);
+
+    this.setState({
+      metricTime:{
+        seconds: calculatedSeconds,
+        minutes: calculatedMinutes,
+        hours: durationHours * -1
+      }
+    });
   }
 
   // Starts the users workload time.
@@ -54,11 +68,20 @@ class TrackerTimer extends Component {
   endWorkload(){
     // Reset time of start date in localStorage.
     localStorage.setItem('workloadStartTime', null);
+    // Reset state.
+    this.setState({
+      metricTime:{
+        seconds: null,
+        minutes: null,
+        hours: null
+      }
+    });
   }
 
   render(){
     return (
       <div className="timer clearfix">
+        <p className="duration">{this.state.metricTime.hours}<span>H</span> {this.state.metricTime.minutes}<span>M</span> {this.state.metricTime.seconds}<span>S</span></p>
         <div className="start-wrapper">
           <button onClick={this.startWorkload}>
             <i className="start fa fa-2x fa-play-circle" aria-hidden="true"></i>

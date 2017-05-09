@@ -18,6 +18,14 @@
     width: 50%;
     text-align: left;
   }
+  .duration{
+    font-weight: 600;
+    font-family: $roboto-stack;
+    font-size: 18px;
+    span{
+      font-size: 12px;
+    }
+  }
   button{
     border: none;
     background-color: transparent;
