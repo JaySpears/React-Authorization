@@ -78,4 +78,4 @@ class TrackerForm extends Component {
 
 
 // Export component.
-export default TrackerForm
+export default TrackerForm;

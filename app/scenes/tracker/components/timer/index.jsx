@@ -1,16 +1,14 @@
 // Import dependencies.
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 
-// Import styles.
-import ComponentStyles from './styles.scss';
-
-// Need this for the dispatch event.
-import { connect } from 'react-redux';
-
 // Import Redux Actions.
 import { increment } from '../../../../actions/index.js'
+
+// Import styles.
+import ComponentStyles from './styles.scss';
 
 class TrackerTimer extends Component {
   // Component constructor.
@@ -41,6 +39,9 @@ class TrackerTimer extends Component {
 
     // NOTE: Continue working on time difference between start and end time.
     // This will need to be applied in scope. Use format HH:MM:SS.
+    console.log(
+
+    );
   }
 
   // Starts the users workload time.
@@ -76,4 +77,4 @@ class TrackerTimer extends Component {
 }
 
 // Export component.
-export default TrackerTimer
+export default TrackerTimer;

@@ -6,9 +6,6 @@ import ReactDOM from 'react-dom';
 import TrackerForm from './components/form/index.jsx';
 import TrackerTimer from './components/timer/index.jsx';
 
-// Export scene.
-export default
-
 class Tracker extends React.Component{
   // Component constructor.
   constructor(props){
@@ -24,3 +21,6 @@ class Tracker extends React.Component{
     );
   }
 }
+
+// Export component.
+export default Tracker;
