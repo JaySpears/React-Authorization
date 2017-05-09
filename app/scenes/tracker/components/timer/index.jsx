@@ -58,7 +58,7 @@ class TrackerTimer extends Component {
 
   render(){
     return (
-      <div className="timer">
+      <div className="timer clearfix">
         <div className="start-wrapper">
           <button onClick={this.startWorkload}>
             <i className="start fa fa-2x fa-play-circle" aria-hidden="true"></i>

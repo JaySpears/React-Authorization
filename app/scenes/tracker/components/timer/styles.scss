@@ -4,11 +4,19 @@
 .timer {
   text-align: center;
   margin-top: 20px;
+  width: 100%;
+  width: 320px;
+  bottom: 10px;
+  position: absolute;
   .start-wrapper{
-
+    float: left;
+    width: 50%;
+    text-align: right;
   }
   .stop-wrapper{
-
+    float: left;
+    width: 50%;
+    text-align: left;
   }
   button{
     border: none;

@@ -6,3 +6,9 @@ $roboto-stack: 'Roboto', sans-serif;
 $green: #41c134;
 $light-grey: #f3f3f3;
 $dark-grey: #cccccc;
+
+.clearfix{
+  content: '';
+  clear: both;
+  display: table;
+}
