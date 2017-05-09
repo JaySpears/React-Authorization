@@ -1,5 +1,7 @@
 // Import dependencies.
 import React, { Component } from 'react';
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
 
 // Import styles.
 import ComponentStyles from './styles.scss';
@@ -15,59 +17,55 @@ class TrackerTimer extends Component {
   constructor(props){
     super(props);
     this.state = {
-      metricTime: {
-        hours: Number(props.hours),
-        minutes: Number(props.minutes),
-        seconds: Number(props.seconds)
-      }
+      metricTime: null
     }
-    this.timeCalculation = this.timeCalculation.bind(this);
-    setInterval(this.timeCalculation, 1000);
+    this.startWorkload = this.startWorkload.bind(this);
+    this.endWorkload = this.endWorkload.bind(this);
+    this.determineCurrentWorkloadTime = this.determineCurrentWorkloadTime.bind(this);
+    setInterval(this.determineCurrentWorkloadTime, 1000);
   }
 
-  timeCalculation() {
-    const metricSeconds = this.state.metricTime.seconds + 1;
-    const metricMinutes = this.state.metricTime.minutes + 1;
-    const metricHours = this.state.metricTime.hours + 1;
-    if (metricSeconds % 60 == 0 && metricMinutes % 60 != 0) {
-      this.setState({
-        metricTime: {
-          seconds: 0,
-          minutes: metricMinutes,
-          hours: this.state.metricTime.hours
-        }
-      })
-    } else if (metricSeconds % 60 == 0 && metricMinutes % 60 == 0){
-      this.setState({
-        metricTime: {
-          seconds: 0,
-          minutes: 0,
-          hours: metricHours
-        }
-      })
-    } else if (metricSeconds % 60 != 0 && metricMinutes % 60 != 0) {
-      this.setState({
-        metricTime: {
-          seconds: metricSeconds,
-          minutes: this.state.metricTime.minutes,
-          hours: this.state.metricTime.hours
-        }
-      })
-    }
+  // Checks to see if current task is running.
+  // Uses localStorage to track that time for when
+  // a user closes the plugin. This will be executed every second.
+  determineCurrentWorkloadTime(){
+    const moment = extendMoment(Moment);
+    let currentTime = moment().format();
+    let workloadStartTime = localStorage.getItem('workloadStartTime');
+    let start = moment(currentTime);
+    let end = moment(workloadStartTime);
+    let duration = moment.range(start, end);
+    let durationSeconds = duration.diff('seconds');
+    let durationMinutes = duration.diff('minutes');
+    let durationHours = duration.diff('hours');
+
+    // NOTE: Continue working on time difference between start and end time.
+    // This will need to be applied in scope. Use format HH:MM:SS.
+  }
+
+  // Starts the users workload time.
+  startWorkload(){
+    // Store time of start date in localStorage.
+    localStorage.setItem('workloadStartTime', moment().format());
+  }
+
+  // Ends the users workload time.
+  endWorkload(){
+    // Reset time of start date in localStorage.
+    localStorage.setItem('workloadStartTime', null);
   }
 
   render(){
     return (
       <div className="timer">
         <div className="start-wrapper">
-          <button>
+          <button onClick={this.startWorkload}>
             <i className="start fa fa-2x fa-play-circle" aria-hidden="true"></i>
             <p>Start</p>
           </button>
         </div>
         <div className="stop-wrapper">
-          <p>{this.state.metricTime.hours}h {this.state.metricTime.minutes}m {this.state.metricTime.seconds}s</p>
-          <button>
+          <button onClick={this.endWorkload}>
             <i className="stop fa fa-2x fa-stop-circle" aria-hidden="true"></i>
             <p>Stop</p>
           </button>
