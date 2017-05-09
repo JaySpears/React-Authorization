@@ -29,6 +29,7 @@ class TrackerTimer extends Component {
       this.workloadInterval();
     }
   }
+
   // Interval function for workload.
   workloadInterval(option){
     let workloadInterval = setInterval(this.determineCurrentWorkloadTime, 1000);
@@ -71,14 +72,18 @@ class TrackerTimer extends Component {
   }
 
   // Starts the users workload time.
-  startWorkload(){
+  startWorkload(event){
+    event.preventDefault();
+    document.getElementById('start-button').blur();
     // Store time of start date in localStorage.
     localStorage.setItem('workloadStartTime', Moment().format());
     this.workloadInterval();
   }
 
   // Ends the users workload time.
-  endWorkload(){
+  endWorkload(event){
+    event.preventDefault();
+    document.getElementById('stop-button').blur();
     // Clear workloadInterval.
     this.workloadInterval('kill');
 
@@ -100,13 +105,13 @@ class TrackerTimer extends Component {
       <div className="timer clearfix">
         <p className="duration">{this.state.metricTime.hours}<span>H</span> {this.state.metricTime.minutes}<span>M</span> {this.state.metricTime.seconds}<span>S</span></p>
         <div className="start-wrapper">
-          <button onClick={this.startWorkload}>
+          <button id="start-button" onClick={this.startWorkload}>
             <i className="start fa fa-2x fa-play-circle" aria-hidden="true"></i>
             <p>Start</p>
           </button>
         </div>
         <div className="stop-wrapper">
-          <button onClick={this.endWorkload}>
+          <button id="stop-button" onClick={this.endWorkload}>
             <i className="stop fa fa-2x fa-stop-circle" aria-hidden="true"></i>
             <p>Stop</p>
           </button>

@@ -30,6 +30,15 @@
     border: none;
     background-color: transparent;
     margin: 0px 20px;
+    outline: none;
+    &:focus{
+      .start{
+        color: $green;
+      }
+      .stop{
+        color: red;
+      }
+    }
     i{
       cursor: pointer;
       font-size: 32px;
