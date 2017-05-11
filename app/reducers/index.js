@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import iterativeReducer from './timer.js';
+import tasksReducer from './reducer-tasks.js';
 
-const trackerApp = combineReducers({
-  iterativeReducer
+const rootReducer = combineReducers({
+  tasks: tasksReducer
 });
 
-export default trackerApp
+export default rootReducer;

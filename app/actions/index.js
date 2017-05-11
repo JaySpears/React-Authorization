@@ -1,6 +1,5 @@
-export const increment = (date) => {
+export const formValidationAction = () => {
   return {
-    type: 'INCREMENT',
-    date
+    type: 'TRUE'
   }
 }

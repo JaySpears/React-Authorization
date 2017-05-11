@@ -1,5 +1,6 @@
 // Import dependencies.
 import React, { Component } from 'react';
+import { formActionValidation } from '../../../../actions/index.js';
 
 // Import styles.
 import ComponentStyles from './styles.scss';
@@ -13,7 +14,7 @@ class TrackerForm extends Component {
       isFormValid: false,
       formSubmitted: false,
       taskNumber: '',
-      existingTaskNumbers: ['WIZ-4352', 'SHEL12-3X43']
+      existingTaskNumbers: []
     }
     this.updateTaskState = this.updateTaskState.bind(this);
     this.validateForm = this.validateForm.bind(this);
@@ -54,9 +55,11 @@ class TrackerForm extends Component {
         <legend>Track It</legend>
         <i>What're you working on?</i>
         <input type="text" value={this.state.task} name="task" className="task-name" onChange={this.updateTaskState} autoFocus />
-        <button className={this.state.isFormValid ? 'valid' : 'invalid'}>
-          <i className="fa fa-2x fa-plus-circle" aria-hidden="true"></i>
-        </button>
+        { this.state.isFormValid ?
+          <button className="valid">
+            <i className="fa fa-2x fa-plus-circle" aria-hidden="true"></i>
+          </button> : null
+        }
         {( this.state.isFormValid && this.state.formSubmitted ?
           <div>
             <p>Assign {this.state.task} a task number?</p>
