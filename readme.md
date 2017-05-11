@@ -48,8 +48,8 @@ _app
 |       └── base.scss
 ├── _components
 |   └──_container
-|       ├── index.jsx
-|       └── styles.scss
+|      ├── index.jsx
+|      └── styles.scss
 ├── _containers
 |   └── _tracker
 |       ├── form.js
@@ -64,4 +64,5 @@ _app
 |       └── _timer
 |           ├── index.jsx
 |           └── styles.scss
-└── index.jsx```
+└── index.jsx
+```
