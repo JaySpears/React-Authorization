@@ -5,7 +5,7 @@ The application is designed for a google chrome plugin. It's constructed with Fa
 - Loaders
   - Babel-loader
   - Style-loader
-  - Ssss-loader
+  - SCSS-loader
   - CSS-loader
   - React-hot-loader
 - Runs webpack-dev-server and HotModuleReplacementPlugin for development help.
