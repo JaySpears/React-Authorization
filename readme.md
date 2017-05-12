@@ -5,7 +5,7 @@ The application is designed for a google chrome plugin. It's constructed with Fa
 - Loaders
   - Babel-loader
   - Style-loader
-  - Ssss-loader
+  - SCSS-loader
   - CSS-loader
   - React-hot-loader
 - Runs webpack-dev-server and HotModuleReplacementPlugin for development help.
@@ -48,8 +48,8 @@ _app
 |       └── base.scss
 ├── _components
 |   └──_container
-|       ├── index.jsx
-|       └── styles.scss
+|      ├── index.jsx
+|      └── styles.scss
 ├── _containers
 |   └── _tracker
 |       ├── form.js
@@ -64,4 +64,5 @@ _app
 |       └── _timer
 |           ├── index.jsx
 |           └── styles.scss
-└── index.jsx```
+└── index.jsx
+```
