@@ -16,4 +16,4 @@ class Container extends Component {
 }
 
 // Export component.
-export default Container
+export default Container;

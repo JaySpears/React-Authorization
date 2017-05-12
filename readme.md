@@ -18,7 +18,7 @@ The application is designed for a google chrome plugin. It's constructed with Fa
 
 ## Up & Running
 1. Install node dependencies. `npm install`
-2. After dependencies are installed just run node to spin up your server with hot reload. `node server.js`
+2. After dependencies are installed just run `npm start` to spin up the webpack-dev-server with hot reload.
 
 
 ## Deployment

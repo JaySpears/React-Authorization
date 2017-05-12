@@ -1,0 +1,53 @@
+// Import styling base.
+@import './../../assets/styles/base.scss';
+
+nav{
+  width: 290px;
+  margin: 0 auto;
+  height: 40px;
+  border-bottom: 1px solid #cccccc;
+  div{
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    width: 50%;
+    float: left;
+    height: 100%;
+    text-align: center;
+    width: 45%;
+    &:nth-child(1){
+      float: left;
+      margin-left: 9px;
+      border: 1px solid #cccccc;
+      border-bottom: none;
+    }
+    &:nth-child(2){
+      float: right;
+      margin-right: 9px;
+      border: 1px solid #cccccc;
+      border-bottom: none;
+    }
+  }
+  a{
+    padding-top: 8px;
+    text-decoration: none;
+    font-family: $roboto-stack;
+    color: black;
+    position: relative;
+    top: 10px;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 600;
+    font-size: 15px;
+    outline: none;
+    &.active{
+      display: block;
+      height: 74%;
+      top: 0px;
+      background: linear-gradient(white 25%, #f3f3f3);
+      position: relative;
+      z-index: 8;
+      border-top-left-radius: 7px;
+      border-top-right-radius: 7px;
+      padding-top: 10px;
+    }
+  }
+}
