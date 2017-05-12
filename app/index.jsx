@@ -8,35 +8,26 @@
   }
 })(window);
 
-// Import dependencies.
+// React dependencies.
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux'
-import { createStore } from 'redux'
-import trackerApp from './reducers/index.js'
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import trackerApp from './reducers/index.js';
 
-// Import components.
+// Import Scences.
+import routes from './routes/index.js';
+
 import Container from './components/container/index.jsx';
-
-// Import scenes.
-import Tracker from './scenes/tracker/index.jsx';
 
 // Create store for state.
 let store = createStore(trackerApp);
 
-// Application Element.
-class TrackIt extends React.Component{
-  render(){
-    return(
-      <Container>
-        <Tracker />
-      </Container>
-    );
-  }
-}
-
 ReactDOM.render(
-  <TrackIt />,
+  <Container>
+    <Router>{routes}</Router>
+  </Container>,
   document.getElementById('application')
 );
 

@@ -4,7 +4,6 @@ var webpack = require('webpack');
 module.exports = {
   entry: [
     'react-hot-loader/patch',
-    'webpack-dev-server/client?http://localhost:3000/',
     'webpack/hot/only-dev-server',
     path.resolve(__dirname, 'app/index')
   ],
@@ -31,6 +30,9 @@ module.exports = {
         use: ['style-loader', 'css-loader', 'sass-loader']
       }
     ]
+  },
+  devServer: {
+    historyApiFallback: true
   },
   resolve: {
     extensions: ['.js', '.jsx']
