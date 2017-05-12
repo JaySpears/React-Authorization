@@ -1,0 +1,8 @@
+{
+    "db_hostname": "localhost",
+    "db_username": "root",
+    "db_pass": "root",
+    "db_database": "TrackIt",
+    "app_url": "localhost:8080",
+    "port": 8080
+}
