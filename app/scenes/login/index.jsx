@@ -1,6 +1,9 @@
 // Import dependencies.
 import React, { Component } from 'react';
 
+// Import scene styles.
+import LoginSceneStyles from './styles.scss';
+
 class LoginScene extends React.Component{
   // Component constructor.
   constructor(props){
@@ -9,31 +12,34 @@ class LoginScene extends React.Component{
 
   render(){
     return(
-      <form autocomplete="off" name="admin_login" id="admin-login">
+      <form autoComplete="off" name="user_login" id="user-login">
         <fieldset>
-          <legend>Admin Login</legend>
+          <legend>Track It</legend>
           <div>
-            <label for="email">Email Address:</label><br/>
-            <input tabindex="1" type="email" name="email" spellcheck="false"/>
+            <label htmlFor="email">Email Address:</label><br/>
+            <input tabIndex="1" type="email" name="email" spellCheck="false"/>
             <div>
-              <p class="error">Your email address is invalid.</p>
+              <p className="error">Your email address is invalid.</p>
             </div>
           </div>
           <div>
-              <label for="password">Password:</label><br/>
-              <input tabindex="2" type="password" name="password"/>
+            <label htmlFor="password">Password:</label><br/>
+            <input tabIndex="2" type="password" name="password"/>
           </div>
-          <div class="remember-me">
-              <input tabindex="3" type="checkbox" name="remember"/><span>Remember me for 30 days</span>
+          <div className="remember-me">
+            <input tabIndex="3" type="checkbox" name="remember"/><span>Remember me for 30 days</span>
           </div>
-          <div class="submit">
-              <button type="submit" name="button">Login</button>
+          <div className="submit">
+            <button type="submit" name="button">Login</button>
           </div>
-          <div class="login-warn">
-              <p>Success! Logging you in...</p>
+          <div className="account-creation">
+            <p>Create an account?</p>
           </div>
-          <div class="login-warn">
-              <p>Invalid username or password.</p>
+          <div className="success">
+            <p>Success! Logging you in...</p>
+          </div>
+          <div className="failure">
+            <p>Invalid username or password.</p>
           </div>
         </fieldset>
       </form>
@@ -41,5 +47,5 @@ class LoginScene extends React.Component{
   }
 }
 
-// Export component.
+// Export scene.
 export default LoginScene;
