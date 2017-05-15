@@ -2,9 +2,10 @@ const bcrypt = require('bcrypt');
 const Promise = require('bluebird');
 const mysql = require('mysql');
 const jwt = require('jsonwebtoken');
-const databaseConfig = require('../config/database');
-const loginModel = {
-  login: login
+const databaseConfig = require('./../../config/database');
+const usersModel = {
+  login: login,
+  createUserAccount: createUserAccount
 };
 
 databaseConfig.connect(function(err) {
@@ -20,7 +21,7 @@ databaseConfig.connect(function(err) {
 // Function Declartions //
 //////////////////////////
 
-function login(loginCredentials){
+function login(loginCredentials) {
   const loginEmail = loginCredentials.email;
   const loginPassword = loginCredentials.password;
   const rememberAdmin = loginCredentials.remember;
@@ -65,4 +66,8 @@ function login(loginCredentials){
   });
 }
 
-module.export = loginModel;
+function createUserAccount() {
+
+}
+
+module.export = usersModel;
