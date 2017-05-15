@@ -137,7 +137,7 @@ form[name="user_login"] {
     }
     &.success,
     &.failure {
-      display: block;
+      display: none;
       border-bottom-right-radius: 3px;
       border-bottom-left-radius: 3px;
       position: absolute;
