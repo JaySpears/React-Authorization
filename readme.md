@@ -1,4 +1,4 @@
-## What's under the hood?
+## What's under the hood?:sweat_smile:
 The application is designed for a google chrome plugin. It's constructed with Facebook's React library, with the help of Webpack for file bundling, development servers, and hot reloading.
 
 #### Webpack
