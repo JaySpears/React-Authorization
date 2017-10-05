@@ -9,7 +9,10 @@ const path = require('path');
 class Routes {
   constructor() {
     this.rootFile = 'index.html';
+
+    // Bind methods.
     this.Root = this.Root.bind(this);
+    this.Create = this.Create.bind(this);
     this.Login = this.Login.bind(this);
   }
 
