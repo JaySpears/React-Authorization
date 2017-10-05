@@ -1,6 +1,6 @@
 // Require mysql for db connection.
 var mysql      = require('mysql');
-var appEnv     = require('./' + (process.env.NODE_ENV || 'local') + '.json');
+var appEnv     = require('./environments/' + (process.env.NODE_ENV || 'local') + '.json');
 
 module.exports = mysql.createConnection({
     host     : appEnv.db_hostname,

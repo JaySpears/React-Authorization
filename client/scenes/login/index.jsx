@@ -8,23 +8,58 @@ class LoginScene extends React.Component{
   // Component constructor.
   constructor(props){
     super(props);
+
+    // State object.
+    this.state = {
+      email: '',
+      password: ''
+    };
+
+    // Bind methods.
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: this.state.email,
+        passowrd: this.state.password
+      })
+    }).then(function success(){
+
+    }, function error(err){
+      console.error(err);
+    });
   }
 
   render(){
     return(
-      <form autoComplete="off" name="user_login" id="user-login">
+      <form autoComplete="off" name="user_login" id="user-login" onSubmit={this.handleSubmit}>
         <fieldset>
           <legend>Track It</legend>
           <div>
             <label htmlFor="email">Email Address:</label><br/>
-            <input tabIndex="1" type="email" name="email" spellCheck="false"/>
+            <input tabIndex="1" type="email" name="email" spellCheck="false" value={this.state.email} onChange={this.handleChange}/>
             <div>
               <p className="error">Your email address is invalid.</p>
             </div>
           </div>
           <div>
             <label htmlFor="password">Password:</label><br/>
-            <input tabIndex="2" type="password" name="password"/>
+            <input tabIndex="2" type="password" name="password" value={this.state.password} onChange={this.handleChange}/>
           </div>
           <div className="remember-me">
             <input tabIndex="3" type="checkbox" name="remember"/><span>Remember me for 30 days</span>

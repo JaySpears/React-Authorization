@@ -4,8 +4,8 @@ var webpack = require('webpack');
 module.exports = {
   entry: [
     'react-hot-loader/patch',
-    'webpack/hot/only-dev-server',
-    path.resolve(__dirname, 'app/index')
+    'webpack-hot-middleware/client?reload=true',
+    path.resolve(__dirname, 'client/index')
   ],
   output: {
     filename: 'bundle.js',

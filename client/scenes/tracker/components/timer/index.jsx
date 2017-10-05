@@ -4,9 +4,6 @@ import { connect } from 'react-redux';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 
-// Import Redux Actions.
-import { increment } from '../../../../actions/index.js'
-
 // Import styles.
 import ComponentStyles from './styles.scss';
 

@@ -1,6 +1,5 @@
 // Import dependencies.
 import React, { Component } from 'react';
-import { formActionValidation } from '../../../../actions/index.js';
 
 // Import styles.
 import ComponentStyles from './styles.scss';
