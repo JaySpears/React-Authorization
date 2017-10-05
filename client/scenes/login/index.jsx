@@ -5,11 +5,8 @@ import React, { Component } from 'react';
 import LoginSceneStyles from './styles.scss';
 
 class LoginScene extends React.Component{
-  // Component constructor.
   constructor(props){
     super(props);
-
-    // State object.
     this.state = {
       email: '',
       password: ''
@@ -17,18 +14,56 @@ class LoginScene extends React.Component{
 
     // Bind methods.
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleCreateAccount = this.handleCreateAccount.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
   }
 
+  /**
+   * handleChange, handles state updates.
+   * @param  {Object} event
+   */
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     });
   }
 
-  handleSubmit(event) {
+  /**
+   * handleCreateAccount, submission method for user
+   * account creation.
+   *
+   * @param  {Object} event
+   */
+  handleCreateAccount(event) {
     event.preventDefault();
-    fetch('/login', {
+    fetch('/users/create', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        email: this.state.email,
+        passowrd: this.state.password
+      })
+    }).then(function(){
+
+    }).catch(function(err){
+      console.error(err);
+    });
+  }
+
+  /**
+   * handleLogin, submission method for user
+   * account login.
+   *
+   * @param  {Object} event
+   */
+  handleLogin(event) {
+    event.preventDefault();
+    fetch('/users/login', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -38,18 +73,32 @@ class LoginScene extends React.Component{
         email: this.state.email,
         passowrd: this.state.password
       })
-    }).then(function success(){
+    }).then(function(){
 
-    }, function error(err){
+    }).catch(function(err){
       console.error(err);
     });
   }
 
   render(){
     return(
-      <form autoComplete="off" name="user_login" id="user-login" onSubmit={this.handleSubmit}>
+      <form autoComplete="off" name="user_login" id="user-login" onSubmit={this.handleLogin}>
         <fieldset>
-          <legend>Track It</legend>
+          <legend>Idk Yet</legend>
+          <div>
+            <label htmlFor="first_name">First Name:</label><br/>
+            <input tabIndex="1" type="first_name" name="first_name" spellCheck="false" value={this.state.firstName} onChange={this.handleChange}/>
+            <div>
+              <p className="error">First name is a required field.</p>
+            </div>
+          </div>
+          <div>
+            <label htmlFor="last_name">Last Name:</label><br/>
+            <input tabIndex="1" type="last_name" name="last_name" spellCheck="false" value={this.state.lastName} onChange={this.handleChange}/>
+            <div>
+              <p className="error">Last name is a required field.</p>
+            </div>
+          </div>
           <div>
             <label htmlFor="email">Email Address:</label><br/>
             <input tabIndex="1" type="email" name="email" spellCheck="false" value={this.state.email} onChange={this.handleChange}/>

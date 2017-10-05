@@ -10,12 +10,7 @@ class Navigation extends Component {
   render() {
     return (
       <nav>
-        <div>
-          <NavLink to='/tracker' activeClassName="active">Tracker</NavLink>
-        </div>
-        <div>
-          <NavLink to='/history' activeClassName="active">History</NavLink>
-        </div>
+
       </nav>
     )
   }
