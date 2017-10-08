@@ -16,7 +16,7 @@ class UserMiddleware {
    * @param {Object} req
    * @param {Object} res
    */
-  Create(req) {
+  async Create(req) {
     let saltRounds = 10;
     let user = {
       firstName: req.body.firstName,
@@ -25,22 +25,15 @@ class UserMiddleware {
       password: req.body.password
     };
 
-    return new Promise(function(resolve, reject) {
-      // Hash user password.
-      bcrypt.hash(user.password, saltRounds).then(function(hash){
-        // Update user reference.
-        user.password = hash;
-        // Send updated reference to model.
-        usersModel.Create(user).then(function(){
-          resolve();
-        });
-      }).catch(function(err){
-        if (err) {
-          console.log('Bcrypt error: ' + err);
-          reject();
-        }
-      });
-    });
+    // Hash user password.
+    user.password = await bcrypt.hash(user.password, saltRounds);
+    // Create user, handle error with status response.
+    try {
+      await usersModel.Create(user);
+      return 200;
+    } catch (e) {
+      return 500;
+    }
   }
 
   /**

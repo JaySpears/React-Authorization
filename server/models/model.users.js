@@ -16,27 +16,17 @@ class UserModel {
    * @param {Object} req
    * @param {Object} res
    */
-  Create(user) {
+  async Create(user) {
     let userFirstName = user.firstName;
     let userLastName = user.lastName;
     let userEmail = user.email;
     let userHashedPassword = user.password;
-    let createUserQuery = 'INSERT INTO users (first_name, last_name, email, password)' +
-      ' VALUES (' +
-      '"' + userFirstName + '", ' +
-      '"' + userLastName + '", ' +
-      '"' + userEmail + '", ' +
-      '"' + userHashedPassword +
-      '");'
+    let createUserQuery = `INSERT INTO users
+      (first_name, last_name, email, password) VALUES
+      ('${userFirstName}', '${userLastName}',
+      '${userEmail}', '${userHashedPassword}');`
 
-    return new Promise(function(resolve, reject) {
-      databaseConfig.query(createUserQuery, function (error, results, fields){
-        if (error) {
-          reject(error);
-        }
-        resolve();
-      });
-    });
+    await databaseConfig.query(createUserQuery);
   }
 
   /**

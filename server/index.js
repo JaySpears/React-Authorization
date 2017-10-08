@@ -11,7 +11,7 @@ const databaseConfig = require('./../config/database');
 const app = express();
 
 // Database connection.
-databaseConfig.connect(function(err) {
+databaseConfig.connect((err) => {
   if (err) {
     console.log('Error connecting to database:' + err);
     return;

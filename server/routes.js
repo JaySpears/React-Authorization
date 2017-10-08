@@ -30,12 +30,9 @@ class Routes {
    * @param {Object} req
    * @param {Object} res
    */
-  Create(req, res) {
-    userMiddleware.Create(req).then(function(){
-      res.sendStatus(200);
-    }).catch(function(err){
-      res.sendStatus(500);
-    });
+  async Create(req, res) {
+    let status = await userMiddleware.Create(req);
+    res.sendStatus(status);
   }
 
   /**
