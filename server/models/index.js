@@ -19,6 +19,8 @@ const sequelize = new Sequelize(
   }
 );
 
+// Iterate over model files in the model directory.
+// Import the model.
 fs.readdirSync(__dirname).filter(function(file) {
   return file !== 'index.js';
 }).forEach(function(file) {
@@ -26,7 +28,7 @@ fs.readdirSync(__dirname).filter(function(file) {
   db[model.name] = model;
 });
 
-// Sync database with import data.
+// Sync database with imported model schema.
 sequelize.sync({
   force: false
 });

@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt';
 import Models from './../models';
 
-/////////////////////////////////
-// User Model Class Definition //
-/////////////////////////////////
+//////////////////////////////////////
+// User Model Middleware Definition //
+//////////////////////////////////////
 
 class UserMiddleware {
   constructor() {
@@ -79,7 +79,7 @@ class UserMiddleware {
   }
 }
 
-// New instance of UserModel.
+// New instance of UserMiddleware.
 const userMiddleware = new UserMiddleware();
 
 // Export model instance.

@@ -4,7 +4,7 @@
  *
  * @param  {Object} sequelize
  * @param  {String} dataType
- * @return {Object} schema
+ * @return {Object} Users
  */
 function usersModel(sequelize, dataType){
   const Users = sequelize.define('Users', {
