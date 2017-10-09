@@ -3,7 +3,7 @@ import path from 'path';
 import Sequelize from 'sequelize';
 
 const db = {};
-const env = require('./../../config/environments/' + (process.env.NODE_ENV || 'local') + '.json');
+const env = require(`./../../config/environments/${process.env.NODE_ENV || 'local'}.json`);
 const sequelize = new Sequelize(
   env.db_database,
   env.db_username,
