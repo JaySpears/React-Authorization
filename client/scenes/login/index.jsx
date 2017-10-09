@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 // Import scene styles.
 import LoginSceneStyles from './styles.scss';
 
+// Import components.
+import Input from './components/input/index';
+
 class LoginScene extends React.Component{
   constructor(props){
     super(props);
@@ -85,31 +88,30 @@ class LoginScene extends React.Component{
       <form autoComplete="off" name="user_login" id="user-login" onSubmit={this.handleLogin}>
         <fieldset>
           <legend>Idk Yet</legend>
-          <div>
-            <label htmlFor="first_name">First Name:</label><br/>
-            <input tabIndex="1" type="first_name" name="first_name" spellCheck="false" value={this.state.firstName} onChange={this.handleChange}/>
-            <div>
-              <p className="error">First name is a required field.</p>
-            </div>
-          </div>
-          <div>
-            <label htmlFor="last_name">Last Name:</label><br/>
-            <input tabIndex="1" type="last_name" name="last_name" spellCheck="false" value={this.state.lastName} onChange={this.handleChange}/>
-            <div>
-              <p className="error">Last name is a required field.</p>
-            </div>
-          </div>
-          <div>
-            <label htmlFor="email">Email Address:</label><br/>
-            <input tabIndex="1" type="email" name="email" spellCheck="false" value={this.state.email} onChange={this.handleChange}/>
-            <div>
-              <p className="error">Your email address is invalid.</p>
-            </div>
-          </div>
-          <div>
-            <label htmlFor="password">Password:</label><br/>
-            <input tabIndex="2" type="password" name="password" value={this.state.password} onChange={this.handleChange}/>
-          </div>
+          <Input
+            labelFor="first_name"
+            labelText="First Name"
+            inputType="text"
+            inputName="first_name">
+          </Input>
+          <Input
+            labelFor="last_name"
+            labelText="Last Name"
+            inputType="text"
+            inputName="last_name">
+          </Input>
+          <Input
+            labelFor="email"
+            labelText="Email"
+            inputType="email"
+            inputName="email">
+          </Input>
+          <Input
+            labelFor="password"
+            labelText="Password"
+            inputType="password"
+            inputName="password">
+          </Input>
           <div className="remember-me">
             <input tabIndex="3" type="checkbox" name="remember"/><span>Remember me for 30 days</span>
           </div>
