@@ -40,8 +40,9 @@ class Routes {
    * @param {Object} req
    * @param {Object} res
    */
-  Login(req, res) {
-    userMiddleware.Login(req, res);
+  async Login(req, res) {
+    let status = await userMiddleware.Login(req, res);
+    res.sendStatus(status);
   }
 }
 

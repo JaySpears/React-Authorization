@@ -19,48 +19,22 @@ const sequelize = new Sequelize(
   }
 );
 
-connectDatabase();
+fs.readdirSync(__dirname).filter(function(file) {
+  return file !== 'index.js';
+}).forEach(function(file) {
+  let model = sequelize.import(path.join(__dirname, file));
+  db[model.name] = model;
+});
+
+// Sync database with import data.
+sequelize.sync({
+  force: false
+});
 
 // Bind sequelize methods to database object.
 db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+db.Sequelize = Sequelize;;
 
 // Need to export the sequelize instances
 // for the creation of models.
 export default db;
-
-//////////////////////////
-// Function Declartions //
-//////////////////////////
-
-/**
- * function connectDatabase, authenticates database
- * connection using the configuration set above.
- */
-async function connectDatabase(){
-  try {
-    await sequelize.authenticate();
-    importAndSyncModels();
-    console.log('Connection has been established successfully.');
-  } catch (e) {
-    console.log('Unable to connect to the database:', e);
-  }
-}
-
-/**
- * function importAndSyncModels, creates database
- * table structure with the provided model files.
- */
-function importAndSyncModels() {
-  // Iterate over model files.
-  fs.readdirSync(__dirname).filter(function(file) {
-    return file !== 'index.js';
-  }).forEach(function(file) {
-    let model = sequelize.import(path.join(__dirname, file));
-    db[model.name] = model;
-  });
-  // Sync database with import data.
-  sequelize.sync({
-    force: false
-  });
-}

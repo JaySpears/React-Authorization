@@ -3,11 +3,11 @@
  * for Users.
  *
  * @param  {Object} sequelize
- * @param  {String} dataType  
+ * @param  {String} dataType
  * @return {Object} schema
  */
 function usersModel(sequelize, dataType){
-  let schema = sequelize.define('Users', {
+  const Users = sequelize.define('Users', {
     id: {
       type: dataType.INTEGER,
       allowNull: false,
@@ -16,25 +16,22 @@ function usersModel(sequelize, dataType){
     },
     email: {
       type: dataType.STRING,
-      allowNull: false,
+      allowNull: false
     },
     password: {
       type: dataType.STRING,
-      allowNull: false,
+      allowNull: false
     },
     first_name: {
       type: dataType.STRING,
-      allowNull: false,
+      allowNull: false
     },
     last_name: {
       type: dataType.STRING,
-      validate: {
-        isInt: true,
-        notNull: true
-      }
+      allowNull: false
     }
   });
-  return schema;
+  return Users;
 }
 
 // Export model.

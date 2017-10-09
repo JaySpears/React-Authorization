@@ -1,5 +1,5 @@
-import usersModel from '../models/model.users.js';
 import bcrypt from 'bcrypt';
+import Models from './../models';
 
 /////////////////////////////////
 // User Model Class Definition //
@@ -29,9 +29,24 @@ class UserMiddleware {
     user.password = await bcrypt.hash(user.password, saltRounds);
     // Create user, handle error with status response.
     try {
-      await usersModel.Create(user);
+      // Ensure email doesn't already exist in the database
+      // when the user is trying to create an account.
+      const matchedEmails = await Models.Users.findAll({
+        where: {
+          email: user.email
+        }
+      });
+      if (matchedEmails.length === 0) {
+        await Models.Users.create({
+          email: user.email,
+          password: user.password,
+          first_name: user.firstName,
+          last_name: user.lastName
+        });
+      }
       return 200;
     } catch (e) {
+      console.log(e);
       return 500;
     }
   }
@@ -41,8 +56,27 @@ class UserMiddleware {
    * @param {Object} req
    * @param {Object} res
    */
-  Login(req, res) {
-
+  async Login(req) {
+    const user = {
+      email: req.body.email,
+      password: req.body.password
+    };
+    const matchedUser = await Models.Users.findOne({
+      where: {
+        email: user.email
+      }
+    });
+    if (matchedUser != null) {
+      const matchedUserHashedPassword = matchedUser.dataValues.password;
+      // If user password matched successfully.
+      console.log(await bcrypt.compare(user.password, matchedUserHashedPassword));
+      if(await bcrypt.compare(user.password, matchedUserHashedPassword)){
+        return 200;
+      } else {
+        return 403;
+      }
+    }
+    return 403;
   }
 }
 
