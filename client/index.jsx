@@ -4,6 +4,10 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk'
+
+// Import current root state of the application via reducers,
+import reducers from './reducers/index.js'
 
 // Import scences.
 import routes from './routes/index.js';
