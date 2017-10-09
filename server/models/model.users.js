@@ -1,46 +1,41 @@
-const mysql = require('mysql');
-const databaseConfig = require('./../index.js').databaseConfig;
-
-/////////////////////////////////
-// User Model Class Definition //
-/////////////////////////////////
-
-class UserModel {
-  constructor() {
-    this.Create = this.Create.bind(this);
-    this.Login = this.Login.bind(this);
-  }
-
-  /**
-   * Create, create model function for users.
-   * @param {Object} req
-   * @param {Object} res
-   */
-  async Create(user) {
-    let userFirstName = user.firstName;
-    let userLastName = user.lastName;
-    let userEmail = user.email;
-    let userHashedPassword = user.password;
-    let createUserQuery = `INSERT INTO users
-      (first_name, last_name, email, password) VALUES
-      ('${userFirstName}', '${userLastName}',
-      '${userEmail}', '${userHashedPassword}');`
-
-    await databaseConfig.query(createUserQuery);
-  }
-
-  /**
-   * Login, login model function for users.
-   * @param {Object} req
-   * @param {Object} res
-   */
-  Login(req, res) {
-
-  }
+/**
+ * function usersModel, define model schema
+ * for Users.
+ *
+ * @param  {Object} sequelize
+ * @param  {String} dataType  
+ * @return {Object} schema
+ */
+function usersModel(sequelize, dataType){
+  let schema = sequelize.define('Users', {
+    id: {
+      type: dataType.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    email: {
+      type: dataType.STRING,
+      allowNull: false,
+    },
+    password: {
+      type: dataType.STRING,
+      allowNull: false,
+    },
+    first_name: {
+      type: dataType.STRING,
+      allowNull: false,
+    },
+    last_name: {
+      type: dataType.STRING,
+      validate: {
+        isInt: true,
+        notNull: true
+      }
+    }
+  });
+  return schema;
 }
 
-// New instance of UserModel.
-const userModel = new UserModel();
-
-// Export model instance.
-module.exports = userModel;
+// Export model.
+export default usersModel;

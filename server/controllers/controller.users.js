@@ -1,5 +1,5 @@
-const usersModel = require('../models/model.users.js');
-const bcrypt = require('bcrypt');
+import usersModel from '../models/model.users.js';
+import bcrypt from 'bcrypt';
 
 /////////////////////////////////
 // User Model Class Definition //
@@ -50,4 +50,4 @@ class UserMiddleware {
 const userMiddleware = new UserMiddleware();
 
 // Export model instance.
-module.exports = userMiddleware;
+export default userMiddleware;

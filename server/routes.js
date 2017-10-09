@@ -1,6 +1,6 @@
-const userMiddleware = require('./controllers/controller.users.js');
-const app = require('./index.js').app;
-const path = require('path');
+import path from 'path';
+import userMiddleware from './controllers/controller.users.js';
+import { app } from './index.js';
 
 ////////////////////////////
 // Route Class Definition //
