@@ -13,8 +13,9 @@ class UserMiddleware {
 
   /**
    * Create, create middleware function for users.
+   * 
    * @param {Object} req
-   * @param {Object} res
+   * @return {Integer} Status
    */
   async Create(req) {
     let saltRounds = 10;
@@ -53,8 +54,9 @@ class UserMiddleware {
 
   /**
    * Login, login middleware function for users.
+   *
    * @param {Object} req
-   * @param {Object} res
+   * @return {Integer} Status
    */
   async Login(req) {
     const user = {
