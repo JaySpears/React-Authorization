@@ -69,7 +69,6 @@ class UserMiddleware {
     if (matchedUser != null) {
       const matchedUserHashedPassword = matchedUser.dataValues.password;
       // If user password matched successfully.
-      console.log(await bcrypt.compare(user.password, matchedUserHashedPassword));
       if(await bcrypt.compare(user.password, matchedUserHashedPassword)){
         return 200;
       } else {
