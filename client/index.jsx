@@ -17,10 +17,11 @@ import Container from './components/container/index.jsx';
 
 // Create store for state management.
 const createStoreWithMiddleWare = applyMiddleware(thunk)(createStore);
+const store = createStoreWithMiddleWare(reducers);
 
 // Render application.
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleWare(reducers)}>
+  <Provider store={store}>
     <Container>
       <Router>{routes}</Router>
     </Container>

@@ -1,5 +1,7 @@
 // Import dependencies.
 import React, { Component } from 'react';
+import { login } from '../../actions/action.login';
+import { connect } from 'react-redux';
 
 // Import scene styles.
 import LoginSceneStyles from './styles.scss';
@@ -10,6 +12,7 @@ import Input from './components/input/index';
 class LoginScene extends React.Component{
   constructor(props){
     super(props);
+    console.log(this.props);
     this.state = {
       email: '',
       password: ''
@@ -17,7 +20,6 @@ class LoginScene extends React.Component{
 
     // Bind methods.
     this.handleChange = this.handleChange.bind(this);
-    this.handleCreateAccount = this.handleCreateAccount.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
   }
 
@@ -32,55 +34,17 @@ class LoginScene extends React.Component{
   }
 
   /**
-   * handleCreateAccount, submission method for user
-   * account creation.
-   *
-   * @param  {Object} event
-   */
-  handleCreateAccount(event) {
-    event.preventDefault();
-    fetch('/users/create', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        email: this.state.email,
-        passowrd: this.state.password
-      })
-    }).then(function(){
-
-    }).catch(function(err){
-      console.error(err);
-    });
-  }
-
-  /**
    * handleLogin, submission method for user
-   * account login.
+   * account login. Dispatches the login action.
    *
    * @param  {Object} event
    */
   handleLogin(event) {
     event.preventDefault();
-    fetch('/users/login', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: this.state.email,
-        passowrd: this.state.password
-      })
-    }).then(function(){
-
-    }).catch(function(err){
-      console.error(err);
-    });
+    this.props.dispatch(login(
+      this.state.email,
+      this.state.password
+    ));
   }
 
   render(){
@@ -133,5 +97,11 @@ class LoginScene extends React.Component{
   }
 }
 
+function select(state) {
+  return {
+    data: state
+  };
+}
+
 // Export scene.
-export default LoginScene;
+export default connect(select)(LoginScene);
