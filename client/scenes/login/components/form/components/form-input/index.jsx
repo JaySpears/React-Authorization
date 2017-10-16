@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 // Import styles.
 import InputStyles from './styles.scss';
 
-class Input extends Component {
+class FormInput extends Component {
   constructor(props){
     super(props);
   }
@@ -23,4 +23,4 @@ class Input extends Component {
 }
 
 // Export component.
-export default Input;
+export default FormInput;
