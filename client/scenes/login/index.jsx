@@ -12,9 +12,16 @@ import LoginForm from './components/form/index';
 class LoginScene extends React.Component{
   constructor(props){
     super(props);
-
+    this.state = {
+      email: '',
+      password: '',
+      firstName: '',
+      lastName: ''
+    };
+    
     // Bind methods.
     this.handleLogin = this.handleLogin.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   /**
@@ -25,36 +32,62 @@ class LoginScene extends React.Component{
    */
   handleLogin(event) {
     event.preventDefault();
-    this.props.dispatch(login(
-      this.props.email,
-      this.props.password
-    ));
+    this.props.login(
+      this.state.email,
+      this.state.password
+    );
+  }
+
+  /**
+   * handleChange, updates state reference for each
+   * input field value on change.
+   *
+   * @param  {Object} event
+   */
+  handleChange(event){
+    event.preventDefault();
+    this.setState({
+      [event.target.name]: event.target.value
+    });
   }
 
   render(){
     return(
       <div>
-        <LoginForm submit={this.handleLogin}></LoginForm>
+        <LoginForm
+          handleLogin={this.handleLogin}
+          handleChange={this.handleChange}
+          handleErrors={this.handleErrors}
+          userCeatingAccount={this.props.setUserCreatingAccount}>
+        </LoginForm>
       </div>
     );
   }
 }
 
-// State form the login reducer becomes bound to
+// State fromm the login reducer becomes bound to
 // this components props.
 const mapStateToProps = (state, ownProps) => {
   return {
     isLoginPending: state.loginReducer.isLoginPending,
     setLoginSuccess: state.loginReducer.setLoginSuccess,
     setLoginError: state.loginReducer.setLoginError,
-    form: {
-      email: state.loginReducer.form.email,
-      password: state.loginReducer.form.password,
-      firstName: state.loginReducer.form.firstName,
-      lastName: state.loginReducer.form.lastName
-    }
+    setUserCreatingAccount: state.loginReducer.setUserCreatingAccount
   };
 }
 
+// Binding action functions with redux's
+// dispatch to this components props.
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: (username, password) => {
+      dispatch(login(username, password));
+    }
+  }
+}
+
 // Export scene.
-export default connect(mapStateToProps)(LoginScene);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginScene);

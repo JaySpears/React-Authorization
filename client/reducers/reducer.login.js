@@ -2,12 +2,7 @@ const initialState = {
   isLoginPending: false,
   setLoginSuccess: false,
   setLoginError: false,
-  form: {
-    email: '',
-    password: '',
-    firstName: '',
-    lastName: ''
-  }
+  setUserCreatingAccount: false
 };
 
 /**
@@ -32,6 +27,11 @@ function loginReducer(state = initialState, action){
     case 'SET_LOGIN_ERROR' : {
       return Object.assign({}, state, {
         setLoginError: action.setLoginError
+      });
+    }
+    case 'SET_USER_CREATING_ACCOUNT' : {
+      return Object.assign({}, state, {
+        setUserCreatingAccount: action.setUserCreatingAccount
       });
     }
     default:

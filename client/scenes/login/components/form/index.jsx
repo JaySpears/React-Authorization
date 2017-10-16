@@ -12,22 +12,29 @@ import FormMessages from './components/form-messages/index';
 import FormCreate from './components/form-messages/index';
 
 class LoginForm extends React.Component{
+  constructor(props){
+    super(props);
+  }
+
   render(){
     return(
-      <form autoComplete="off" name="user_login" id="user-login" onSubmit={this.props.submit}>
+      <form autoComplete="off" name="user_login" id="user-login" onSubmit={this.props.handleLogin}>
         <fieldset>
           <legend>Idk Yet</legend>
           <FormInput
             labelFor="first_name"
             labelText="First Name"
             inputType="text"
-            inputName="first_name">
+            inputName="first_name"
+            handleChange={this.props.handleChange}
+            hideComponent={!this.props.setUserCreatingAccount}>
           </FormInput>
           <FormInput
             labelFor="last_name"
             labelText="Last Name"
             inputType="text"
-            inputName="last_name">
+            inputName="last_name"
+            hideComponent={!this.props.setUserCreatingAccount}>
           </FormInput>
           <FormInput
             labelFor="email"

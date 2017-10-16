@@ -38,6 +38,19 @@ export function setLoginError(bool) {
 }
 
 /**
+ * function setUserCreatingAccount, action for when
+ * user tries to create a new account.
+ *
+ * @param {Boolean} bool
+ */
+export function setUserCreatingAccount(bool) {
+  return {
+    type: 'SET_USER_CREATING_ACCOUNT',
+    setUserCreatingAccount: bool
+  }
+}
+
+/**
  * function login, main action for sending user information
  * to the api. This will hit the /users/login route with
  * a POST method.
