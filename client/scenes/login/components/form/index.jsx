@@ -12,10 +12,6 @@ import FormMessages from './components/form-messages/index';
 import FormCreate from './components/form-messages/index';
 
 class LoginForm extends React.Component{
-  constructor(props){
-    super(props);
-  }
-
   render(){
     return(
       <form autoComplete="off" name="user_login" id="user-login" onSubmit={this.props.submit}>
@@ -53,8 +49,6 @@ class LoginForm extends React.Component{
     );
   }
 }
-
-
 
 // Export scene.
 export default LoginForm;

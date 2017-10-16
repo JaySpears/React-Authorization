@@ -1,13 +1,13 @@
 const initialState = {
+  isLoginPending: false,
+  setLoginSuccess: false,
+  setLoginError: false,
   form: {
     email: '',
     password: '',
     firstName: '',
     lastName: ''
-  },
-  isLoginPending: false,
-  setLoginSuccess: false,
-  setLoginError: false
+  }
 };
 
 /**
