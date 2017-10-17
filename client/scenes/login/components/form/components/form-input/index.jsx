@@ -32,6 +32,8 @@ class FormInput extends Component {
       this.setState({
         errorMessage: ''
       });
+      // Dynamic way to added error handling based on nextprops values,
+      // and the input field name passed in via props.
       for (let errorType in nextProps.errors[this.props.inputName]) {
         if (nextProps.errors[this.props.inputName].hasOwnProperty(errorType)) {
           this.setState({

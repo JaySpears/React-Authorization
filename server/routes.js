@@ -41,8 +41,11 @@ class Routes {
    * @param {Object} res
    */
   async Login(req, res) {
-    let status = await userMiddleware.Login(req, res);
-    res.sendStatus(status);
+    let response = await userMiddleware.Login(req);
+    if (response.token){
+      res.setHeader('token', response.token);
+    }
+    res.sendStatus(response.status);
   }
 }
 

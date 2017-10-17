@@ -9,16 +9,30 @@ import FormInput from './components/form-input/index';
 import FormRemember from './components/form-remember/index';
 import FormSubmit from './components/form-submit/index';
 import FormMessages from './components/form-messages/index';
-import FormCreate from './components/form-messages/index';
+import FormCreate from './components/form-create/index';
 
 class LoginForm extends React.Component{
   constructor(props){
     super(props);
+    this.state = {
+      formSubmitted: false,
+      setLoginSuccess: false,
+      setLoginError: false
+    };
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.setState({
+      formSubmitted: nextProps.setLoginPending || false,
+      setLoginSuccess: nextProps.setLoginSuccess || false,
+      setLoginError: nextProps.setLoginError || false
+    });
   }
 
   render(){
     return(
       <form autoComplete="off" name="user_login" id="user-login" onSubmit={this.props.handleLogin}>
+        {this.state.formSubmitted ? <p>loading</p> : '' }
         <fieldset>
           <legend>Idk Yet</legend>
           <FormInput
@@ -56,6 +70,10 @@ class LoginForm extends React.Component{
           <FormRemember></FormRemember>
           <FormSubmit></FormSubmit>
           <FormCreate></FormCreate>
+          <FormMessages
+            success={this.state.setLoginSuccess}
+            error={this.state.setLoginError}>
+          </FormMessages>
         </fieldset>
       </form>
     );

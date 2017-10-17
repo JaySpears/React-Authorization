@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import Models from './../models';
+import jwt from 'jsonwebtoken';
 
 //////////////////////////////////////
 // User Model Middleware Definition //
@@ -13,7 +14,7 @@ class UserMiddleware {
 
   /**
    * Create, create middleware function for users.
-   * 
+   *
    * @param {Object} req
    * @return {Integer} Status
    */
@@ -59,6 +60,7 @@ class UserMiddleware {
    * @return {Integer} Status
    */
   async Login(req) {
+    let response = {};
     const user = {
       email: req.body.email,
       password: req.body.password
@@ -68,16 +70,25 @@ class UserMiddleware {
         email: user.email
       }
     });
+
     if (matchedUser != null) {
       const matchedUserHashedPassword = matchedUser.dataValues.password;
+
       // If user password matched successfully.
       if(await bcrypt.compare(user.password, matchedUserHashedPassword)){
-        return 200;
+        return response = {
+          token: jwt.sign({ email: user.email }, 'secret'),
+          status: 200
+        };
       } else {
-        return 403;
+        return response = {
+          status: 403
+        };
       }
     }
-    return 403;
+    return response = {
+      status: 403
+    };
   }
 }
 

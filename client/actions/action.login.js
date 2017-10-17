@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 /**
  * function setLoginPending, action for login
  * form submission.
@@ -7,7 +9,7 @@
 export function setLoginPending(bool) {
   return {
     type: 'SET_LOGIN_PENDING',
-    isLoginPending: bool
+    setLoginPending: bool
   }
 }
 
@@ -60,19 +62,24 @@ export function setUserCreatingAccount(bool) {
  */
 export function login(email, password) {
   return (dispatch) => {
+    // Reset global state.
     dispatch(setLoginPending(true));
-    fetch('/users/login', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email,
-        passowrd: password
-      })
-    }).then(function(){
-      console.log('user created');
-    })
+    dispatch(setLoginSuccess(false));
+    dispatch(setLoginError(false));
+    // Post axios
+    axios.post('/users/login', {
+      email: email,
+      password: password
+    }).then(function(response){
+      // Set user JWT.
+      localStorage.setItem('token', response.headers.token);
+      // Set actions for form loader and form message.
+      dispatch(setLoginSuccess(true));
+      dispatch(setLoginPending(false));
+    }).catch(function(e){
+      // Set actions for form loader and form message.
+      dispatch(setLoginError(true));
+      dispatch(setLoginPending(false));
+    });
   }
 }

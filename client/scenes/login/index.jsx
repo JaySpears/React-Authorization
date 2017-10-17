@@ -17,7 +17,7 @@ class LoginScene extends React.Component{
       password: '',
       firstName: '',
       lastName: '',
-      isFormValid: true,
+      isFormValid: false,
       errors:{
         email: {},
         password: {}
@@ -37,14 +37,13 @@ class LoginScene extends React.Component{
    * @param  {Object} event
    */
   handleLogin(event) {
-    event.preventDefault();
     if (this.state.isFormValid) {
       this.props.login(
         this.state.email,
         this.state.password
       );
     }
-
+    event.preventDefault();
   }
 
   /**
@@ -118,7 +117,10 @@ class LoginScene extends React.Component{
           handleLogin={this.handleLogin}
           handleChange={this.handleChange}
           errors={this.state.errors}
-          userCeatingAccount={this.props.setUserCreatingAccount}>
+          userCeatingAccount={this.props.setUserCreatingAccount}
+          setLoginPending={this.props.setLoginPending}
+          setLoginSuccess={this.props.setLoginSuccess}
+          setLoginError={this.props.setLoginError}>
         </LoginForm>
       </div>
     );
@@ -129,7 +131,7 @@ class LoginScene extends React.Component{
 // this components props.
 const mapStateToProps = (state, ownProps) => {
   return {
-    isLoginPending: state.loginReducer.isLoginPending,
+    setLoginPending: state.loginReducer.setLoginPending,
     setLoginSuccess: state.loginReducer.setLoginSuccess,
     setLoginError: state.loginReducer.setLoginError,
     setUserCreatingAccount: state.loginReducer.setUserCreatingAccount

@@ -1,5 +1,5 @@
 const initialState = {
-  isLoginPending: false,
+  setLoginPending: false,
   setLoginSuccess: false,
   setLoginError: false,
   setUserCreatingAccount: false
@@ -16,7 +16,7 @@ function loginReducer(state = initialState, action){
   switch (action.type) {
     case 'SET_LOGIN_PENDING' : {
       return Object.assign({}, state, {
-        isLoginPending: action.isLoginPending
+        setLoginPending: action.setLoginPending
       });
     }
     case 'SET_LOGIN_SUCCESS' : {
