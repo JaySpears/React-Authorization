@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import LoginSceneStyles from './styles.scss';
 
 // Import components.
+import Loader from './../../../../components/loader/index';
 import FormInput from './components/form-input/index';
 import FormRemember from './components/form-remember/index';
 import FormSubmit from './components/form-submit/index';
@@ -32,7 +33,7 @@ class LoginForm extends React.Component{
   render(){
     return(
       <form autoComplete="off" name="user_login" id="user-login" onSubmit={this.props.handleLogin}>
-        {this.state.formSubmitted ? <p>loading</p> : '' }
+        {this.state.formSubmitted ? <Loader></Loader> : '' }
         <fieldset>
           <legend>Idk Yet</legend>
           <FormInput

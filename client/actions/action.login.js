@@ -74,12 +74,16 @@ export function login(email, password) {
       // Set user JWT.
       localStorage.setItem('token', response.headers.token);
       // Set actions for form loader and form message.
-      dispatch(setLoginSuccess(true));
-      dispatch(setLoginPending(false));
+      setTimeout(function () {
+        dispatch(setLoginSuccess(true));
+        dispatch(setLoginPending(false));
+      }, 1500);
     }).catch(function(e){
       // Set actions for form loader and form message.
-      dispatch(setLoginError(true));
-      dispatch(setLoginPending(false));
+      setTimeout(function () {
+        dispatch(setLoginError(true));
+        dispatch(setLoginPending(false));
+      }, 1500);
     });
   }
 }

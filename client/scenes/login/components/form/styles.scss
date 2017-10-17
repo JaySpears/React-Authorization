@@ -8,6 +8,17 @@ form[name="user_login"] {
   font-family: 'Roboto';
   text-align: center;
   box-shadow: 0px 0px 14px #c5c5c5;
+  position: relative;
+  .loader {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    padding-top: 70px;
+    background-color: rgba(0,0,0,0.2);
+  }
   legend {
     font-size: 24px;
     text-transform: uppercase;
