@@ -1,3 +1,36 @@
 .hidden{
   display: none;
 }
+div {
+  position: relative;
+  display: block;
+  label {
+    font-size: 14px;
+  }
+  input[name="email"],
+  input[name="password"]{
+    width: 185px;
+    height: 20px;
+    margin-bottom: 30px;
+    outline: none;
+    padding-left: 5px;
+  }
+  .error-wrapper {
+    display: block;
+    width: 100%;
+  }
+  .error {
+    width: 185px;
+    margin: 0 auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -30px;
+    margin-top: 5px;
+    color: red;
+    font-size: 11px;
+    margin-top: 0px;
+    padding: 3px;
+    font-weight: 400;
+  }
+}

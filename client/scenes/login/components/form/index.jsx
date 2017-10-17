@@ -51,22 +51,24 @@ class LoginForm extends React.Component{
             handleChange={this.props.handleChange}
             hideComponent={!this.props.setUserCreatingAccount}>
           </FormInput>
-          <FormInput
-            labelFor="email"
-            labelText="Email"
-            inputType="text"
-            inputName="email"
-            errors={this.props.errors}
-            handleChange={this.props.handleChange}>
-          </FormInput>
-          <FormInput
-            labelFor="password"
-            labelText="Password"
-            inputType="password"
-            inputName="password"
-            errors={this.props.errors}
-            handleChange={this.props.handleChange}>
-          </FormInput>
+          <div className="email-password-wrapper clearfix">
+            <FormInput
+              labelFor="email"
+              labelText="Email"
+              inputType="text"
+              inputName="email"
+              errors={this.props.errors}
+              handleChange={this.props.handleChange}>
+            </FormInput>
+            <FormInput
+              labelFor="password"
+              labelText="Password"
+              inputType="password"
+              inputName="password"
+              errors={this.props.errors}
+              handleChange={this.props.handleChange}>
+            </FormInput>
+          </div>
           <FormRemember></FormRemember>
           <FormSubmit></FormSubmit>
           <FormCreate></FormCreate>

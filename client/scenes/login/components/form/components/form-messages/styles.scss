@@ -5,3 +5,26 @@
 .hide {
   display: none;
 }
+
+.success-message,
+.error-message {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -38px;
+    padding: 0px;
+    margin: 10px -17px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border: 2px solid #fcfcfc;
+    font-size: 16px;
+    line-height: 2px;
+}
+
+.success-message {
+  background-color: #c5fdc2;
+}
+
+.error-message {
+  background-color: #ff9d9d;
+}

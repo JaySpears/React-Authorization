@@ -54,9 +54,11 @@ class FormInput extends Component {
           name={this.props.inputName}
           onChange={this.props.handleChange}
           spellCheck="false" />
-        <div>
-          <p className="error">{this.state.errorMessage}</p>
-        </div>
+          {this.state.errorMessage.length > 0 ?
+            <div className="error-wrapper">
+              <p className="error">{this.state.errorMessage}</p>
+            </div>
+          : '' }
       </div>
     )
   }
