@@ -145,6 +145,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     login: (username, password) => {
       dispatch(login(username, password));
+    },
+    createAccount: (username, password, firstName, lastName) => {
+
     }
   }
 }
