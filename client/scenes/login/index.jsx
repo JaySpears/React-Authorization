@@ -16,12 +16,18 @@ class LoginScene extends React.Component{
       email: '',
       password: '',
       firstName: '',
-      lastName: ''
+      lastName: '',
+      isFormValid: true,
+      errors:{
+        email: {},
+        password: {}
+      }
     };
-    
+
     // Bind methods.
     this.handleLogin = this.handleLogin.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.validateForm = this.validateForm.bind(this);
   }
 
   /**
@@ -32,15 +38,19 @@ class LoginScene extends React.Component{
    */
   handleLogin(event) {
     event.preventDefault();
-    this.props.login(
-      this.state.email,
-      this.state.password
-    );
+    if (this.state.isFormValid) {
+      this.props.login(
+        this.state.email,
+        this.state.password
+      );
+    }
+
   }
 
   /**
    * handleChange, updates state reference for each
-   * input field value on change.
+   * input field value on change. Once state is updated,
+   * the form will be validated on the fly.
    *
    * @param  {Object} event
    */
@@ -48,6 +58,56 @@ class LoginScene extends React.Component{
     event.preventDefault();
     this.setState({
       [event.target.name]: event.target.value
+    }, this.validateForm);
+  }
+
+  /**
+   * function validateForm, error handling for
+   * dynamic form input fields. Resets state errors
+   * on exection, then updates state via callback.
+   */
+  validateForm(){
+    // Reset state.
+    this.setState({
+      isFormValid: true,
+      errors: Object.assign(this.state.errors, {
+        email: {},
+        password: {}
+      })
+    }, () => {
+      // Required/Invalid email test.
+      if (this.state.email.length === 0) {
+        this.setState({
+          isFormValid: false,
+          errors: Object.assign(this.state.errors, {
+            email: {
+              required: true
+            }
+          })
+        });
+      } else if (
+        !/^((?!.*\.\.)[a-z0-9\.\-]+[^\.]@[a-z0-9\-]+(?:\.[a-z]+)+)$/mgi.test(this.state.email)
+      ) {
+        this.setState({
+          isFormValid: false,
+          errors: Object.assign(this.state.errors, {
+            email: {
+              invalid: true
+            }
+          })
+        });
+      }
+      // Invalid password test.
+      if (this.state.password.length === 0) {
+        this.setState({
+          isFormValid: false,
+          errors: Object.assign(this.state.errors, {
+            password: {
+              required: true
+            }
+          })
+        });
+      }
     });
   }
 
@@ -57,7 +117,7 @@ class LoginScene extends React.Component{
         <LoginForm
           handleLogin={this.handleLogin}
           handleChange={this.handleChange}
-          handleErrors={this.handleErrors}
+          errors={this.state.errors}
           userCeatingAccount={this.props.setUserCreatingAccount}>
         </LoginForm>
       </div>

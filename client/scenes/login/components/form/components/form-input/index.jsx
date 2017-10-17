@@ -7,21 +7,39 @@ import InputStyles from './styles.scss';
 class FormInput extends Component {
   constructor(props){
     super(props);
-    this.errors = {
-      email: {
-        required: 'required email',
-        invalid: 'invalid email'
-      },
-      password: {
-        required: 'required password'
-      },
-      firstName: {
-        required: 'required first name'
-      },
-      lastName: {
-        required: 'required last name'
+    this.state = {
+      errorMessage: '',
+      errorCatalog: {
+        email: {
+          required: 'Email is a required field.',
+          invalid: 'Please provide a valid email address'
+        },
+        password: {
+          required: 'Password is a required field'
+        }
       }
-    };
+    }
+  }
+
+  /**
+   * function componentWillReceiveProps, native
+   * react constructor to handle prop value changes.
+   *
+   * @param  {Object} nextProps [description]
+   */
+  componentWillReceiveProps(nextProps){
+    if (nextProps.errors) {
+      this.setState({
+        errorMessage: ''
+      });
+      for (let errorType in nextProps.errors[this.props.inputName]) {
+        if (nextProps.errors[this.props.inputName].hasOwnProperty(errorType)) {
+          this.setState({
+            errorMessage: this.state.errorCatalog[this.props.inputName][errorType]
+          })
+        }
+      }
+    }
   }
 
   // Render element.
@@ -35,7 +53,7 @@ class FormInput extends Component {
           onChange={this.props.handleChange}
           spellCheck="false" />
         <div>
-          <p className="error">{this.props.labelText} is a required field.</p>
+          <p className="error">{this.state.errorMessage}</p>
         </div>
       </div>
     )

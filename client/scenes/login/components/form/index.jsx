@@ -34,19 +34,24 @@ class LoginForm extends React.Component{
             labelText="Last Name"
             inputType="text"
             inputName="last_name"
+            handleChange={this.props.handleChange}
             hideComponent={!this.props.setUserCreatingAccount}>
           </FormInput>
           <FormInput
             labelFor="email"
             labelText="Email"
-            inputType="email"
-            inputName="email">
+            inputType="text"
+            inputName="email"
+            errors={this.props.errors}
+            handleChange={this.props.handleChange}>
           </FormInput>
           <FormInput
             labelFor="password"
             labelText="Password"
             inputType="password"
-            inputName="password">
+            inputName="password"
+            errors={this.props.errors}
+            handleChange={this.props.handleChange}>
           </FormInput>
           <FormRemember></FormRemember>
           <FormSubmit></FormSubmit>
