@@ -37,6 +37,7 @@ class LoginScene extends React.Component{
    * @param  {Object} event
    */
   handleLogin(event) {
+    this.validateForm();
     if (this.state.isFormValid) {
       this.props.login(
         this.state.email,
