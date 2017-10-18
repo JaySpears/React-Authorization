@@ -23,10 +23,10 @@ class FormMessages extends React.Component{
   render(){
     return(
       <div>
-        <div className={"success-message " + (this.state.success ? 'show' : 'hidden')}>
+        <div className={"success-message " + (this.state.success ? 'show' : 'hide')}>
           <p>Success! Logging you in...</p>
         </div>
-        <div className={"error-message " + (this.state.error ? 'show' : 'hidden')}>
+        <div className={"error-message " + (this.state.error ? 'show' : 'hide')}>
           <p>Invalid username or password.</p>
         </div>
       </div>

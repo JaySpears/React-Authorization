@@ -1,35 +1,80 @@
-form[name="user_login"] {
-  padding: 20px 0px 35px 0px;
-  max-width: 400px;
-  margin: 0 auto;
-  border: 3px solid #fcfcfc;
-  border-radius: 3px;
-  margin-top: 100px;
-  font-family: 'Roboto';
-  text-align: center;
-  box-shadow: 0px 0px 14px #c5c5c5;
-  position: relative;
-  .loader {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    z-index: 1;
-    padding-top: 70px;
-    background-color: rgba(0,0,0,0.2);
-  }
-  legend {
-    font-size: 24px;
-    text-transform: uppercase;
-    font-weight: 600;
-    padding: 15px 0px 10px 0px;
-  }
-  fieldset{
-    border: none;
-  }
-  .email-password-wrapper{
-    min-height: 70px;
+.form-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  form[name="user_login"] {
+    overflow: hidden;
+    min-height: 300px;
+    padding: 25px 0px 15px 0px;
+    max-width: 300px;
+    margin: 0 auto;
+    border: 3px solid #fcfcfc;
+    border-radius: 3px;
+    font-family: 'Roboto';
+    text-align: center;
+    box-shadow: 0px 0px 14px #c5c5c5;
+    position: relative;
+    background-color: #e6e6e6;
+    flex: none;
     width: 100%;
+    label[for="email"]{
+      + br {
+        display: none;
+      }
+    }
+    .loader {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: 1;
+      padding-top: 70px;
+      background-color: rgba(0,0,0,0.2);
+    }
+    legend {
+      font-size: 24px;
+      font-weight: 600;
+      padding: 0px;
+      font-family: 'Lobster', sans-serif;
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
+    fieldset{
+      border: none;
+    }
+    .email-password-wrapper{
+      min-height: 70px;
+      width: 100%;
+    }
+    .login{
+      &.slide-left {
+        -webkit-animation: slide-left-login .5s ease-out;
+        -moz-animation: slide-left-login .5s ease-out;
+        transform: translateX(-100%);
+      }
+    }
+    .create {
+      position: absolute;
+      display: none;
+      transform: translateX(180%);
+      &.slide-left {
+        display: block;
+        -webkit-animation: slide-left-create .5s ease-out;
+        -moz-animation: slide-left-create .5s ease-out;
+        transform: translateX(20%);
+      }
+    }
   }
+}
+
+@-webkit-keyframes slide-left-login {
+      0% { -webkit-transform: translateX(0%); }
+    100% { -webkit-transform: translateX(-100%); }
+}
+
+@-webkit-keyframes slide-left-create {
+      0% { -webkit-transform: translateX(180%); }
+    100% { -webkit-transform: translateX(20%); }
 }

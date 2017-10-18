@@ -1,5 +1,6 @@
 // Import font.
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i,900,900i');
+@import url('https://fonts.googleapis.com/css?family=Lobster|Oswald:400,500,600');
 
 // Variables.
 $roboto-stack: 'Roboto', sans-serif;
@@ -7,8 +8,63 @@ $green: #41c134;
 $light-grey: #f3f3f3;
 $dark-grey: #cccccc;
 
+// Media Queries.
+@mixin small-only {
+     @media only screen and (max-width: 47.9375em){
+        @content;
+    }
+}
+@mixin medium-only {
+     @media only screen and (min-width: 48em) and (max-width: 63.938em){
+        @content;
+    }
+}
+@mixin medium-up {
+     @media only screen and (min-width: 48em){
+        @content;
+    }
+}
+@mixin large-only {
+     @media only screen and (min-width: 64em) and (max-width: 90em){
+        @content;
+    }
+}
+@mixin large-up {
+     @media only screen and (min-width: 64em){
+        @content;
+    }
+}
+@mixin xlarge-only {
+     @media only screen and (min-width: 90.063em) and (max-width: 120em){
+        @content;
+    }
+}
+@mixin xlarge-up {
+     @media only screen and (min-width: 90.063em){
+        @content;
+    }
+}
+@mixin small-desktop {
+     @media only screen and (min-width: 64em) and (max-width: 74.95em){
+        @content;
+    }
+}
+@mixin large-desktop {
+     @media only screen and (min-width: 75em){
+        @content;
+    }
+}
+
 .clearfix{
   content: '';
   clear: both;
   display: table;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
 }

@@ -1,6 +1,6 @@
 // Import dependencies.
 import React, { Component } from 'react';
-import { login } from '../../actions/action.login';
+import { login, createUserAccount } from '../../actions/action.login';
 import { connect } from 'react-redux';
 
 // Import scene styles.
@@ -17,34 +17,72 @@ class LoginScene extends React.Component{
       password: '',
       firstName: '',
       lastName: '',
+      formSubmitted: false,
       isFormValid: false,
+      userCreatingAccount: false,
       errors:{
         email: {},
-        password: {}
+        password: {},
+        firstName: {},
+        lastName: {}
       }
     };
 
     // Bind methods.
-    this.handleLogin = this.handleLogin.bind(this);
+    this.handleFormSubmission = this.handleFormSubmission.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.validateForm = this.validateForm.bind(this);
+    this.handleCreateAccount = this.handleCreateAccount.bind(this);
   }
 
   /**
-   * handleLogin, submission method for user
+   * handleFormSubmission, submission method for user
    * account login. Dispatches the login action.
    *
    * @param  {Object} event
    */
-  handleLogin(event) {
-    this.validateForm();
-    if (this.state.isFormValid) {
-      this.props.login(
-        this.state.email,
-        this.state.password
-      );
-    }
+  handleFormSubmission(event) {
     event.preventDefault();
+    this.setState({
+      formSubmitted: true
+    },() => {
+      this.validateForm();
+      if (this.state.isFormValid) {
+        if (this.state.userCreatingAccount) {
+          this.props.createUserAccount(
+            this.state.email,
+            this.state.password,
+            this.state.firstName,
+            this.state.lastName
+          )
+        } else {
+          this.props.login(
+            this.state.email,
+            this.state.password
+          );
+        }
+      }
+
+    });
+  }
+
+  /**
+   * handleCreateAccount, updates state for when users
+   * try to create a new account.
+   *
+   * @param  {Object} event
+   */
+  handleCreateAccount(event){
+    event.preventDefault();
+    this.setState({
+      userCreatingAccount: true,
+      errors: Object.assign(this.state.errors, {
+        email: {},
+        password: {},
+        firstName: {},
+        lastName: {}
+      })
+    });
   }
 
   /**
@@ -56,9 +94,17 @@ class LoginScene extends React.Component{
    */
   handleChange(event){
     event.preventDefault();
-    this.setState({
-      [event.target.name]: event.target.value
-    }, this.validateForm);
+    // Validate input fiels on change now since
+    // the form was submitted.
+    if (this.state.formSubmitted) {
+      this.setState({
+        [event.target.name]: event.target.value
+      }, this.validateForm);
+    } else {
+      this.setState({
+        [event.target.name]: event.target.value
+      }, this.validateForm);
+    }
   }
 
   /**
@@ -72,41 +118,68 @@ class LoginScene extends React.Component{
       isFormValid: true,
       errors: Object.assign(this.state.errors, {
         email: {},
-        password: {}
+        password: {},
+        firstName: {},
+        lastName: {}
       })
     }, () => {
-      // Required/Invalid email test.
-      if (this.state.email.length === 0) {
-        this.setState({
-          isFormValid: false,
-          errors: Object.assign(this.state.errors, {
-            email: {
-              required: true
+      if (this.state.formSubmitted) {
+        // Iterate over input fields, if length is 0
+        // set an error via the state name.
+        for (var inputField in this.state.errors) {
+          if (this.state.errors.hasOwnProperty(inputField)) {
+            if (inputField !== 'email') {
+              if (!this.state.userCreatingAccount) {
+                if (inputField !== 'firstName' && inputField !== 'lastName') {
+                  if (this.state[inputField].length === 0) {
+                    this.setState({
+                      isFormValid: false,
+                      errors: Object.assign(this.state.errors, {
+                        [inputField]: {
+                          required: true
+                        }
+                      })
+                    });
+                  }
+                }
+              } else {
+                if (this.state[inputField].length === 0) {
+                  this.setState({
+                    isFormValid: false,
+                    errors: Object.assign(this.state.errors, {
+                      [inputField]: {
+                        required: true
+                      }
+                    })
+                  });
+                }
+              }
+            } else {
+              // Email validation.
+              if (this.state[inputField].length === 0) {
+                this.setState({
+                  isFormValid: false,
+                  errors: Object.assign(this.state.errors, {
+                    [inputField]: {
+                      required: true
+                    }
+                  })
+                });
+              } else if (!/^((?!.*\.\.)[a-z0-9\.\-]+[^\.]@[a-z0-9\-]+(?:\.[a-z]+)+)$/mgi.test(
+                this.state[inputField]
+              )) {
+                this.setState({
+                  isFormValid: false,
+                  errors: Object.assign(this.state.errors, {
+                    [inputField]: {
+                      invalid: true
+                    }
+                  })
+                });
+              }
             }
-          })
-        });
-      } else if (
-        !/^((?!.*\.\.)[a-z0-9\.\-]+[^\.]@[a-z0-9\-]+(?:\.[a-z]+)+)$/mgi.test(this.state.email)
-      ) {
-        this.setState({
-          isFormValid: false,
-          errors: Object.assign(this.state.errors, {
-            email: {
-              invalid: true
-            }
-          })
-        });
-      }
-      // Invalid password test.
-      if (this.state.password.length === 0) {
-        this.setState({
-          isFormValid: false,
-          errors: Object.assign(this.state.errors, {
-            password: {
-              required: true
-            }
-          })
-        });
+          }
+        }
       }
     });
   }
@@ -115,13 +188,17 @@ class LoginScene extends React.Component{
     return(
       <div>
         <LoginForm
-          handleLogin={this.handleLogin}
+          handleFormSubmission={this.handleFormSubmission}
           handleChange={this.handleChange}
           errors={this.state.errors}
-          userCeatingAccount={this.props.setUserCreatingAccount}
+          handleCreateAccount={this.handleCreateAccount}
+          userCreatingAccount={this.state.userCreatingAccount}
           setLoginPending={this.props.setLoginPending}
           setLoginSuccess={this.props.setLoginSuccess}
-          setLoginError={this.props.setLoginError}>
+          setLoginError={this.props.setLoginError}
+          setCreateUserAccountPending={this.props.setCreateUserAccountPending}
+          setCreateUserAccountSuccess={this.props.setCreateUserAccountSuccess}
+          setCreateUserAccountError={this.props.setCreateUserAccountError}>
         </LoginForm>
       </div>
     );
@@ -135,7 +212,9 @@ const mapStateToProps = (state, ownProps) => {
     setLoginPending: state.loginReducer.setLoginPending,
     setLoginSuccess: state.loginReducer.setLoginSuccess,
     setLoginError: state.loginReducer.setLoginError,
-    setUserCreatingAccount: state.loginReducer.setUserCreatingAccount
+    setCreateUserAccountPending: state.loginReducer.setCreateUserAccountPending,
+    setCreateUserAccountSuccess: state.loginReducer.setCreateUserAccountSuccess,
+    setCreateUserAccountError: state.loginReducer.setCreateUserAccountError
   };
 }
 
@@ -146,8 +225,8 @@ const mapDispatchToProps = (dispatch) => {
     login: (username, password) => {
       dispatch(login(username, password));
     },
-    createAccount: (username, password, firstName, lastName) => {
-
+    createUserAccount: (username, password, firstName, lastName) => {
+      dispatch(createUserAccount(username, password, firstName, lastName));
     }
   }
 }

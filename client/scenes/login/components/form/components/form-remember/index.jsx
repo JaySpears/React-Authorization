@@ -9,7 +9,8 @@ class FormRemember extends React.Component{
     return(
       <div>
         <div className="remember-me">
-          <input type="checkbox" name="remember"/><span>Remember me for 30 days</span>
+          <input id="remember" type="checkbox" value="value1"/>
+          <label htmlFor="remember"></label><span>Remember Me</span>
         </div>
       </div>
     );

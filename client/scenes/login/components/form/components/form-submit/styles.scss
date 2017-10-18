@@ -1,18 +1,23 @@
 button {
-  background-color: red;
+  background-color: white;
   border: none;
-  color: white;
+  color: black;
   text-transform: uppercase;
-  padding: 10px 20px;
+  padding: 6px 20px;
   text-align: center;
   text-decoration: none;
-  border: 2px solid red;
+  border: 1px solid #d8cece;
   font-size: 14px;
-  margin-top: 18px;
+  margin-top: 17px;
   cursor: pointer;
   transition: all 0.4s;
-  &:hover{
-    color: red;
+  font-family: 'Roboto';
+  border-radius: 3px;
+  font-weight: 700;
+  &:hover,
+  &:focus{
+    outline: none;
+    box-shadow: inset 0 0 1px black;
     background-color: white;
   }
 }

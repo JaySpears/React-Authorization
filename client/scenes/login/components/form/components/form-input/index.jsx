@@ -16,6 +16,12 @@ class FormInput extends Component {
         },
         password: {
           required: 'Password is a required field'
+        },
+        firstName: {
+          required: 'First name is a required field'
+        },
+        lastName: {
+          required: 'Last name is a required field'
         }
       }
     }
@@ -47,12 +53,13 @@ class FormInput extends Component {
   // Render element.
   render() {
     return (
-      <div className={this.props.hideComponent ? 'hidden' : ''}>
+      <div>
         <label htmlFor={this.props.labelFor}>{this.props.labelText}:</label><br/>
         <input
           type={this.props.inputType}
           name={this.props.inputName}
           onChange={this.props.handleChange}
+          placeholder={this.props.labelText}
           spellCheck="false" />
           {this.state.errorMessage.length > 0 ?
             <div className="error-wrapper">

@@ -2,7 +2,9 @@ const initialState = {
   setLoginPending: false,
   setLoginSuccess: false,
   setLoginError: false,
-  setUserCreatingAccount: false
+  setCreateUserAccountPending: false,
+  setCreateUserAccountSuccess: false,
+  setCreateUserAccountError: false
 };
 
 /**
@@ -29,9 +31,19 @@ function loginReducer(state = initialState, action){
         setLoginError: action.setLoginError
       });
     }
-    case 'SET_USER_CREATING_ACCOUNT' : {
+    case 'SET_CREATE_USER_ACCOUNT_PENDING' : {
       return Object.assign({}, state, {
-        setUserCreatingAccount: action.setUserCreatingAccount
+        setCreateUserAccountPending: action.setCreateUserAccountPending
+      });
+    }
+    case 'SET_CREATE_USER_ACCOUNT_SUCCESS' : {
+      return Object.assign({}, state, {
+        setCreateUserAccountSuccess: action.setCreateUserAccountSuccess
+      });
+    }
+    case 'SET_CREATE_USER_ACCOUNT_ERROR' : {
+      return Object.assign({}, state, {
+        setCreateUserAccountError: action.setCreateUserAccountError
       });
     }
     default:

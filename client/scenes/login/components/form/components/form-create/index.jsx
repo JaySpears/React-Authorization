@@ -9,7 +9,7 @@ class FormCreate extends React.Component{
     return(
       <div>
         <div className="account-creation">
-          <a href="#">Create an account!</a>
+          <p>Not registerd? <a onClick={this.props.handleCreateAccount} href="#">Create an account</a></p>
         </div>
       </div>
     );

@@ -1,24 +1,17 @@
-.show {
-  display: block;
-}
-
-.hide {
-  display: none;
-}
-
 .success-message,
 .error-message {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -60px;
+    bottom: -38px;
     padding: 0px;
-    margin: 10px -17px;
+    margin: 10px -16px;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
     border: 2px solid #fcfcfc;
     font-size: 15px;
     line-height: 2px;
+    border-top: none;
 }
 
 .success-message {

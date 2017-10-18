@@ -35,7 +35,7 @@ sequelize.sync({
 
 // Bind sequelize methods to database object.
 db.sequelize = sequelize;
-db.Sequelize = Sequelize;;
+db.Sequelize = Sequelize;
 
 // Need to export the sequelize instances
 // for the creation of models.

@@ -9,7 +9,7 @@ class FormSubmit extends React.Component{
     return(
       <div>
         <div className="submit">
-          <button type="submit" name="button">Login</button>
+          <button type="submit" name="button">{this.props.buttonText}</button>
         </div>
       </div>
     );
