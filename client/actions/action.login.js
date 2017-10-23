@@ -6,23 +6,10 @@ import axios from 'axios';
  *
  * @param {Boolean} bool
  */
-export function setLoginPending(bool) {
+export function setAxiosRequestPending(bool) {
   return {
-    type: 'SET_LOGIN_PENDING',
-    setLoginPending: bool
-  }
-}
-
-/**
- * function setCreateUserAccountPending, action for user account
- * creation form submission.
- *
- * @param {Boolean} bool
- */
-export function setCreateUserAccountPending(bool) {
-  return {
-    type: 'SET_CREATE_USER_ACCOUNT_PENDING',
-    setCreateUserAccountPending: bool
+    type: 'AXIOUS_REQUEST_PENDING',
+    setAxiosRequestPending: bool
   }
 }
 
@@ -32,23 +19,10 @@ export function setCreateUserAccountPending(bool) {
  *
  * @param {Boolean} bool
  */
-export function setLoginSuccess(bool) {
+export function setAxiosRequestSuccess(bool) {
   return {
-    type: 'SET_LOGIN_SUCCESS',
-    setLoginSuccess: bool
-  }
-}
-
-/**
- * function setCreateUserAccountSuccess, action for user account
- * creation form submission success.
- *
- * @param {Boolean} bool
- */
-export function setCreateUserAccountSuccess(bool) {
-  return {
-    type: 'SET_CREATE_USER_ACCOUNT_SUCCESS',
-    setCreateUserAccountSuccess: bool
+    type: 'SET_AXIOS_REQUEST_SUCCESS',
+    setAxiosRequestSuccess: bool
   }
 }
 
@@ -58,23 +32,10 @@ export function setCreateUserAccountSuccess(bool) {
  *
  * @param {Boolean} bool
  */
-export function setLoginError(bool) {
+export function setAxiosRequestError(bool) {
   return {
-    type: 'SET_LOGIN_ERROR',
-    setLoginError: bool
-  }
-}
-
-/**
- * function setCreateUserAccountError, action for user account
- * creation form submission error.
- *
- * @param {Boolean} bool
- */
-export function setCreateUserAccountError(bool) {
-  return {
-    type: 'SET_CREATE_USER_ACCOUNT_ERROR',
-    setCreateUserAccountError: bool
+    type: 'SET_AXIOS_REQUEST_ERROR',
+    setAxiosRequestError: bool
   }
 }
 
@@ -89,9 +50,9 @@ export function setCreateUserAccountError(bool) {
 export function login(email, password) {
   return (dispatch) => {
     // Reset global state.
-    dispatch(setLoginPending(true));
-    dispatch(setLoginSuccess(false));
-    dispatch(setLoginError(false));
+    dispatch(setAxiosRequestPending(true));
+    dispatch(setAxiosRequestSuccess(false));
+    dispatch(setAxiosRequestError(false));
     // Post axios
     axios.post('/users/login', {
       email: email,
@@ -101,14 +62,14 @@ export function login(email, password) {
       localStorage.setItem('token', response.headers.token);
       // Set actions for form loader and form message.
       setTimeout(() => {
-        dispatch(setLoginSuccess(true));
-        dispatch(setLoginPending(false));
+        dispatch(setAxiosRequestSuccess(true));
+        dispatch(setAxiosRequestPending(false));
       }, 1500);
     }).catch((e) => {
       // Set actions for form loader and form message.
       setTimeout(() => {
-        dispatch(setLoginError(true));
-        dispatch(setLoginPending(false));
+        dispatch(setAxiosRequestError(true));
+        dispatch(setAxiosRequestPending(false));
       }, 1500);
     });
   }
@@ -126,23 +87,27 @@ export function login(email, password) {
  */
 export function createUserAccount(email, password, firstName, lastName){
   return (dispatch) => {
-    console.log('user account action');
     // Reset global state.
-    dispatch(setCreateUserAccountPending(true));
-    dispatch(setCreateUserAccountSuccess(false));
-    dispatch(setCreateUserAccountError(false));
+    dispatch(setAxiosRequestPending(true));
+    dispatch(setAxiosRequestSuccess(false));
+    dispatch(setAxiosRequestError(false));
     axios.post('/users/create', {
       email: email,
       password: password,
       firstName: firstName,
       lastName: lastName
-    }).then(() => {
+    }).then((response) => {
+      // Set user JWT.
+      localStorage.setItem('token', response.headers.token);
       setTimeout(() => {
-        dispatch(setCreateUserAccountPending(false));
+        dispatch(setAxiosRequestPending(false));
+        dispatch(setAxiosRequestSuccess(true));
       }, 1500);
-    }).catch(() => {
+    }).catch((e) => {
+      // User email already exists.
       setTimeout(() => {
-        dispatch(setCreateUserAccountPending(false));
+        dispatch(setAxiosRequestPending(false));
+        dispatch(setAxiosRequestError(true));
       }, 1500);
     });
   }

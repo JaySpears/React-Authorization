@@ -17,21 +17,28 @@ class LoginForm extends React.Component{
     super(props);
     this.state = {
       formSubmitted: false,
+      userCreatingAccount: false,
+      setAxiosRequestPending: false,
+      setAxiosRequestSuccess: false,
+      setAxiosRequestError: false,
       setLoginSuccess: false,
       setLoginError: false,
-      userCreatingAccount: false
     };
   }
 
+  /**
+   * function componentWillReceiveProps, built in react method.
+   * Will execute when the properties insides retrieve new
+   * values.
+   *
+   * @param  {Object} nextProps
+   */
   componentWillReceiveProps(nextProps){
     this.setState({
-      setLoginPending: nextProps.setLoginPending || false,
-      setLoginSuccess: nextProps.setLoginSuccess || false,
-      setLoginError: nextProps.setLoginError || false,
-      setCreateUserAccountPending: nextProps.setCreateUserAccountPending || false,
-      setCreateUserAccountSuccess: nextProps.setCreateUserAccountSuccess || false,
-      setCreateUserAccountError: nextProps.setCreateUserAccountError || false,
-      userCreatingAccount: nextProps.userCreatingAccount || false
+      userCreatingAccount: nextProps.userCreatingAccount || false,
+      setAxiosRequestPending: nextProps.setAxiosRequestPending || false,
+      setAxiosRequestSuccess: nextProps.setAxiosRequestSuccess || false,
+      setAxiosRequestError: nextProps.setAxiosRequestError || false
     });
   }
 
@@ -39,8 +46,7 @@ class LoginForm extends React.Component{
     return(
       <div className="form-wrapper">
         <form autoComplete="off" name="user_login" id="user-login" onSubmit={this.props.handleFormSubmission}>
-          {this.state.setLoginPending ? <Loader></Loader> : '' }
-          {this.state.setCreateUserAccountPending ? <Loader></Loader> : '' }
+          {this.state.setAxiosRequestPending ? <Loader></Loader> : '' }
           <fieldset>
             <legend>Form Title</legend>
 
@@ -90,8 +96,9 @@ class LoginForm extends React.Component{
             </div>
 
             <FormMessages
-              success={this.state.setLoginSuccess}
-              error={this.state.setLoginError}>
+              userCreatingAccount={this.state.userCreatingAccount}
+              success={this.state.setAxiosRequestSuccess}
+              error={this.state.setAxiosRequestError}>
             </FormMessages>
           </fieldset>
         </form>

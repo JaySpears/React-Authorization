@@ -1,10 +1,7 @@
 const initialState = {
-  setLoginPending: false,
-  setLoginSuccess: false,
-  setLoginError: false,
-  setCreateUserAccountPending: false,
-  setCreateUserAccountSuccess: false,
-  setCreateUserAccountError: false
+  setAxiosRequestPending: false,
+  setAxiosRequestSuccess: false,
+  setAxiosRequestError: false
 };
 
 /**
@@ -16,34 +13,19 @@ const initialState = {
  */
 function loginReducer(state = initialState, action){
   switch (action.type) {
-    case 'SET_LOGIN_PENDING' : {
+    case 'AXIOUS_REQUEST_PENDING' : {
       return Object.assign({}, state, {
-        setLoginPending: action.setLoginPending
+        setAxiosRequestPending: action.setAxiosRequestPending
       });
     }
-    case 'SET_LOGIN_SUCCESS' : {
+    case 'SET_AXIOS_REQUEST_SUCCESS' : {
       return Object.assign({}, state, {
-        setLoginSuccess: action.setLoginSuccess
+        setAxiosRequestSuccess: action.setAxiosRequestSuccess
       });
     }
-    case 'SET_LOGIN_ERROR' : {
+    case 'SET_AXIOS_REQUEST_ERROR' : {
       return Object.assign({}, state, {
-        setLoginError: action.setLoginError
-      });
-    }
-    case 'SET_CREATE_USER_ACCOUNT_PENDING' : {
-      return Object.assign({}, state, {
-        setCreateUserAccountPending: action.setCreateUserAccountPending
-      });
-    }
-    case 'SET_CREATE_USER_ACCOUNT_SUCCESS' : {
-      return Object.assign({}, state, {
-        setCreateUserAccountSuccess: action.setCreateUserAccountSuccess
-      });
-    }
-    case 'SET_CREATE_USER_ACCOUNT_ERROR' : {
-      return Object.assign({}, state, {
-        setCreateUserAccountError: action.setCreateUserAccountError
+        setAxiosRequestError: action.setAxiosRequestError
       });
     }
     default:

@@ -31,8 +31,11 @@ class Routes {
    * @param {Object} res
    */
   async Create(req, res) {
-    let status = await userMiddleware.Create(req);
-    res.sendStatus(status);
+    let response = await userMiddleware.Create(req);
+    if (response.token){
+      res.setHeader('token', response.token);
+    }
+    res.sendStatus(response.status);
   }
 
   /**

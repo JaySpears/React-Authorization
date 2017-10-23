@@ -19,6 +19,7 @@ class UserMiddleware {
    * @return {Integer} Status
    */
   async Create(req) {
+    let response = {};
     let saltRounds = 10;
     let user = {
       firstName: req.body.firstName,
@@ -27,30 +28,37 @@ class UserMiddleware {
       password: req.body.password
     };
 
-    // Hash user password.
-    user.password = await bcrypt.hash(user.password, saltRounds);
-    // Create user, handle error with status response.
-    try {
-      // Ensure email doesn't already exist in the database
-      // when the user is trying to create an account.
-      const matchedEmails = await Models.Users.findAll({
-        where: {
-          email: user.email
-        }
-      });
-      if (matchedEmails.length === 0) {
-        await Models.Users.create({
-          email: user.email,
-          password: user.password,
-          first_name: user.firstName,
-          last_name: user.lastName
-        });
+    // Ensure email doesn't already exist in the database
+    // when the user is trying to create an account.
+    const matchedEmails = await Models.Users.findAll({
+      where: {
+        email: user.email
       }
-      return 200;
-    } catch (e) {
-      console.log(e);
-      return 500;
+    });
+
+    if (matchedEmails.length === 0) {
+      // Hash user password.
+      user.password = await bcrypt.hash(user.password, saltRounds);
+      // Create user.
+      await Models.Users.create({
+        email: user.email,
+        password: user.password,
+        first_name: user.firstName,
+        last_name: user.lastName
+      });
+
+      return response = {
+        token: jwt.sign({ email: user.email }, 'secret'),
+        status: 200
+      };
+    } else {
+      return response = {
+        status: 409
+      };
     }
+    return response = {
+      status: 200
+    };
   }
 
   /**

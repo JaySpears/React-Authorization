@@ -103,7 +103,7 @@ class LoginScene extends React.Component{
     } else {
       this.setState({
         [event.target.name]: event.target.value
-      }, this.validateForm);
+      });
     }
   }
 
@@ -129,18 +129,20 @@ class LoginScene extends React.Component{
         for (var inputField in this.state.errors) {
           if (this.state.errors.hasOwnProperty(inputField)) {
             if (inputField !== 'email') {
-              if (!this.state.userCreatingAccount) {
-                if (inputField !== 'firstName' && inputField !== 'lastName') {
-                  if (this.state[inputField].length === 0) {
-                    this.setState({
-                      isFormValid: false,
-                      errors: Object.assign(this.state.errors, {
-                        [inputField]: {
-                          required: true
-                        }
-                      })
-                    });
-                  }
+              if (
+                !this.state.userCreatingAccount &&
+                inputField !== 'firstName' &&
+                inputField !== 'lastName'
+              ) {
+                if (this.state[inputField].length === 0) {
+                  this.setState({
+                    isFormValid: false,
+                    errors: Object.assign(this.state.errors, {
+                      [inputField]: {
+                        required: true
+                      }
+                    })
+                  });
                 }
               } else {
                 if (this.state[inputField].length === 0) {
@@ -190,15 +192,12 @@ class LoginScene extends React.Component{
         <LoginForm
           handleFormSubmission={this.handleFormSubmission}
           handleChange={this.handleChange}
-          errors={this.state.errors}
           handleCreateAccount={this.handleCreateAccount}
           userCreatingAccount={this.state.userCreatingAccount}
-          setLoginPending={this.props.setLoginPending}
-          setLoginSuccess={this.props.setLoginSuccess}
-          setLoginError={this.props.setLoginError}
-          setCreateUserAccountPending={this.props.setCreateUserAccountPending}
-          setCreateUserAccountSuccess={this.props.setCreateUserAccountSuccess}
-          setCreateUserAccountError={this.props.setCreateUserAccountError}>
+          setAxiosRequestPending={this.props.setAxiosRequestPending}
+          setAxiosRequestSuccess={this.props.setAxiosRequestSuccess}
+          setAxiosRequestError={this.props.setAxiosRequestError}
+          errors={this.state.errors}>
         </LoginForm>
       </div>
     );
@@ -209,12 +208,9 @@ class LoginScene extends React.Component{
 // this components props.
 const mapStateToProps = (state, ownProps) => {
   return {
-    setLoginPending: state.loginReducer.setLoginPending,
-    setLoginSuccess: state.loginReducer.setLoginSuccess,
-    setLoginError: state.loginReducer.setLoginError,
-    setCreateUserAccountPending: state.loginReducer.setCreateUserAccountPending,
-    setCreateUserAccountSuccess: state.loginReducer.setCreateUserAccountSuccess,
-    setCreateUserAccountError: state.loginReducer.setCreateUserAccountError
+    setAxiosRequestPending: state.loginReducer.setAxiosRequestPending,
+    setAxiosRequestSuccess: state.loginReducer.setAxiosRequestSuccess,
+    setAxiosRequestError: state.loginReducer.setAxiosRequestError
   };
 }
 
