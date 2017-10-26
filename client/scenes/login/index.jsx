@@ -36,7 +36,7 @@ class LoginScene extends React.Component{
   }
 
     /**
-     * function componentWillUpdate, built in react method
+     * componentWillUpdate, built in react method
      * for when component updates.
      *
      * @param  {Object} prevProps [description]
@@ -114,7 +114,7 @@ class LoginScene extends React.Component{
   }
 
   /**
-   * function validateForm, error handling for
+   * validateForm, error handling for
    * dynamic form input fields. Resets state errors
    * on exection, then updates state via callback.
    */
@@ -154,7 +154,7 @@ class LoginScene extends React.Component{
   }
 
   /**
-   * function assignFormErrors, function to set error state
+   * assignFormErrors, function to set error state
    * for input field passed.
    *
    * @param  {String} inputField
