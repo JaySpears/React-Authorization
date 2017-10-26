@@ -32,6 +32,7 @@ class LoginScene extends React.Component{
     this.handleFormSubmission = this.handleFormSubmission.bind(this);
     this.handleCreateAccount = this.handleCreateAccount.bind(this);
     this.validateForm = this.validateForm.bind(this);
+    this.assignFormErrors = this.assignFormErrors.bind(this);
   }
 
     /**
@@ -136,40 +137,37 @@ class LoginScene extends React.Component{
               inputField !== 'firstName' &&
               inputField !== 'lastName'
             ) {
-              this.setState({
-                isFormValid: false,
-                errors: Object.assign(this.state.errors, {
-                  [inputField]: {
-                    required: true
-                  }
-                })
-              });
+              this.assignFormErrors(inputField, 'required');
             } else {
-              this.setState({
-                isFormValid: false,
-                errors: Object.assign(this.state.errors, {
-                  [inputField]: {
-                    required: true
-                  }
-                })
-              });
+              this.assignFormErrors(inputField, 'required');
             }
           } else if (this.state[inputField].length > 0 && inputField === 'email') {
             if (!/^((?!.*\.\.)[a-z0-9\.\-]+[^\.]@[a-z0-9\-]+(?:\.[a-z]+)+)$/mgi.test(
               this.state[inputField]
             )) {
-              this.setState({
-                isFormValid: false,
-                errors: Object.assign(this.state.errors, {
-                  [inputField]: {
-                    invalid: true
-                  }
-                })
-              });
+              this.assignFormErrors(inputField, 'invalid');
             }
           }
         }
       }
+    });
+  }
+
+  /**
+   * function assignFormErrors, function to set error state
+   * for input field passed.
+   *
+   * @param  {String} inputField
+   * @param  {String} errorType
+   */
+  assignFormErrors(inputField, errorType){
+    this.setState({
+      isFormValid: false,
+      errors: Object.assign(this.state.errors, {
+        [inputField]: {
+          [errorType]: true
+        }
+      })
     });
   }
 
