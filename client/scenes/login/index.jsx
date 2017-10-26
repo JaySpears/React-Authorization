@@ -74,8 +74,6 @@ class LoginScene extends React.Component{
    */
   handleChange(event){
     event.preventDefault();
-    // Validate input fiels on change now since
-    // the form was submitted.
     this.setState({
       [event.target.name]: event.target.value
     }, this.validateForm);
