@@ -16,13 +16,11 @@ class LoginForm extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      formSubmitted: false,
+      hasFormBeenSubmitted: false,
       userCreatingAccount: false,
       setAxiosRequestPending: false,
       setAxiosRequestSuccess: false,
-      setAxiosRequestError: false,
-      setLoginSuccess: false,
-      setLoginError: false,
+      setAxiosRequestError: false
     };
   }
 
@@ -40,6 +38,11 @@ class LoginForm extends React.Component{
       setAxiosRequestSuccess: nextProps.setAxiosRequestSuccess || false,
       setAxiosRequestError: nextProps.setAxiosRequestError || false
     });
+    if (this.props.hasFormBeenSubmitted) {
+      this.setState({
+        hasFormBeenSubmitted: true
+      });
+    }
   }
 
   render(){
@@ -57,7 +60,8 @@ class LoginForm extends React.Component{
                 inputType="text"
                 inputName="email"
                 errors={this.props.errors}
-                handleChange={this.props.handleChange}>
+                handleChange={this.props.handleChange}
+                hasFormBeenSubmitted={this.state.hasFormBeenSubmitted}>
               </FormInput>
               <FormInput
                 labelFor="password"
@@ -65,7 +69,8 @@ class LoginForm extends React.Component{
                 inputType="password"
                 inputName="password"
                 errors={this.props.errors}
-                handleChange={this.props.handleChange}>
+                handleChange={this.props.handleChange}
+                hasFormBeenSubmitted={this.state.hasFormBeenSubmitted}>
               </FormInput>
             </div>
 
@@ -76,7 +81,8 @@ class LoginForm extends React.Component{
                 inputType="text"
                 inputName="firstName"
                 errors={this.props.errors}
-                handleChange={this.props.handleChange}>
+                handleChange={this.props.handleChange}
+                hasFormBeenSubmitted={this.state.hasFormBeenSubmitted}>
               </FormInput>
               <FormInput
                 labelFor="last_name"
@@ -84,7 +90,8 @@ class LoginForm extends React.Component{
                 inputType="text"
                 inputName="lastName"
                 errors={this.props.errors}
-                handleChange={this.props.handleChange}>
+                handleChange={this.props.handleChange}
+                hasFormBeenSubmitted={this.state.hasFormBeenSubmitted}>
               </FormInput>
               <FormSubmit buttonText={'Create'}></FormSubmit>
             </div>

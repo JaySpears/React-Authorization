@@ -29,25 +29,26 @@ class LoginScene extends React.Component{
     };
 
     // Bind methods.
-    this.handleFormSubmission = this.handleFormSubmission.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.validateForm = this.validateForm.bind(this);
+    this.handleFormSubmission = this.handleFormSubmission.bind(this);
     this.handleCreateAccount = this.handleCreateAccount.bind(this);
+    this.validateForm = this.validateForm.bind(this);
   }
 
-  /**
-   * handleFormSubmission, submission method for user
-   * account login. Dispatches the login action.
-   *
-   * @param  {Object} event
-   */
-  handleFormSubmission(event) {
-    event.preventDefault();
-    this.setState({
-      formSubmitted: true
-    },() => {
-      this.validateForm();
-      if (this.state.isFormValid) {
+    /**
+     * function componentWillUpdate, built in react method
+     * for when component updates.
+     *
+     * @param  {Object} prevProps [description]
+     * @param  {Object} prevState [description]
+     */
+    componentDidUpdate(prevProps, prevState) {
+      if (
+        prevState.isFormValid &&
+        this.state.formSubmitted &&
+        this.state.isFormValid &&
+        !this.props.setAxiosRequestPending
+      ) {
         if (this.state.userCreatingAccount) {
           this.props.createUserAccount(
             this.state.email,
@@ -62,7 +63,36 @@ class LoginScene extends React.Component{
           );
         }
       }
+    }
 
+  /**
+   * handleChange, updates state reference for each
+   * input field value on change. Once state is updated,
+   * the form will be validated on the fly.
+   *
+   * @param  {Object} event
+   */
+  handleChange(event){
+    event.preventDefault();
+    // Validate input fiels on change now since
+    // the form was submitted.
+    this.setState({
+      [event.target.name]: event.target.value
+    }, this.validateForm);
+  }
+
+  /**
+   * handleFormSubmission, submission method for user
+   * account login. Dispatches the login action.
+   *
+   * @param  {Object} event
+   */
+  handleFormSubmission(event) {
+    event.preventDefault();
+    this.setState({
+      formSubmitted: true
+    },() => {
+      this.validateForm();
     });
   }
 
@@ -86,28 +116,6 @@ class LoginScene extends React.Component{
   }
 
   /**
-   * handleChange, updates state reference for each
-   * input field value on change. Once state is updated,
-   * the form will be validated on the fly.
-   *
-   * @param  {Object} event
-   */
-  handleChange(event){
-    event.preventDefault();
-    // Validate input fiels on change now since
-    // the form was submitted.
-    if (this.state.formSubmitted) {
-      this.setState({
-        [event.target.name]: event.target.value
-      }, this.validateForm);
-    } else {
-      this.setState({
-        [event.target.name]: event.target.value
-      });
-    }
-  }
-
-  /**
    * function validateForm, error handling for
    * dynamic form input fields. Resets state errors
    * on exection, then updates state via callback.
@@ -116,6 +124,7 @@ class LoginScene extends React.Component{
     // Reset state.
     this.setState({
       isFormValid: true,
+      formSubmitted: false,
       errors: Object.assign(this.state.errors, {
         email: {},
         password: {},
@@ -123,7 +132,6 @@ class LoginScene extends React.Component{
         lastName: {}
       })
     }, () => {
-      if (this.state.formSubmitted) {
         // Iterate over input fields, if length is 0
         // set an error via the state name.
         for (var inputField in this.state.errors) {
@@ -144,7 +152,7 @@ class LoginScene extends React.Component{
                     })
                   });
                 }
-              } else {
+              } else if (this.state.userCreatingAccount) {
                 if (this.state[inputField].length === 0) {
                   this.setState({
                     isFormValid: false,
@@ -182,7 +190,6 @@ class LoginScene extends React.Component{
             }
           }
         }
-      }
     });
   }
 
@@ -190,6 +197,7 @@ class LoginScene extends React.Component{
     return(
       <div>
         <LoginForm
+          hasFormBeenSubmitted={this.state.formSubmitted}
           handleFormSubmission={this.handleFormSubmission}
           handleChange={this.handleChange}
           handleCreateAccount={this.handleCreateAccount}

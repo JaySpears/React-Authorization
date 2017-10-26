@@ -61,7 +61,7 @@ class FormInput extends Component {
           onChange={this.props.handleChange}
           placeholder={this.props.labelText}
           spellCheck="false" />
-          {this.state.errorMessage.length > 0 ?
+          { this.props.hasFormBeenSubmitted && this.state.errorMessage.length > 0 ?
             <div className="error-wrapper">
               <p className="error">{this.state.errorMessage}</p>
             </div>
