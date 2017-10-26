@@ -28,7 +28,6 @@ class LoginScene extends React.Component{
       }
     };
 
-    // Bind methods.
     this.handleChange = this.handleChange.bind(this);
     this.handleFormSubmission = this.handleFormSubmission.bind(this);
     this.handleCreateAccount = this.handleCreateAccount.bind(this);
@@ -119,7 +118,6 @@ class LoginScene extends React.Component{
    * on exection, then updates state via callback.
    */
   validateForm(){
-    // Reset state.
     this.setState({
       isFormValid: true,
       formSubmitted: false,
@@ -130,64 +128,48 @@ class LoginScene extends React.Component{
         lastName: {}
       })
     }, () => {
-        // Iterate over input fields, if length is 0
-        // set an error via the state name.
-        for (var inputField in this.state.errors) {
-          if (this.state.errors.hasOwnProperty(inputField)) {
-            if (inputField !== 'email') {
-              if (
-                !this.state.userCreatingAccount &&
-                inputField !== 'firstName' &&
-                inputField !== 'lastName'
-              ) {
-                if (this.state[inputField].length === 0) {
-                  this.setState({
-                    isFormValid: false,
-                    errors: Object.assign(this.state.errors, {
-                      [inputField]: {
-                        required: true
-                      }
-                    })
-                  });
-                }
-              } else if (this.state.userCreatingAccount) {
-                if (this.state[inputField].length === 0) {
-                  this.setState({
-                    isFormValid: false,
-                    errors: Object.assign(this.state.errors, {
-                      [inputField]: {
-                        required: true
-                      }
-                    })
-                  });
-                }
-              }
+      for (var inputField in this.state.errors) {
+        if (this.state.errors.hasOwnProperty(inputField)) {
+          if (this.state[inputField].length === 0) {
+            if (
+              !this.state.userCreatingAccount &&
+              inputField !== 'firstName' &&
+              inputField !== 'lastName'
+            ) {
+              this.setState({
+                isFormValid: false,
+                errors: Object.assign(this.state.errors, {
+                  [inputField]: {
+                    required: true
+                  }
+                })
+              });
             } else {
-              // Email validation.
-              if (this.state[inputField].length === 0) {
-                this.setState({
-                  isFormValid: false,
-                  errors: Object.assign(this.state.errors, {
-                    [inputField]: {
-                      required: true
-                    }
-                  })
-                });
-              } else if (!/^((?!.*\.\.)[a-z0-9\.\-]+[^\.]@[a-z0-9\-]+(?:\.[a-z]+)+)$/mgi.test(
-                this.state[inputField]
-              )) {
-                this.setState({
-                  isFormValid: false,
-                  errors: Object.assign(this.state.errors, {
-                    [inputField]: {
-                      invalid: true
-                    }
-                  })
-                });
-              }
+              this.setState({
+                isFormValid: false,
+                errors: Object.assign(this.state.errors, {
+                  [inputField]: {
+                    required: true
+                  }
+                })
+              });
+            }
+          } else if (this.state[inputField].length > 0 && inputField === 'email') {
+            if (!/^((?!.*\.\.)[a-z0-9\.\-]+[^\.]@[a-z0-9\-]+(?:\.[a-z]+)+)$/mgi.test(
+              this.state[inputField]
+            )) {
+              this.setState({
+                isFormValid: false,
+                errors: Object.assign(this.state.errors, {
+                  [inputField]: {
+                    invalid: true
+                  }
+                })
+              });
             }
           }
         }
+      }
     });
   }
 
