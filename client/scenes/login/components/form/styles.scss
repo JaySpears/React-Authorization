@@ -54,6 +54,16 @@
         -moz-animation: slide-left-login .5s ease-out;
         transform: translateX(-100%);
       }
+      &.slide-right {
+        -webkit-animation: slide-right-login .5s ease-out;
+        -moz-animation: slide-right-login .5s ease-out;
+        transform: translateX(0%);
+      }
+    }
+    .create-initial {
+      position: absolute;
+      display: none;
+      transform: translateX(180%);
     }
     .create {
       position: absolute;
@@ -65,6 +75,12 @@
         -moz-animation: slide-left-create .5s ease-out;
         transform: translateX(20%);
       }
+      &.slide-right {
+        display: block;
+        -webkit-animation: slide-right-create .5s ease-out;
+        -moz-animation: slide-right-create .5s ease-out;
+        transform: translateX(180%);
+      }
     }
   }
 }
@@ -74,7 +90,17 @@
     100% { -webkit-transform: translateX(-100%); }
 }
 
+@-webkit-keyframes slide-right-login {
+      0% { -webkit-transform: translateX(-100%); }
+    100% { -webkit-transform: translateX(0%); }
+}
+
 @-webkit-keyframes slide-left-create {
       0% { -webkit-transform: translateX(180%); }
     100% { -webkit-transform: translateX(20%); }
+}
+
+@-webkit-keyframes slide-right-create {
+      0% { -webkit-transform: translateX(20%); }
+    100% { -webkit-transform: translateX(180%); }
 }

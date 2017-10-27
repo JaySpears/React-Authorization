@@ -20,6 +20,7 @@ class LoginScene extends React.Component{
       formSubmitted: false,
       isFormValid: false,
       userCreatingAccount: false,
+      hasUserToggledView: false,
       errors:{
         email: {},
         password: {},
@@ -30,9 +31,10 @@ class LoginScene extends React.Component{
 
     this.handleChange = this.handleChange.bind(this);
     this.handleFormSubmission = this.handleFormSubmission.bind(this);
-    this.handleCreateAccount = this.handleCreateAccount.bind(this);
+    this.toggleLoginView = this.toggleLoginView.bind(this);
     this.validateForm = this.validateForm.bind(this);
     this.assignFormErrors = this.assignFormErrors.bind(this);
+    this.resetLoginView = this.resetLoginView.bind(this);
   }
 
     /**
@@ -95,15 +97,31 @@ class LoginScene extends React.Component{
   }
 
   /**
-   * handleCreateAccount, updates state for when users
+   * toggleLoginView, updates state for when users
    * try to create a new account.
    *
    * @param  {Object} event
    */
-  handleCreateAccount(event){
+  toggleLoginView(event){
     event.preventDefault();
+
+    if (this.state.userCreatingAccount) {
+      this.resetLoginView(false);
+    } else {
+      this.resetLoginView(true);
+    }
+  }
+
+  /**
+   * resetLoginView, resets erros and updates state
+   * for login view.
+   *
+   * @param {Boolean} userCreatingAccount
+   */
+  resetLoginView(userCreatingAccount){
     this.setState({
-      userCreatingAccount: true,
+      userCreatingAccount: userCreatingAccount,
+      hasUserToggledView: true,
       errors: Object.assign(this.state.errors, {
         email: {},
         password: {},
@@ -132,13 +150,9 @@ class LoginScene extends React.Component{
       for (var inputField in this.state.errors) {
         if (this.state.errors.hasOwnProperty(inputField)) {
           if (this.state[inputField].length === 0) {
-            if (
-              !this.state.userCreatingAccount &&
-              inputField !== 'firstName' &&
-              inputField !== 'lastName'
-            ) {
+            if (this.state.userCreatingAccount) {
               this.assignFormErrors(inputField, 'required');
-            } else {
+            } else if(inputField !== 'firstName' && inputField !== 'lastName'){
               this.assignFormErrors(inputField, 'required');
             }
           } else if (this.state[inputField].length > 0 && inputField === 'email') {
@@ -176,9 +190,10 @@ class LoginScene extends React.Component{
       <div>
         <LoginForm
           hasFormBeenSubmitted={this.state.formSubmitted}
+          hasUserToggledView={this.state.hasUserToggledView}
           handleFormSubmission={this.handleFormSubmission}
           handleChange={this.handleChange}
-          handleCreateAccount={this.handleCreateAccount}
+          toggleLoginView={this.toggleLoginView}
           userCreatingAccount={this.state.userCreatingAccount}
           setAxiosRequestPending={this.props.setAxiosRequestPending}
           setAxiosRequestSuccess={this.props.setAxiosRequestSuccess}

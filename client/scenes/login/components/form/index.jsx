@@ -10,7 +10,8 @@ import FormInput from './components/form-input/index';
 import FormRemember from './components/form-remember/index';
 import FormSubmit from './components/form-submit/index';
 import FormMessages from './components/form-messages/index';
-import FormCreate from './components/form-create/index';
+import FormAccountCreate from './components/form-account-create/index';
+import FormAccountLogin from './components/form-account-login/index';
 
 class LoginForm extends React.Component{
   constructor(props){
@@ -36,7 +37,8 @@ class LoginForm extends React.Component{
       userCreatingAccount: nextProps.userCreatingAccount || false,
       setAxiosRequestPending: nextProps.setAxiosRequestPending || false,
       setAxiosRequestSuccess: nextProps.setAxiosRequestSuccess || false,
-      setAxiosRequestError: nextProps.setAxiosRequestError || false
+      setAxiosRequestError: nextProps.setAxiosRequestError || false,
+      hasUserToggledView: nextProps.hasUserToggledView || false
     });
     if (this.props.hasFormBeenSubmitted) {
       this.setState({
@@ -74,7 +76,12 @@ class LoginForm extends React.Component{
               </FormInput>
             </div>
 
-            <div className={"create " + (this.state.userCreatingAccount ? 'slide-left' : '')}>
+            <FormAccountLogin
+              opacityClass={(this.state.userCreatingAccount ? 'show-opacity' : 'hide-opacity')}
+              toggleLoginView={this.props.toggleLoginView}>
+            </FormAccountLogin>
+
+            <div className={(this.state.hasUserToggledView ? 'create' : 'create-initial') + (this.state.userCreatingAccount ? ' slide-left' : ' slide-right')}>
               <FormInput
                 labelFor="first_name"
                 labelText="First Name"
@@ -96,10 +103,10 @@ class LoginForm extends React.Component{
               <FormSubmit buttonText={'Create'}></FormSubmit>
             </div>
 
-            <div className={"login " + (this.state.userCreatingAccount ? 'slide-left' : '')}>
+            <div className={(this.state.hasUserToggledView ? 'login' : 'login-initial') + (this.state.userCreatingAccount ? ' slide-left' : ' slide-right')}>
               <FormRemember></FormRemember>
               <FormSubmit buttonText={'Login'}></FormSubmit>
-              <FormCreate handleCreateAccount={this.props.handleCreateAccount}></FormCreate>
+              <FormAccountCreate toggleLoginView={this.props.toggleLoginView}></FormAccountCreate>
             </div>
 
             <FormMessages
