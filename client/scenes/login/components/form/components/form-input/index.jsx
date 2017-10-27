@@ -8,6 +8,7 @@ class FormInput extends Component {
   constructor(props){
     super(props);
     this.state = {
+      value: '',
       errorMessage: '',
       errorCatalog: {
         email: {
@@ -34,6 +35,15 @@ class FormInput extends Component {
    * @param  {Object} nextProps [description]
    */
   componentWillReceiveProps(nextProps){
+    if (nextProps.formValues) {
+      for (let input in nextProps.formValues) {
+        if (nextProps.formValues.hasOwnProperty(this.props.inputName)) {
+          this.setState({
+            value: nextProps.formValues[this.props.inputName]
+          })
+        }
+      }
+    }
     if (nextProps.errors) {
       this.setState({
         errorMessage: ''
@@ -60,6 +70,7 @@ class FormInput extends Component {
           name={this.props.inputName}
           onChange={this.props.handleChange}
           placeholder={this.props.labelText}
+          value={this.state.value}
           spellCheck="false" />
           { this.props.hasFormBeenSubmitted && this.state.errorMessage.length > 0 ?
             <div className="error-wrapper">

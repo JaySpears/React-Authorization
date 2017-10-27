@@ -21,7 +21,8 @@ class LoginForm extends React.Component{
       userCreatingAccount: false,
       setAxiosRequestPending: false,
       setAxiosRequestSuccess: false,
-      setAxiosRequestError: false
+      setAxiosRequestError: false,
+      hasUserToggledView: false
     };
   }
 
@@ -63,6 +64,7 @@ class LoginForm extends React.Component{
                 inputName="email"
                 errors={this.props.errors}
                 handleChange={this.props.handleChange}
+                formValues={this.props.formValues}
                 hasFormBeenSubmitted={this.state.hasFormBeenSubmitted}>
               </FormInput>
               <FormInput
@@ -72,6 +74,7 @@ class LoginForm extends React.Component{
                 inputName="password"
                 errors={this.props.errors}
                 handleChange={this.props.handleChange}
+                formValues={this.props.formValues}
                 hasFormBeenSubmitted={this.state.hasFormBeenSubmitted}>
               </FormInput>
             </div>
@@ -88,6 +91,7 @@ class LoginForm extends React.Component{
                 inputType="text"
                 inputName="firstName"
                 errors={this.props.errors}
+                formValues={this.props.formValues}
                 handleChange={this.props.handleChange}
                 hasFormBeenSubmitted={this.state.hasFormBeenSubmitted}>
               </FormInput>
@@ -97,6 +101,7 @@ class LoginForm extends React.Component{
                 inputType="text"
                 inputName="lastName"
                 errors={this.props.errors}
+                formValues={this.props.formValues}
                 handleChange={this.props.handleChange}
                 hasFormBeenSubmitted={this.state.hasFormBeenSubmitted}>
               </FormInput>

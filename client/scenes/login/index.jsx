@@ -1,6 +1,6 @@
 // Import dependencies.
 import React, { Component } from 'react';
-import { login, createUserAccount } from '../../actions/action.login';
+import { login, createUserAccount, resetRequestReducers } from '../../actions/action.login';
 import { connect } from 'react-redux';
 
 // Import scene styles.
@@ -13,14 +13,16 @@ class LoginScene extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      email: '',
-      password: '',
-      firstName: '',
-      lastName: '',
+      userCreatingAccount: false,
       formSubmitted: false,
       isFormValid: false,
-      userCreatingAccount: false,
       hasUserToggledView: false,
+      formValues: {
+        email: '',
+        password: '',
+        firstName: '',
+        lastName: ''
+      },
       errors:{
         email: {},
         password: {},
@@ -53,15 +55,15 @@ class LoginScene extends React.Component{
       ) {
         if (this.state.userCreatingAccount) {
           this.props.createUserAccount(
-            this.state.email,
-            this.state.password,
-            this.state.firstName,
-            this.state.lastName
+            this.state.formValues.email,
+            this.state.formValues.password,
+            this.state.formValues.firstName,
+            this.state.formValues.lastName
           )
         } else {
           this.props.login(
-            this.state.email,
-            this.state.password
+            this.state.formValues.email,
+            this.state.formValues.password
           );
         }
       }
@@ -77,7 +79,9 @@ class LoginScene extends React.Component{
   handleChange(event){
     event.preventDefault();
     this.setState({
-      [event.target.name]: event.target.value
+      formValues: Object.assign(this.state.formValues, {
+        [event.target.name]: event.target.value
+      })
     }, this.validateForm);
   }
 
@@ -104,7 +108,7 @@ class LoginScene extends React.Component{
    */
   toggleLoginView(event){
     event.preventDefault();
-
+    this.props.resetRequestReducers();
     if (this.state.userCreatingAccount) {
       this.resetLoginView(false);
     } else {
@@ -122,6 +126,12 @@ class LoginScene extends React.Component{
     this.setState({
       userCreatingAccount: userCreatingAccount,
       hasUserToggledView: true,
+      formValues: Object.assign(this.state.formValues, {
+        email: '',
+        password: '',
+        firstName: '',
+        lastName: ''
+      }),
       errors: Object.assign(this.state.errors, {
         email: {},
         password: {},
@@ -149,13 +159,13 @@ class LoginScene extends React.Component{
     }, () => {
       for (var inputField in this.state.errors) {
         if (this.state.errors.hasOwnProperty(inputField)) {
-          if (this.state[inputField].length === 0) {
+          if (this.state.formValues[inputField].length === 0) {
             if (this.state.userCreatingAccount) {
               this.assignFormErrors(inputField, 'required');
             } else if(inputField !== 'firstName' && inputField !== 'lastName'){
               this.assignFormErrors(inputField, 'required');
             }
-          } else if (this.state[inputField].length > 0 && inputField === 'email') {
+          } else if (this.state.formValues[inputField].length > 0 && inputField === 'email') {
             if (!/^((?!.*\.\.)[a-z0-9\.\-]+[^\.]@[a-z0-9\-]+(?:\.[a-z]+)+)$/mgi.test(
               this.state[inputField]
             )) {
@@ -198,7 +208,8 @@ class LoginScene extends React.Component{
           setAxiosRequestPending={this.props.setAxiosRequestPending}
           setAxiosRequestSuccess={this.props.setAxiosRequestSuccess}
           setAxiosRequestError={this.props.setAxiosRequestError}
-          errors={this.state.errors}>
+          errors={this.state.errors}
+          formValues={this.state.formValues}>
         </LoginForm>
       </div>
     );
@@ -224,6 +235,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     createUserAccount: (username, password, firstName, lastName) => {
       dispatch(createUserAccount(username, password, firstName, lastName));
+    },
+    resetRequestReducers: () => {
+      dispatch(resetRequestReducers());
     }
   }
 }

@@ -112,3 +112,11 @@ export function createUserAccount(email, password, firstName, lastName){
     });
   }
 }
+
+export function resetRequestReducers() {
+  return (dispatch) => {
+    dispatch(setAxiosRequestPending(false));
+    dispatch(setAxiosRequestSuccess(false));
+    dispatch(setAxiosRequestError(false));
+  }
+}
