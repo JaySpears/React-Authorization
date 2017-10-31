@@ -2,6 +2,8 @@ import bcrypt from 'bcrypt';
 import Models from './../models';
 import jwt from 'jsonwebtoken';
 
+const env = require(`./../../config/environments/${process.env.NODE_ENV || 'local'}.json`);
+
 //////////////////////////////////////
 // User Model Middleware Definition //
 //////////////////////////////////////
@@ -48,7 +50,7 @@ class UserMiddleware {
       });
 
       return response = {
-        token: jwt.sign({ email: user.email }, 'secret'),
+        token: jwt.sign({ email: user.email }, env.secret),
         status: 200
       };
     } else {
@@ -71,7 +73,8 @@ class UserMiddleware {
     let response = {};
     const user = {
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password,
+      remember: req.body.rememberUser
     };
     const matchedUser = await Models.Users.findOne({
       where: {
@@ -84,8 +87,18 @@ class UserMiddleware {
 
       // If user password matched successfully.
       if(await bcrypt.compare(user.password, matchedUserHashedPassword)){
+        let token;
+        if (user.remember) {
+          token = jwt.sign({ email: user.email }, env.secret, {
+            expiresIn: '30d'
+          });
+        } else {
+          token = jwt.sign({ email: user.email }, env.secret, {
+            expiresIn: '8h'
+          });
+        }
         return response = {
-          token: jwt.sign({ email: user.email }, 'secret'),
+          token: token,
           status: 200
         };
       } else {

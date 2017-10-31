@@ -4,5 +4,6 @@
     "db_pass": "root",
     "db_database": "TrackIt",
     "app_url": "localhost:8082",
-    "port": 8080
+    "port": 8080,
+    "secret": "secret"
 }

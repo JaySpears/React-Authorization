@@ -63,7 +63,7 @@ class LoginForm extends React.Component{
                 inputType="text"
                 inputName="email"
                 errors={this.props.errors}
-                handleChange={this.props.handleChange}
+                handleInputChange={this.props.handleInputChange}
                 formValues={this.props.formValues}
                 hasFormBeenSubmitted={this.state.hasFormBeenSubmitted}>
               </FormInput>
@@ -73,7 +73,7 @@ class LoginForm extends React.Component{
                 inputType="password"
                 inputName="password"
                 errors={this.props.errors}
-                handleChange={this.props.handleChange}
+                handleInputChange={this.props.handleInputChange}
                 formValues={this.props.formValues}
                 hasFormBeenSubmitted={this.state.hasFormBeenSubmitted}>
               </FormInput>
@@ -92,7 +92,7 @@ class LoginForm extends React.Component{
                 inputName="firstName"
                 errors={this.props.errors}
                 formValues={this.props.formValues}
-                handleChange={this.props.handleChange}
+                handleInputChange={this.props.handleInputChange}
                 hasFormBeenSubmitted={this.state.hasFormBeenSubmitted}>
               </FormInput>
               <FormInput
@@ -102,14 +102,17 @@ class LoginForm extends React.Component{
                 inputName="lastName"
                 errors={this.props.errors}
                 formValues={this.props.formValues}
-                handleChange={this.props.handleChange}
+                handleInputChange={this.props.handleInputChange}
                 hasFormBeenSubmitted={this.state.hasFormBeenSubmitted}>
               </FormInput>
               <FormSubmit buttonText={'Create'}></FormSubmit>
             </div>
 
             <div className={(this.state.hasUserToggledView ? 'login' : 'login-initial') + (this.state.userCreatingAccount ? ' slide-left' : ' slide-right')}>
-              <FormRemember></FormRemember>
+              <FormRemember
+                rememberUser={this.props.rememberUser}
+                handleCheckboxChange={this.props.handleCheckboxChange}>
+              </FormRemember>
               <FormSubmit buttonText={'Login'}></FormSubmit>
               <FormAccountCreate toggleLoginView={this.props.toggleLoginView}></FormAccountCreate>
             </div>

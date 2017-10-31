@@ -68,7 +68,7 @@ class FormInput extends Component {
         <input
           type={this.props.inputType}
           name={this.props.inputName}
-          onChange={this.props.handleChange}
+          onChange={this.props.handleInputChange}
           placeholder={this.props.labelText}
           value={this.state.value}
           spellCheck="false" />

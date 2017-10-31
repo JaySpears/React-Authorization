@@ -47,7 +47,7 @@ export function setAxiosRequestError(bool) {
  * @param  {String} username
  * @param  {String} password
  */
-export function login(email, password) {
+export function login(email, password, rememberUser) {
   return (dispatch) => {
     // Reset global state.
     dispatch(setAxiosRequestPending(true));
@@ -56,7 +56,8 @@ export function login(email, password) {
     // Post axios
     axios.post('/users/login', {
       email: email,
-      password: password
+      password: password,
+      rememberUser: rememberUser
     }).then((response) => {
       // Set user JWT.
       localStorage.setItem('token', response.headers.token);

@@ -17,6 +17,7 @@ class LoginScene extends React.Component{
       formSubmitted: false,
       isFormValid: false,
       hasUserToggledView: false,
+      rememberUser: false,
       formValues: {
         email: '',
         password: '',
@@ -31,7 +32,8 @@ class LoginScene extends React.Component{
       }
     };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     this.handleFormSubmission = this.handleFormSubmission.bind(this);
     this.toggleLoginView = this.toggleLoginView.bind(this);
     this.validateForm = this.validateForm.bind(this);
@@ -63,26 +65,39 @@ class LoginScene extends React.Component{
         } else {
           this.props.login(
             this.state.formValues.email,
-            this.state.formValues.password
+            this.state.formValues.password,
+            this.state.rememberUser
           );
         }
       }
     }
 
   /**
-   * handleChange, updates state reference for each
+   * handleInputChange, updates state reference for each
    * input field value on change. Once state is updated,
    * the form will be validated on the fly.
    *
    * @param  {Object} event
    */
-  handleChange(event){
+  handleInputChange(event){
     event.preventDefault();
     this.setState({
       formValues: Object.assign(this.state.formValues, {
         [event.target.name]: event.target.value
       })
     }, this.validateForm);
+  }
+
+  /**
+   * handleCheckboxChange, updates state reference
+   * checkboxes.
+   *
+   * @param  {Object} event
+   */
+  handleCheckboxChange(event){
+    this.setState({
+      rememberUser: event.target.checked
+    });
   }
 
   /**
@@ -202,14 +217,16 @@ class LoginScene extends React.Component{
           hasFormBeenSubmitted={this.state.formSubmitted}
           hasUserToggledView={this.state.hasUserToggledView}
           handleFormSubmission={this.handleFormSubmission}
-          handleChange={this.handleChange}
+          handleInputChange={this.handleInputChange}
+          handleCheckboxChange={this.handleCheckboxChange}
+          rememberUser={this.state.rememberUser}
           toggleLoginView={this.toggleLoginView}
           userCreatingAccount={this.state.userCreatingAccount}
           setAxiosRequestPending={this.props.setAxiosRequestPending}
           setAxiosRequestSuccess={this.props.setAxiosRequestSuccess}
           setAxiosRequestError={this.props.setAxiosRequestError}
-          errors={this.state.errors}
-          formValues={this.state.formValues}>
+          formValues={this.state.formValues}
+          errors={this.state.errors}>
         </LoginForm>
       </div>
     );
