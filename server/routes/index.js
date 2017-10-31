@@ -1,6 +1,6 @@
 import path from 'path';
-import userMiddleware from './controllers/controller.users.js';
-import { app } from './index.js';
+import userMiddleware from './../controllers/controller.users.js';
+import { app } from './../index.js';
 
 ////////////////////////////
 // Route Class Definition //
@@ -56,7 +56,7 @@ class Routes {
 const routes = new Routes();
 
 // Get route methods.
-app.get('/', routes.Root);
+app.get('*', routes.Root);
 
 // Post route methods.
 app.post('/users/create', routes.Create);

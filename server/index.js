@@ -35,7 +35,7 @@ app.use(bodyParser.json());
 module.exports.app = app;
 
 // Require routes.
-require('./routes');
+require('./routes/index');
 
 // Run express server.
 app.listen(port);
