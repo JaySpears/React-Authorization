@@ -41,36 +41,36 @@ class LoginScene extends React.Component{
     this.resetLoginView = this.resetLoginView.bind(this);
   }
 
-    /**
-     * componentWillUpdate, built in react method
-     * for when component updates.
-     *
-     * @param  {Object} prevProps [description]
-     * @param  {Object} prevState [description]
-     */
-    componentDidUpdate(prevProps, prevState) {
-      if (
-        prevState.isFormValid &&
-        this.state.formSubmitted &&
-        this.state.isFormValid &&
-        !this.props.setAxiosRequestPending
-      ) {
-        if (this.state.userCreatingAccount) {
-          this.props.createUserAccount(
-            this.state.formValues.email,
-            this.state.formValues.password,
-            this.state.formValues.firstName,
-            this.state.formValues.lastName
-          )
-        } else {
-          this.props.login(
-            this.state.formValues.email,
-            this.state.formValues.password,
-            this.state.rememberUser
-          );
-        }
+  /**
+   * componentWillUpdate, built in react method
+   * for when component updates.
+   *
+   * @param  {Object} prevProps [description]
+   * @param  {Object} prevState [description]
+   */
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.isFormValid &&
+      this.state.formSubmitted &&
+      this.state.isFormValid &&
+      !this.props.setAxiosRequestPending
+    ) {
+      if (this.state.userCreatingAccount) {
+        this.props.createUserAccount(
+          this.state.formValues.email,
+          this.state.formValues.password,
+          this.state.formValues.firstName,
+          this.state.formValues.lastName
+        )
+      } else {
+        this.props.login(
+          this.state.formValues.email,
+          this.state.formValues.password,
+          this.state.rememberUser
+        );
       }
     }
+  }
 
   /**
    * handleInputChange, updates state reference for each
@@ -182,7 +182,7 @@ class LoginScene extends React.Component{
             }
           } else if (this.state.formValues[inputField].length > 0 && inputField === 'email') {
             if (!/^((?!.*\.\.)[a-z0-9\.\-]+[^\.]@[a-z0-9\-]+(?:\.[a-z]+)+)$/mgi.test(
-              this.state[inputField]
+              this.state.formValues[inputField]
             )) {
               this.assignFormErrors(inputField, 'invalid');
             }

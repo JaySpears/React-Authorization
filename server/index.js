@@ -1,3 +1,4 @@
+// Dependencies.
 import express from 'express';
 import webpack from 'webpack';
 import bodyParser from 'body-parser';
@@ -5,6 +6,7 @@ import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import db from './models/index';
 
+// Constants.
 const config = require('../webpack.config.js');
 const isDeveloping = !process.env.NODE_ENV;
 const port = isDeveloping ? 8082 : process.env.PORT;

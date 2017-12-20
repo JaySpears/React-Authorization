@@ -1,7 +1,9 @@
+// Dependencies.
 import fs from 'fs';
 import path from 'path';
 import Sequelize from 'sequelize';
 
+// Constants.
 const db = {};
 const env = require(`./../../config/environments/${process.env.NODE_ENV || 'local'}.json`);
 const sequelize = new Sequelize(
@@ -21,10 +23,16 @@ const sequelize = new Sequelize(
 
 // Iterate over model files in the model directory.
 // Import the model.
-fs.readdirSync(__dirname).filter(function(file) {
+fs.readdirSync(__dirname).filter((file) => {
   return file !== 'index.js';
-}).forEach(function(file) {
-  let model = sequelize.import(path.join(__dirname, file));
+}).forEach((file) => {
+  let modelReference = require(path.join(__dirname, file));
+  let model = sequelize.import(modelReference.default.Model, (sequelize, dataType) => {
+    return sequelize.define(
+      modelReference.default.Model,
+      modelReference.default.Schema(sequelize, dataType)
+    );
+  })
   db[model.name] = model;
 });
 

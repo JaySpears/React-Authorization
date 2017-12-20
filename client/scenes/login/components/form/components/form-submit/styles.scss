@@ -3,17 +3,19 @@ button {
   border: none;
   color: black;
   text-transform: uppercase;
-  padding: 6px 20px;
+  padding: 6px 15px;
   text-align: center;
   text-decoration: none;
   border: 1px solid #d8cece;
-  font-size: 14px;
+  font-size: 13px;
   margin-top: 17px;
   cursor: pointer;
   transition: all 0.4s;
   font-family: 'Roboto';
   border-radius: 3px;
   font-weight: 700;
+  border-radius: 0px;
+  width: 193px;
   &:hover,
   &:focus{
     outline: none;
