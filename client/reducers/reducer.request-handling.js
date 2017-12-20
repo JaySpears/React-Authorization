@@ -5,13 +5,13 @@ const initialState = {
 };
 
 /**
- * function loginReducer, reducer switch statement
- * for login action options.
+ * function requestHandlingReducer, reducer switch statement
+ * for request action options.
  *
  * @param  {Object} state
  * @param  {Object} action
  */
-function loginReducer(state = initialState, action){
+function requestHandlingReducer(state = initialState, action){
   switch (action.type) {
     case 'AXIOUS_REQUEST_PENDING' : {
       return Object.assign({}, state, {
@@ -33,4 +33,4 @@ function loginReducer(state = initialState, action){
   }
 }
 
-export default loginReducer;
+export default requestHandlingReducer;
