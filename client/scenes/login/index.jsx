@@ -1,6 +1,7 @@
 // Import dependencies.
 import React, { Component } from 'react';
-import { login, createUserAccount, resetRequestReducers } from '../../actions/action.login';
+import { login, createUserAccount } from '../../actions/action.login';
+import { resetRequestReducers } from '../../actions/action.request-handling';
 import { connect } from 'react-redux';
 
 // Import scene styles.
@@ -61,7 +62,7 @@ class LoginScene extends React.Component{
           this.state.formValues.password,
           this.state.formValues.firstName,
           this.state.formValues.lastName
-        )
+        );
       } else {
         this.props.login(
           this.state.formValues.email,

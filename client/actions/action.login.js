@@ -1,43 +1,10 @@
 import axios from 'axios';
+import {
+  setAxiosRequestPending,
+  setAxiosRequestSuccess,
+  setAxiosRequestError
+} from './action.request-handling';
 
-/**
- * function setLoginPending, action for login
- * form submission.
- *
- * @param {Boolean} bool
- */
-export function setAxiosRequestPending(bool) {
-  return {
-    type: 'AXIOUS_REQUEST_PENDING',
-    setAxiosRequestPending: bool
-  }
-}
-
-/**
- * function setLoginSuccess, action for login
- * form submission success.
- *
- * @param {Boolean} bool
- */
-export function setAxiosRequestSuccess(bool) {
-  return {
-    type: 'SET_AXIOS_REQUEST_SUCCESS',
-    setAxiosRequestSuccess: bool
-  }
-}
-
-/**
- * function setLoginError, action for login
- * form submission error.
- *
- * @param {Boolean} bool
- */
-export function setAxiosRequestError(bool) {
-  return {
-    type: 'SET_AXIOS_REQUEST_ERROR',
-    setAxiosRequestError: bool
-  }
-}
 
 /**
  * function login, main action for sending user information
@@ -111,13 +78,5 @@ export function createUserAccount(email, password, firstName, lastName){
         dispatch(setAxiosRequestError(true));
       }, 1500);
     });
-  }
-}
-
-export function resetRequestReducers() {
-  return (dispatch) => {
-    dispatch(setAxiosRequestPending(false));
-    dispatch(setAxiosRequestSuccess(false));
-    dispatch(setAxiosRequestError(false));
   }
 }

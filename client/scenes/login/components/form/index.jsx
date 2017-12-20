@@ -12,6 +12,7 @@ import FormSubmit from './components/form-submit/index';
 import FormMessages from './components/form-messages/index';
 import FormAccountCreate from './components/form-account-create/index';
 import FormAccountLogin from './components/form-account-login/index';
+import history from './../../../../index';
 
 class LoginForm extends React.Component{
   constructor(props){
@@ -41,6 +42,13 @@ class LoginForm extends React.Component{
       setAxiosRequestError: nextProps.setAxiosRequestError || false,
       hasUserToggledView: nextProps.hasUserToggledView || false
     });
+    // Since request was successful, redirect to the main page.
+    if (this.state.setAxiosRequestSuccess) {
+      // Showing the successful login message for 2 seconds.
+      setTimeout(function () {
+        history.push('/main');
+      }, 1000);
+    }
     if (this.props.hasFormBeenSubmitted) {
       this.setState({
         hasFormBeenSubmitted: true

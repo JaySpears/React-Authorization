@@ -1,10 +1,11 @@
 // React dependencies.
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk'
+import thunk from 'redux-thunk';
+import createBrowserHistory from 'history/createBrowserHistory';
 
 // Import current root state of the application via reducers,
 import reducers from './reducers/index.js'
@@ -18,12 +19,13 @@ import Container from './components/container/index.jsx';
 // Create store for state management.
 const createStoreWithMiddleWare = applyMiddleware(thunk)(createStore);
 const store = createStoreWithMiddleWare(reducers);
+const history = createBrowserHistory();
 
 // Render application.
 ReactDOM.render(
   <Provider store={store}>
     <Container>
-      <Router>{routes}</Router>
+      <Router history={history}>{routes}</Router>
     </Container>
   </Provider>,
   document.getElementById('application')
@@ -33,3 +35,6 @@ ReactDOM.render(
 if (module.hot) {
   module.hot.accept();
 }
+
+// Exporting history for redirects.
+export default history;
