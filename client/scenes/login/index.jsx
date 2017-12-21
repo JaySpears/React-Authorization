@@ -9,6 +9,7 @@ import LoginSceneStyles from './styles.scss';
 
 // Import components.
 import LoginForm from './components/form/index';
+import Navigation from './../../components/navigation';
 
 class LoginScene extends React.Component{
   constructor(props){
@@ -214,6 +215,7 @@ class LoginScene extends React.Component{
   render(){
     return(
       <div>
+        <Navigation></Navigation>
         <LoginForm
           hasFormBeenSubmitted={this.state.formSubmitted}
           hasUserToggledView={this.state.hasUserToggledView}
@@ -238,9 +240,9 @@ class LoginScene extends React.Component{
 // this components props.
 const mapStateToProps = (state, ownProps) => {
   return {
-    setAxiosRequestPending: state.loginReducer.setAxiosRequestPending,
-    setAxiosRequestSuccess: state.loginReducer.setAxiosRequestSuccess,
-    setAxiosRequestError: state.loginReducer.setAxiosRequestError
+    setAxiosRequestPending: state.requestHandlingReducer.setAxiosRequestPending,
+    setAxiosRequestSuccess: state.requestHandlingReducer.setAxiosRequestSuccess,
+    setAxiosRequestError: state.requestHandlingReducer.setAxiosRequestError
   };
 }
 

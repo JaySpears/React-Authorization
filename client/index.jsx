@@ -25,7 +25,7 @@ const history = createBrowserHistory();
 ReactDOM.render(
   <Provider store={store}>
     <Container>
-      <Router history={history}>{routes}</Router>
+      <Router history={history}>{routes(store)}</Router>
     </Container>
   </Provider>,
   document.getElementById('application')

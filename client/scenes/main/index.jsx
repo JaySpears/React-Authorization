@@ -1,6 +1,9 @@
 // Import dependencies.
 import React, { Component } from 'react';
 
+// Import components.
+import Navigation from './../../components/navigation';
+
 // Import scene styles.
 import MainSceneStyles from './styles.scss';
 
@@ -8,7 +11,7 @@ class MainScene extends React.Component{
   render(){
     return(
       <div>
-        <p>Main Scene</p>
+        <Navigation></Navigation>
       </div>
     );
   }

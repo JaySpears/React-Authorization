@@ -21,7 +21,7 @@ export function login(email, password, rememberUser) {
     dispatch(setAxiosRequestSuccess(false));
     dispatch(setAxiosRequestError(false));
     // Post axios
-    axios.post('/users/login', {
+    axios.post('/user/login', {
       email: email,
       password: password,
       rememberUser: rememberUser
@@ -59,7 +59,7 @@ export function createUserAccount(email, password, firstName, lastName){
     dispatch(setAxiosRequestPending(true));
     dispatch(setAxiosRequestSuccess(false));
     dispatch(setAxiosRequestError(false));
-    axios.post('/users/create', {
+    axios.post('/user/create', {
       email: email,
       password: password,
       firstName: firstName,

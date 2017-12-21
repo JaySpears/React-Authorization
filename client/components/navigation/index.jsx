@@ -10,7 +10,8 @@ class Navigation extends Component {
   render() {
     return (
       <nav>
-
+        <NavLink to="/">Home</NavLink>
+        <NavLink to="/main">Main</NavLink>
       </nav>
     )
   }

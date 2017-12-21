@@ -8,7 +8,7 @@ const env = require(`./../../config/environments/${process.env.NODE_ENV || 'loca
 // User Model Middleware Definition //
 //////////////////////////////////////
 
-class UserMiddleware {
+class UserController {
   constructor() {
     this.Create = this.Create.bind(this);
     this.Login = this.Login.bind(this);
@@ -18,7 +18,7 @@ class UserMiddleware {
    * Create, create middleware function for users.
    *
    * @param {Object} req
-   * @return {Integer} Status
+   * @return {Object} Response
    */
   async Create(req) {
     let response = {};
@@ -67,7 +67,7 @@ class UserMiddleware {
    * Login, login middleware function for users.
    *
    * @param {Object} req
-   * @return {Integer} Status
+   * @return {Object} Response
    */
   async Login(req) {
     let response = {};
@@ -111,10 +111,27 @@ class UserMiddleware {
       status: 403
     };
   }
+
+  /**
+   * Authroize, authroize middleware function for users.
+   *
+   * @param {Object} req
+   * @return {Object} Response
+   */
+  async Authorize(req) {
+    let response = {};
+    let usersToken = req.body.token;
+    await jwt.verify(usersToken, env.secret, (err, data) => {
+      response = {
+        status: err !== null ? 403 : 200
+      };
+    })
+    return response;
+  }
 }
 
-// New instance of UserMiddleware.
-const userMiddleware = new UserMiddleware();
+// New instance of userController.
+const userController = new UserController();
 
 // Export model instance.
-export default userMiddleware;
+export default userController;
