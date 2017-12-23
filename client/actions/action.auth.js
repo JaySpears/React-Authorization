@@ -14,6 +14,18 @@ export function isAuthorized(bool) {
 }
 
 /**
+ * function setUsersAuthorization, updates state for
+ * users authorization.
+ *
+ * @param {Boolean} bool
+ */
+export function setUsersAuthorization(bool) {
+  return (dispatch) => {
+    isAuthorized(bool);
+  }
+}
+
+/**
  * function checkUserAuthorization, returns boolean
  * if user is authorized by sending the users JWT token
  * to the api for decryption.
@@ -21,14 +33,13 @@ export function isAuthorized(bool) {
  * @param {String} token, User's JWT token.
  */
 export function checkUserAuthorization(token) {
-  if (localStorage.getItem('token') === null) {
-    return isAuthorized(false);
+  return (dispatch) => {
+    axios.post('/user/authorize', {
+      token: token
+    }).then((response) => {
+      setUsersAuthorization(true);
+    }).catch((e) => {
+      setUsersAuthorization(false);
+    });
   }
-  axios.post('/users/auth', {
-    token: token
-  }).then((response) => {
-
-  }).catch((e) => {
-
-  });
 }

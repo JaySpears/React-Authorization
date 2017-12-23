@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { login, createUserAccount } from '../../actions/action.login';
 import { resetRequestReducers } from '../../actions/action.request-handling';
+import { setUsersAuthorization } from '../../actions/action.auth';
 import { connect } from 'react-redux';
 
 // Import scene styles.
@@ -64,7 +65,10 @@ class LoginScene extends React.Component{
           this.state.formValues.firstName,
           this.state.formValues.lastName
         );
+        this.props.setUsersAuthorization(true);
       } else {
+        console.log(this.props);
+        this.props.setUsersAuthorization(true);
         this.props.login(
           this.state.formValues.email,
           this.state.formValues.password,
@@ -258,6 +262,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     resetRequestReducers: () => {
       dispatch(resetRequestReducers());
+    },
+    setUsersAuthorization: (bool) => {
+      dispatch(setUsersAuthorization(bool));
     }
   }
 }
