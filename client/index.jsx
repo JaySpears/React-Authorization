@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import createBrowserHistory from 'history/createBrowserHistory';
 
@@ -17,8 +17,12 @@ import routes from './routes/index.js';
 import Container from './components/container/index.jsx';
 
 // Create store for state management.
-const createStoreWithMiddleWare = applyMiddleware(thunk)(createStore);
-const store = createStoreWithMiddleWare(reducers);
+const store = createStore(
+  reducers,
+  compose(applyMiddleware(thunk))
+);
+
+// Application history. Routes, etc.
 const history = createBrowserHistory();
 
 // Render application.

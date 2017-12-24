@@ -8,39 +8,48 @@ import { connect } from 'react-redux';
 class AuthorizedRoute extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      isAuthorized: false
-    };
-    console.log(props);
-    this.props.checkUserAuthorization(localStorage.getItem('token'));
+    this.state = {};
   }
 
-  /**
-   * function componentWillReceiveProps, built in react method.
-   * Will execute when the properties insides retrieve new
-   * values.
-   *
-   * @param  {Object} nextProps
-   */
-  componentWillReceiveProps(nextProps){
-    console.log(nextProps);
+  componentWillReceiveProps(nextProps) {
     if (!nextProps.isAuthorized) {
-      this.props.checkUserAuthorization(localStorage.getItem('token'));
+      this.setState({
+        allowUserAccessToComponent: false
+      });
     }
-    this.setState({
-      isAuthorized: nextProps.isAuthorized || false
-    });
+  }
+
+  componentWillMount(){
+    // When the users authorization is false, meaning they either hard
+    // refreshed the page and reset the isAuthorized property, or they
+    // manually typed in a url prior to logging in successfully for this
+    // application, we will ensure a token is present in localStorage
+    // for the user. If one doesn't exist, redirect them to the login page.
+    // If one does exist, call the checkUserAuthorization action, which will
+    // pass the users token down to the API for verification.
+    // If an error returns redirect, otherwise show the component :)
+    if (!this.props.isAuthorized) {
+      const usersToken = localStorage.getItem('token');
+      if (usersToken !== null) {
+        this.props.checkUserAuthorization(usersToken);
+      } else {
+        this.setState({
+          allowUserAccessToComponent: false
+        });
+      }
+    }
   }
 
   render() {
     const { component: Component, ...rest } = this.props;
     return (
-      // this.state.isAuthorized ?
-      //   <Route {...rest} render={props => (
-      //     <Component {...props}/>
-      //   )}/>
-      // : <Redirect to='/'/>
-      <div>hi</div>
+      <Route {...rest} render={props => (
+        <div>
+          <div>
+            { !this.state.allowUserAccessToComponent ? <Redirect to='/'/> : <Component {...props}/> }
+          </div>
+        </div>
+      )} />
     )
   }
 }

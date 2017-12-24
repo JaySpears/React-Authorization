@@ -6,7 +6,6 @@ import { NavLink } from 'react-router-dom'
 import NavigationStyles from './styles.scss';
 
 class Navigation extends Component {
-  // Render element.
   render() {
     return (
       <nav>

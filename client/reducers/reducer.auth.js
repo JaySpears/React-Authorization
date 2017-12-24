@@ -1,5 +1,5 @@
  const initialState = {
-   isAuthorized: false
+   isAuthorized: null
  };
 
  /**

@@ -21,7 +21,7 @@ export function isAuthorized(bool) {
  */
 export function setUsersAuthorization(bool) {
   return (dispatch) => {
-    isAuthorized(bool);
+    dispatch(isAuthorized(bool));
   }
 }
 
@@ -33,13 +33,14 @@ export function setUsersAuthorization(bool) {
  * @param {String} token, User's JWT token.
  */
 export function checkUserAuthorization(token) {
+
   return (dispatch) => {
     axios.post('/user/authorize', {
       token: token
     }).then((response) => {
-      setUsersAuthorization(true);
+      dispatch(isAuthorized(true));
     }).catch((e) => {
-      setUsersAuthorization(false);
+      dispatch(isAuthorized(false));
     });
   }
 }

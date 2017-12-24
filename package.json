@@ -1,7 +1,7 @@
 {
-  "name": "trackn",
+  "name": "idkyet",
   "version": "1.0.0",
-  "description": "Track your time, now.",
+  "description": "IDK YET!",
   "main": "index.html",
   "scripts": {
     "start": "nodemon server/index.js --exec babel-node",

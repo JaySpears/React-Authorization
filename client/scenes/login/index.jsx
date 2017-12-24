@@ -58,6 +58,7 @@ class LoginScene extends React.Component{
       this.state.isFormValid &&
       !this.props.setAxiosRequestPending
     ) {
+      this.props.setUsersAuthorization(true);
       if (this.state.userCreatingAccount) {
         this.props.createUserAccount(
           this.state.formValues.email,
@@ -65,10 +66,7 @@ class LoginScene extends React.Component{
           this.state.formValues.firstName,
           this.state.formValues.lastName
         );
-        this.props.setUsersAuthorization(true);
       } else {
-        console.log(this.props);
-        this.props.setUsersAuthorization(true);
         this.props.login(
           this.state.formValues.email,
           this.state.formValues.password,
@@ -219,7 +217,6 @@ class LoginScene extends React.Component{
   render(){
     return(
       <div>
-        <Navigation></Navigation>
         <LoginForm
           hasFormBeenSubmitted={this.state.formSubmitted}
           hasUserToggledView={this.state.hasUserToggledView}
@@ -246,7 +243,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     setAxiosRequestPending: state.requestHandlingReducer.setAxiosRequestPending,
     setAxiosRequestSuccess: state.requestHandlingReducer.setAxiosRequestSuccess,
-    setAxiosRequestError: state.requestHandlingReducer.setAxiosRequestError
+    setAxiosRequestError: state.requestHandlingReducer.setAxiosRequestError,
+    isAuthorized: state.authorizationReducer.isAuthorized
   };
 }
 
