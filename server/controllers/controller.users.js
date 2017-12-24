@@ -122,9 +122,7 @@ class UserController {
     let response = {};
     let usersToken = req.body.token;
     await jwt.verify(usersToken, env.secret, (err, data) => {
-      response = {
-        status: err !== null ? 403 : 200
-      };
+      response.status = (err !== null ? 403 : 200);
     })
     return response;
   }
