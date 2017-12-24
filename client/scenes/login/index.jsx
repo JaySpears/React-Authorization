@@ -2,8 +2,9 @@
 import React, { Component } from 'react';
 import { login, createUserAccount } from '../../actions/action.login';
 import { resetRequestReducers } from '../../actions/action.request-handling';
-import { setUsersAuthorization } from '../../actions/action.auth';
+import { setUsersAuthorization, checkUserAuthorization } from '../../actions/action.auth';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 // Import scene styles.
 import LoginSceneStyles from './styles.scss';
@@ -42,6 +43,15 @@ class LoginScene extends React.Component{
     this.validateForm = this.validateForm.bind(this);
     this.assignFormErrors = this.assignFormErrors.bind(this);
     this.resetLoginView = this.resetLoginView.bind(this);
+  }
+
+  componentWillMount(){
+    // Checking the users authorization. If they are currently
+    // authorized, redirecting them to the main page of the application.
+    const usersToken = localStorage.getItem('token');
+    if (usersToken !== null) {
+      this.props.checkUserAuthorization(usersToken);
+    }
   }
 
   /**
@@ -217,6 +227,8 @@ class LoginScene extends React.Component{
   render(){
     return(
       <div>
+        { this.props.isAuthorized ? 
+        <Redirect to='/main'/> :
         <LoginForm
           hasFormBeenSubmitted={this.state.formSubmitted}
           hasUserToggledView={this.state.hasUserToggledView}
@@ -231,7 +243,7 @@ class LoginScene extends React.Component{
           setAxiosRequestError={this.props.setAxiosRequestError}
           formValues={this.state.formValues}
           errors={this.state.errors}>
-        </LoginForm>
+        </LoginForm> }
       </div>
     );
   }
@@ -263,6 +275,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setUsersAuthorization: (bool) => {
       dispatch(setUsersAuthorization(bool));
+    },
+    checkUserAuthorization: (token) => {
+      dispatch(checkUserAuthorization(token));
     }
   }
 }

@@ -33,7 +33,6 @@ export function setUsersAuthorization(bool) {
  * @param {String} token, User's JWT token.
  */
 export function checkUserAuthorization(token) {
-
   return (dispatch) => {
     axios.post('/user/authorize', {
       token: token
