@@ -1,12 +1,14 @@
-/**
- * Users: Base model for Users.
- */
+////////////////////////////
+// Users Model Definition //
+////////////////////////////
+
 class Users {
   constructor(){
     this.Model = 'Users';
     this.Schema = this.Schema.bind(this);
   }
 
+  // Define the model's schema.
   Schema(sequelize, dataType){
     return {
       id: {

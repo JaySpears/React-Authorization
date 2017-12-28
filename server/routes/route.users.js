@@ -5,15 +5,26 @@ import { app } from './../index.js';
 // Users Controller.
 import userController from './../controllers/controller.users.js';
 
-////////////////////////////
-// Route Class Definition //
-////////////////////////////
+/////////////////////////////////
+// User Route Class Definition //
+/////////////////////////////////
 
 class UserRoutes {
   constructor() {
     // Bind methods.
+    this.Authorize = this.Authorize.bind(this);
     this.Create = this.Create.bind(this);
     this.Login = this.Login.bind(this);
+  }
+
+  /**
+   * Login, login route function for users.
+   * @param {Object} req
+   * @param {Object} res
+   */
+  async Authorize(req, res) {
+    let response = await userController.Authorize(req);
+    res.sendStatus(response.status);
   }
 
   /**
@@ -39,16 +50,6 @@ class UserRoutes {
     if (response.token){
       res.setHeader('token', response.token);
     }
-    res.sendStatus(response.status);
-  }
-
-  /**
-   * Login, login route function for users.
-   * @param {Object} req
-   * @param {Object} res
-   */
-  async Authorize(req, res) {
-    let response = await userController.Authorize(req);
     res.sendStatus(response.status);
   }
 }

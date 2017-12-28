@@ -13,9 +13,11 @@ import LoginSceneStyles from './styles.scss';
 import LoginForm from './components/form/index';
 import Navigation from './../../components/navigation';
 
+// LoginScene Component.
 class LoginScene extends React.Component{
   constructor(props){
     super(props);
+    // Initial state of the component.
     this.state = {
       userCreatingAccount: false,
       formSubmitted: false,
@@ -35,7 +37,7 @@ class LoginScene extends React.Component{
         lastName: {}
       }
     };
-
+    // Component methods.
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     this.handleFormSubmission = this.handleFormSubmission.bind(this);
@@ -45,9 +47,15 @@ class LoginScene extends React.Component{
     this.resetLoginView = this.resetLoginView.bind(this);
   }
 
+  /**
+   * componentWillMount, lifecycle method
+   * for when component updates. Checking the users
+   * authorization. If they are currently authorized,
+   * redirecting them to the main page of the application.
+   *
+   * @param  {Object} nextProps [description]
+   */
   componentWillMount(){
-    // Checking the users authorization. If they are currently
-    // authorized, redirecting them to the main page of the application.
     const usersToken = localStorage.getItem('token');
     if (usersToken !== null) {
       this.props.checkUserAuthorization(usersToken);
@@ -55,8 +63,24 @@ class LoginScene extends React.Component{
   }
 
   /**
-   * componentWillUpdate, built in react method
-   * for when component updates.
+   * componentWillReceiveProps, updating
+   * component method. Checking to see if
+   * the users account becomes authorized
+   * via login or account creation.
+   *
+   * @param  {Object} nextProps [description]
+   */
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.isAuthorized) {
+      this.props.setUsersAuthorization(true);
+    }
+  }
+
+  /**
+   * componentWillUpdate, updating
+   * component method. Checks if form is
+   * valid, then allowing the user to create
+   * an account or login.
    *
    * @param  {Object} prevProps [description]
    * @param  {Object} prevState [description]
@@ -68,7 +92,6 @@ class LoginScene extends React.Component{
       this.state.isFormValid &&
       !this.props.setAxiosRequestPending
     ) {
-      this.props.setUsersAuthorization(true);
       if (this.state.userCreatingAccount) {
         this.props.createUserAccount(
           this.state.formValues.email,
@@ -227,7 +250,7 @@ class LoginScene extends React.Component{
   render(){
     return(
       <div>
-        { this.props.isAuthorized ? 
+        { this.props.isAuthorized ?
         <Redirect to='/main'/> :
         <LoginForm
           hasFormBeenSubmitted={this.state.formSubmitted}

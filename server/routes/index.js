@@ -2,7 +2,7 @@
 import path from 'path';
 import { app } from './../index.js';
 
-// Routes.
+// Route classes.
 import mainRoutes from './route.main.js';
 import userRoutes from './route.users.js';
 
