@@ -27,7 +27,7 @@
 
 ### Server Code Architecture :lock: :floppy_disk:
 `index.js`  **->** Root file for the node server. </br>
-`controllers`  **->** Modifies client data before passing onto the model.</br>
+`controllers`  **->** Callback method for routes, modifies client data before passing onto the model, etc.</br>
 `models`  **->** Schema structure for database tables. These models are using Sequelize as an ORM.</br>
 `routes`  **->** API endpoints. Authorizing user, logging in, etc.</br>
 
