@@ -9,7 +9,12 @@ class FormSubmit extends React.Component{
     return(
       <div>
         <div className="submit">
-          <button type="submit" name="button">{this.props.buttonText}</button>
+          <button
+            tabIndex={this.props.tabIndex}
+            type="submit"
+            name="button">
+            {this.props.buttonText}
+          </button>
         </div>
       </div>
     );

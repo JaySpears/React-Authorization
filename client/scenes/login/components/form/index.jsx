@@ -101,7 +101,8 @@ class LoginForm extends React.Component{
                 errors={this.props.errors}
                 formValues={this.props.formValues}
                 handleInputChange={this.props.handleInputChange}
-                hasFormBeenSubmitted={this.state.hasFormBeenSubmitted}>
+                hasFormBeenSubmitted={this.state.hasFormBeenSubmitted}
+                tabIndex={(this.state.userCreatingAccount ? '' : '-1')}>
               </FormInput>
               <FormInput
                 labelFor="last_name"
@@ -111,9 +112,12 @@ class LoginForm extends React.Component{
                 errors={this.props.errors}
                 formValues={this.props.formValues}
                 handleInputChange={this.props.handleInputChange}
-                hasFormBeenSubmitted={this.state.hasFormBeenSubmitted}>
+                hasFormBeenSubmitted={this.state.hasFormBeenSubmitted}
+                tabIndex={(this.state.userCreatingAccount ? '' : '-1')}>
               </FormInput>
-              <FormSubmit buttonText={'Create'}></FormSubmit>
+              <FormSubmit buttonText={'Create'}
+                tabIndex={(this.state.userCreatingAccount ? '' : '-1')}>
+              </FormSubmit>
             </div>
 
             <div className={(this.state.hasUserToggledView ? 'login' : 'login-initial') + (this.state.userCreatingAccount ? ' slide-left' : ' slide-right')}>
