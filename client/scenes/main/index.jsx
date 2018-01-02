@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 // Import components.
-import Navigation from './../../components/navigation';
+import Header from './../../components/header';
 
 // Import scene styles.
 import MainSceneStyles from './styles.scss';
@@ -11,7 +11,7 @@ class MainScene extends React.Component{
   render(){
     return(
       <div>
-        <Navigation></Navigation>
+        <Header></Header>
       </div>
     );
   }

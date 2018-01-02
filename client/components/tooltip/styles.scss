@@ -1,0 +1,57 @@
+.tooltip {
+  border: 1px solid #ccc;
+  position: absolute;
+  width: 200px;
+  right: 0;
+  background-color: white;
+  z-index: 100;
+  padding: 15px 20px 35px 20px;
+  p {
+    font-size: 13px;
+    margin: 0px 0px 5px 0px;
+    font-family: 'Roboto', sans-serif;
+    &:nth-child(1){
+      font-weight: 600;
+    }
+  }
+  a {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+    display: block;
+    position: absolute;
+    margin-top: 0px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    padding: 5px 0px;
+    background: #ccc;
+    color: black;
+    font-weight: 600;
+  }
+  &:after {
+    position: absolute;
+    content: '';
+    width: 0px;
+    height: 0px;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    top: -9px;
+    border-bottom: 8px solid #ccc;
+    right: 3px
+  }
+  &:before {
+    position: absolute;
+    content: '';
+    width: 0px;
+    height: 0px;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    top: -8px;
+    border-bottom: 9px solid white;
+    right: 3px;
+    z-index: 1;
+  }
+}

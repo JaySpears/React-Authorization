@@ -11,7 +11,6 @@ import LoginSceneStyles from './styles.scss';
 
 // Import components.
 import LoginForm from './components/form/index';
-import Navigation from './../../components/navigation';
 
 // LoginScene Component.
 class LoginScene extends React.Component{

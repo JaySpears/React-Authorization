@@ -1,0 +1,36 @@
+// Import styling base.
+@import './../../assets/styles/base.scss';
+
+header {
+  padding: 15px 0px;
+  content: '';
+  clear: both;
+  display: table;
+  width: 100%;
+  border-bottom: 1px solid black;
+  .wrapper {
+    width: 100%;
+  }
+}
+
+nav{
+  float: left;
+  margin: 18px 0px;
+  font-family: 'Roboto', sans-serif;
+  a {
+    margin-right: 30px;
+    text-decoration: none;
+    color: black;
+  }
+}
+
+.user-information-wrapper {
+  position: relative;
+  float: right;
+  i {
+    cursor: pointer;
+    color: #bbb;
+    margin: 15px 0px;
+    font-size: 24px;
+  }
+}

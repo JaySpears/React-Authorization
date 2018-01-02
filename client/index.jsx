@@ -13,9 +13,6 @@ import reducers from './reducers/index.js'
 // Import scences.
 import routes from './routes/index.js';
 
-// Import global components.
-import Container from './components/container/index.jsx';
-
 // Create store for state management.
 const store = createStore(
   reducers,
@@ -28,9 +25,7 @@ const history = createBrowserHistory();
 // Render application.
 ReactDOM.render(
   <Provider store={store}>
-    <Container>
-      <Router history={history}>{routes(store)}</Router>
-    </Container>
+    <Router history={history}>{routes(store)}</Router>
   </Provider>,
   document.getElementById('application')
 );
