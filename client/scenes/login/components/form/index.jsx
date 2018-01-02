@@ -43,7 +43,7 @@ class LoginForm extends React.Component{
       hasUserToggledView: nextProps.hasUserToggledView || false
     });
     // Since request was successful, redirect to the main page.
-    if (this.state.setAxiosRequestSuccess) {
+    if (nextProps.setAxiosRequestSuccess) {
       // Showing the successful login message for 2 seconds.
       setTimeout(function () {
         history.push('/main');
