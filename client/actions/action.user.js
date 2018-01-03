@@ -49,6 +49,19 @@ export function logout() {
 }
 
 /**
+ * function setUser, action for setting
+ * user information.
+ *
+ * @param {Object} user
+ */
+export function setUser(user) {
+  return {
+    type: 'SET_USER',
+    user: user
+  }
+}
+
+/**
  * function postUserCredentials, sneds user credential information
  * to the API for account login or account creation.
  *
@@ -57,12 +70,18 @@ export function logout() {
  * @param  {String} postAPI
  */
 function postUserCredentials(dispatch, credentials, endpoint) {
-  // Reset global state.
+  // Reset global state. These are used to show ajax loaders
+  // and success or error messages.
   dispatch(setAxiosRequestPending(true));
   dispatch(setAxiosRequestSuccess(false));
   dispatch(setAxiosRequestError(false));
   axios.post(endpoint, credentials).then((response) => {
-    // Set user JWT.
+    // Set user in store.
+    dispatch(setUser(response.data.user));
+    // Setting user in localStorage as well.
+    // This is incase the user hard refreshes the application.
+    localStorage.setItem('user', JSON.stringify(response.data.user));
+    // Set user JWT. This is for user verfication.
     localStorage.setItem('token', response.headers.token);
     setTimeout(() => {
       dispatch(setAxiosRequestPending(false));

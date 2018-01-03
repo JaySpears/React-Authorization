@@ -1,7 +1,7 @@
 // Import dependencies.
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import { logout } from '../../actions/action.account';
+import { logout } from '../../actions/action.user';
 import { connect } from 'react-redux';
 
 // Import components.
@@ -18,7 +18,6 @@ class Header extends Component {
     this.state = {
       showTooltip: false
     }
-
     // Binding methods.
     this.toggleToolTip = this.toggleToolTip.bind(this);
   }
@@ -72,8 +71,8 @@ class Header extends Component {
               <i onClick={this.toggleToolTip} className="fa fa-user" aria-hidden="true"></i>
               { this.state.showTooltip ?
                 <Tooltip>
-                  <p>Josh Spears</p>
-                  <p>josh.spears@ansira.com</p>
+                  <p>{this.props.user.firstName} {this.props.user.lastName}</p>
+                  <p>{this.props.user.email}</p>
                   <a href="#" onClick={this.props.logout}>Sign Out</a>
                 </Tooltip> : '' }
             </div>
@@ -88,7 +87,8 @@ class Header extends Component {
 // this components props.
 const mapStateToProps = (state, ownProps) => {
   return {
-    isAuthorized: state.authorizationReducer.isAuthorized
+    isAuthorized: state.authorizationReducer.isAuthorized,
+    user: state.userReducer.user
   };
 }
 

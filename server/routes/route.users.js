@@ -37,7 +37,7 @@ class UserRoutes {
     if (response.token){
       res.setHeader('token', response.token);
     }
-    res.sendStatus(response.status);
+    res.status(response.status).send(response || null);
   }
 
   /**
@@ -50,7 +50,7 @@ class UserRoutes {
     if (response.token){
       res.setHeader('token', response.token);
     }
-    res.sendStatus(response.status);
+    res.status(response.status).send(response || null);
   }
 }
 

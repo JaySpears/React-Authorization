@@ -2,12 +2,26 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { checkUserAuthorization } from './../../actions/action.auth';
+import { setUser } from './../../actions/action.user';
 import { connect } from 'react-redux';
 
 // Authorized route class.
 class AuthorizedRoute extends Component {
   constructor(props){
     super(props);
+  }
+
+  /**
+   * function componentDidMount, once component has mounted,
+   * get the user from localStorage and dispatch it to the
+   * store. This is mainly here incase the user hard refreshes
+   * the application.
+   */
+  componentDidMount() {
+    let userCredentials = localStorage.getItem('user');
+    if (userCredentials !== null) {
+      this.props.setUser(JSON.parse(userCredentials));
+    }
   }
 
   render() {
@@ -38,6 +52,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     checkUserAuthorization: (token) => {
       dispatch(checkUserAuthorization(token));
+    },
+    setUser: (user) => {
+      dispatch(setUser(user));
     }
   }
 }

@@ -69,8 +69,14 @@ class UserController {
         first_name: user.firstName,
         last_name: user.lastName
       });
-      response.token = jwt.sign({ email: user.email }, env.secret);
+      let userCredentials = {
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName
+      };
       response.status = 200;
+      response.token = jwt.sign({ email: user.email }, env.secret);
+      response.user = userCredentials;
     } else {
       response.status = 409;
     }
@@ -108,8 +114,14 @@ class UserController {
         let token = jwt.sign({ email: user.email }, env.secret, {
           expiresIn: tokenExpiresIn
         });
+        let userCredentials = {
+          email: matchedUser.dataValues.email,
+          firstName: matchedUser.dataValues.first_name,
+          lastName: matchedUser.dataValues.last_name
+        };
         response.status = 200;
         response.token = token;
+        response.user = userCredentials;
       } else {
         response.status = 403;
       }

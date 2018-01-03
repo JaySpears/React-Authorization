@@ -1,6 +1,6 @@
 // Import dependencies.
 import React, { Component } from 'react';
-import { login, create } from '../../actions/action.account';
+import { login, create } from '../../actions/action.user';
 import { resetRequestReducers } from '../../actions/action.request-handling';
 import { setUsersAuthorization, checkUserAuthorization } from '../../actions/action.auth';
 import { connect } from 'react-redux';
