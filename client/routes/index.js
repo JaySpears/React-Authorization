@@ -15,7 +15,7 @@ const routes = (store) => {
     <div>
       <Switch>
         <Route exact path='/' component={LoginScene}/>
-        <AuthorizedRoute exact path='/main' component={MainScene} store={store}/>
+        <AuthorizedRoute exact path='/main' component={MainScene}/>
       </Switch>
     </div>
   )
