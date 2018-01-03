@@ -1,6 +1,6 @@
 // Import dependencies.
 import React, { Component } from 'react';
-import { login, createUserAccount } from '../../actions/action.login';
+import { login, create } from '../../actions/action.account';
 import { resetRequestReducers } from '../../actions/action.request-handling';
 import { setUsersAuthorization, checkUserAuthorization } from '../../actions/action.auth';
 import { connect } from 'react-redux';
@@ -92,18 +92,20 @@ class LoginScene extends React.Component{
       !this.props.setAxiosRequestPending
     ) {
       if (this.state.userCreatingAccount) {
-        this.props.createUserAccount(
-          this.state.formValues.email,
-          this.state.formValues.password,
-          this.state.formValues.firstName,
-          this.state.formValues.lastName
-        );
+        let requestObject = {
+          email: this.state.formValues.email,
+          password: this.state.formValues.password,
+          firstName: this.state.formValues.firstName,
+          lastName: this.state.formValues.lastName
+        };
+        this.props.create(requestObject, 'create');
       } else {
-        this.props.login(
-          this.state.formValues.email,
-          this.state.formValues.password,
-          this.state.rememberUser
-        );
+        let requestObject = {
+          email: this.state.formValues.email,
+          password: this.state.formValues.password,
+          rememberUser: this.state.rememberUser
+        };
+        this.props.login(requestObject, 'login');
       }
     }
   }
@@ -289,8 +291,8 @@ const mapDispatchToProps = (dispatch) => {
     login: (username, password) => {
       dispatch(login(username, password));
     },
-    createUserAccount: (username, password, firstName, lastName) => {
-      dispatch(createUserAccount(username, password, firstName, lastName));
+    create: (username, password, firstName, lastName) => {
+      dispatch(create(username, password, firstName, lastName));
     },
     resetRequestReducers: () => {
       dispatch(resetRequestReducers());

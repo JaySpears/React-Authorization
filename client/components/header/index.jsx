@@ -1,6 +1,8 @@
 // Import dependencies.
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
+import { logout } from '../../actions/action.account';
+import { connect } from 'react-redux';
 
 // Import components.
 import Container from './../container/index';
@@ -72,7 +74,7 @@ class Header extends Component {
                 <Tooltip>
                   <p>Josh Spears</p>
                   <p>josh.spears@ansira.com</p>
-                  <a href="#">Sign Out</a>
+                  <a href="#" onClick={this.props.logout}>Sign Out</a>
                 </Tooltip> : '' }
             </div>
           </div>
@@ -82,5 +84,27 @@ class Header extends Component {
   }
 }
 
-// Export component.
-export default Header;
+// State fromm the login reducer becomes bound to
+// this components props.
+const mapStateToProps = (state, ownProps) => {
+  return {
+    isAuthorized: state.authorizationReducer.isAuthorized
+  };
+}
+
+// Binding action functions with redux's
+// dispatch to this components props.
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logout: (e) => {
+      e.preventDefault();
+      dispatch(logout());
+    }
+  }
+}
+
+// Export Header.
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header);
