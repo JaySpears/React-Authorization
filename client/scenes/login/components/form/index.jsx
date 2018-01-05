@@ -61,80 +61,86 @@ class LoginForm extends React.Component{
       <div className="form-wrapper">
         <form autoComplete="off" name="user_login" id="user-login" onSubmit={this.props.handleFormSubmission}>
           {this.state.setAxiosRequestPending ? <Loader></Loader> : '' }
-          <fieldset>
-            <legend>Form Title</legend>
+          <div className="align-wrapper">
+            <div className="align-middle">
+              <fieldset>
+                <legend>Form Title</legend>
 
-            <div className="email-password-wrapper clearfix">
-              <FormInput
-                labelFor="email"
-                labelText="Email"
-                inputType="text"
-                inputName="email"
-                errors={this.props.errors}
-                handleInputChange={this.props.handleInputChange}
-                formValues={this.props.formValues}
-                hasFormBeenSubmitted={this.state.hasFormBeenSubmitted}>
-              </FormInput>
-              <FormInput
-                labelFor="password"
-                labelText="Password"
-                inputType="password"
-                inputName="password"
-                errors={this.props.errors}
-                handleInputChange={this.props.handleInputChange}
-                formValues={this.props.formValues}
-                hasFormBeenSubmitted={this.state.hasFormBeenSubmitted}>
-              </FormInput>
+                <div className="email-password-wrapper clearfix">
+                  <FormInput
+                    labelFor="email"
+                    labelText="Email"
+                    inputType="text"
+                    inputName="email"
+                    errors={this.props.errors}
+                    handleInputChange={this.props.handleInputChange}
+                    formValues={this.props.formValues}
+                    hasFormBeenSubmitted={this.state.hasFormBeenSubmitted}>
+                  </FormInput>
+                  <FormInput
+                    labelFor="password"
+                    labelText="Password"
+                    inputType="password"
+                    inputName="password"
+                    errors={this.props.errors}
+                    handleInputChange={this.props.handleInputChange}
+                    formValues={this.props.formValues}
+                    hasFormBeenSubmitted={this.state.hasFormBeenSubmitted}>
+                  </FormInput>
+                </div>
+
+                <FormAccountLogin
+                  opacityClass={(this.state.userCreatingAccount ? 'show-opacity' : 'hide-opacity')}
+                  toggleLoginView={this.props.toggleLoginView}>
+                </FormAccountLogin>
+
+                <div className={(this.state.hasUserToggledView ? 'create' : 'create-initial') + (this.state.userCreatingAccount ? ' slide-left' : ' slide-right')}>
+                  <div className="name-wrapper clearfix">
+                    <FormInput
+                      labelFor="first_name"
+                      labelText="First Name"
+                      inputType="text"
+                      inputName="firstName"
+                      errors={this.props.errors}
+                      formValues={this.props.formValues}
+                      handleInputChange={this.props.handleInputChange}
+                      hasFormBeenSubmitted={this.state.hasFormBeenSubmitted}
+                      tabIndex={(this.state.userCreatingAccount ? '' : '-1')}>
+                    </FormInput>
+                    <FormInput
+                      labelFor="last_name"
+                      labelText="Last Name"
+                      inputType="text"
+                      inputName="lastName"
+                      errors={this.props.errors}
+                      formValues={this.props.formValues}
+                      handleInputChange={this.props.handleInputChange}
+                      hasFormBeenSubmitted={this.state.hasFormBeenSubmitted}
+                      tabIndex={(this.state.userCreatingAccount ? '' : '-1')}>
+                    </FormInput>
+                  </div>
+                  <FormSubmit buttonText={'Create'}
+                    tabIndex={(this.state.userCreatingAccount ? '' : '-1')}>
+                  </FormSubmit>
+                </div>
+
+                <div className={(this.state.hasUserToggledView ? 'login' : 'login-initial') + (this.state.userCreatingAccount ? ' slide-left' : ' slide-right')}>
+                  <FormRemember
+                    rememberUser={this.props.rememberUser}
+                    handleCheckboxChange={this.props.handleCheckboxChange}>
+                  </FormRemember>
+                  <FormSubmit buttonText={'Login'}></FormSubmit>
+                  <FormAccountCreate toggleLoginView={this.props.toggleLoginView}></FormAccountCreate>
+                </div>
+
+                <FormMessages
+                  userCreatingAccount={this.state.userCreatingAccount}
+                  success={this.state.setAxiosRequestSuccess}
+                  error={this.state.setAxiosRequestError}>
+                </FormMessages>
+              </fieldset>
             </div>
-
-            <FormAccountLogin
-              opacityClass={(this.state.userCreatingAccount ? 'show-opacity' : 'hide-opacity')}
-              toggleLoginView={this.props.toggleLoginView}>
-            </FormAccountLogin>
-
-            <div className={(this.state.hasUserToggledView ? 'create' : 'create-initial') + (this.state.userCreatingAccount ? ' slide-left' : ' slide-right')}>
-              <FormInput
-                labelFor="first_name"
-                labelText="First Name"
-                inputType="text"
-                inputName="firstName"
-                errors={this.props.errors}
-                formValues={this.props.formValues}
-                handleInputChange={this.props.handleInputChange}
-                hasFormBeenSubmitted={this.state.hasFormBeenSubmitted}
-                tabIndex={(this.state.userCreatingAccount ? '' : '-1')}>
-              </FormInput>
-              <FormInput
-                labelFor="last_name"
-                labelText="Last Name"
-                inputType="text"
-                inputName="lastName"
-                errors={this.props.errors}
-                formValues={this.props.formValues}
-                handleInputChange={this.props.handleInputChange}
-                hasFormBeenSubmitted={this.state.hasFormBeenSubmitted}
-                tabIndex={(this.state.userCreatingAccount ? '' : '-1')}>
-              </FormInput>
-              <FormSubmit buttonText={'Create'}
-                tabIndex={(this.state.userCreatingAccount ? '' : '-1')}>
-              </FormSubmit>
-            </div>
-
-            <div className={(this.state.hasUserToggledView ? 'login' : 'login-initial') + (this.state.userCreatingAccount ? ' slide-left' : ' slide-right')}>
-              <FormRemember
-                rememberUser={this.props.rememberUser}
-                handleCheckboxChange={this.props.handleCheckboxChange}>
-              </FormRemember>
-              <FormSubmit buttonText={'Login'}></FormSubmit>
-              <FormAccountCreate toggleLoginView={this.props.toggleLoginView}></FormAccountCreate>
-            </div>
-
-            <FormMessages
-              userCreatingAccount={this.state.userCreatingAccount}
-              success={this.state.setAxiosRequestSuccess}
-              error={this.state.setAxiosRequestError}>
-            </FormMessages>
-          </fieldset>
+          </div>
         </form>
       </div>
     );

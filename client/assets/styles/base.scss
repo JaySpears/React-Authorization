@@ -24,6 +24,11 @@ $dark-grey: #cccccc;
         @content;
     }
 }
+@mixin medium-down {
+     @media only screen and (max-width: 63.938em){
+        @content;
+    }
+}
 @mixin large-only {
      @media only screen and (min-width: 64em) and (max-width: 90em){
         @content;
@@ -67,4 +72,14 @@ $dark-grey: #cccccc;
 
 .hide {
   display: none;
+}
+
+.align-wrapper {
+  display: table;
+  height: 100%;
+  width: 100%;
+  .align-middle {
+    display: table-cell;
+    vertical-align: middle;
+  }
 }

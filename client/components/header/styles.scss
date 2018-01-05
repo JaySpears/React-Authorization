@@ -2,12 +2,13 @@
 @import './../../assets/styles/base.scss';
 
 header {
-  padding: 15px 0px;
+  padding: 5px 0px;
   content: '';
   clear: both;
   display: table;
   width: 100%;
-  border-bottom: 1px solid black;
+  background-color: #c3c3c3;
+  border-bottom: 2px solid #b7b7b7;
   .wrapper {
     width: 100%;
   }
@@ -20,7 +21,16 @@ nav{
   a {
     margin-right: 30px;
     text-decoration: none;
-    color: black;
+    color: white;
+    transition: .25s color;
+    &:hover{
+      color: black;
+    }
+    &.active {
+      border-bottom: 1px solid black;
+      color: black;
+      cursor: initial;
+    }
   }
 }
 
@@ -29,8 +39,15 @@ nav{
   float: right;
   i {
     cursor: pointer;
-    color: #bbb;
+    color: white;
     margin: 15px 0px;
     font-size: 24px;
+    transition: .25s color;
+    &:hover{
+      color: black;
+    }
+    &.active {
+      color: black;
+    }
   }
 }

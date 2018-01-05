@@ -52,11 +52,11 @@ class Header extends Component {
   toggleToolTip(event) {
     let userIconSelector = document.querySelector('.fa-user');
     let toolTipSelector = document.querySelector('.tooltip');
-    if (toolTipSelector === null && event.target === userIconSelector) {
+    if (event.target === userIconSelector) {
       this.setState({
         showTooltip: !this.state.showTooltip
       });
-    }
+    } 
   }
 
   render() {
@@ -66,9 +66,11 @@ class Header extends Component {
           <div className="wrapper clearfix">
             <nav>
               <NavLink to="/main">Main</NavLink>
+              <NavLink to="/link2">Link 2</NavLink>
+              <NavLink to="/link3">Link 3</NavLink>
             </nav>
             <div className="user-information-wrapper">
-              <i onClick={this.toggleToolTip} className="fa fa-user" aria-hidden="true"></i>
+              <i onClick={this.toggleToolTip} className={"fa fa-user " + (this.state.showTooltip ? 'active' : '')} aria-hidden="true"></i>
               { this.state.showTooltip ?
                 <Tooltip>
                   <p>{this.props.user.firstName} {this.props.user.lastName}</p>

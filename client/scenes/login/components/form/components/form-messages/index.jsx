@@ -26,13 +26,13 @@ class FormMessages extends React.Component{
     return(
       <div>
         <div className={"success-message " + (this.state.success ? 'show' : 'hide')}>
-          <p>Success! Logging you in...</p>
+          <p><b>Success!</b> Logging you in...</p>
         </div>
 
         <div className={"error-message " + (this.state.error ? 'show' : 'hide')}>
           { this.state.userCreatingAccount
-            ? <p>This email is already in use.</p>
-            : <p>Invalid username or password.</p>
+            ? <p><b>Sorry!</b> This email is already in use.</p>
+            : <p><b>Error!</b> Invalid username or password.</p>
           }
         </div>
       </div>

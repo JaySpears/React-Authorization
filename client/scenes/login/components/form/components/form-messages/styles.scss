@@ -3,7 +3,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -60px;
+    bottom: -58px;
     padding: 0px;
     margin: 10px -16px;
     border-bottom-left-radius: 3px;
@@ -12,6 +12,9 @@
     border-top: none;
     font-size: 13px;
     line-height: 0px;
+    p {
+      line-height: 3px;
+    }
 }
 
 .success-message {

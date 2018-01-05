@@ -3,10 +3,12 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
+  background: radial-gradient(circle at center,rgba(0,0,0,0.2) 0,rgba(0,0,0,0.8) 100%);
   form[name="user_login"] {
     overflow: hidden;
-    min-height: 300px;
-    padding: 25px 0px 15px 0px;
+    max-height: 350px;
+    height: 100%;
+    padding: 0px;
     max-width: 300px;
     margin: 0 auto;
     border: 3px solid #fcfcfc;
@@ -18,6 +20,7 @@
     background-color: #e6e6e6;
     flex: none;
     width: 100%;
+    box-shadow: 0 10px 50px rgba(0,0,0,0.3);
     label[for="email"]{
       + br {
         display: none;
@@ -30,8 +33,7 @@
       top: 0;
       bottom: 0;
       z-index: 1;
-      padding-top: 70px;
-      background-color: rgba(0,0,0,0.2);
+      background-color: rgba(0,0,0,0.5);
     }
     legend {
       font-size: 24px;
@@ -40,15 +42,19 @@
       font-family: 'Lobster', sans-serif;
       font-size: 38px;
       margin-bottom: 10px;
+      position: relative;
+      top: -13px;
     }
     fieldset{
       border: none;
+      padding: 0px;
     }
     .email-password-wrapper{
       min-height: 70px;
       width: 100%;
     }
     .login{
+      margin-top: -111px;
       &.slide-left {
         -webkit-animation: slide-left-login .5s ease-out;
         -moz-animation: slide-left-login .5s ease-out;
@@ -61,19 +67,40 @@
       }
     }
     .create-initial {
-      position: absolute;
+      position: relative;
       display: none;
       transform: translateX(180%);
     }
     .create {
-      position: absolute;
+      position: relative;
       display: none;
       transform: translateX(180%);
+      padding-bottom: 4px;
+      .name-wrapper {
+        width: 70%;
+        margin: 0 auto;
+        div:nth-child(1),
+        div:nth-child(2) {
+          width: 50%;
+          float: left;
+          p {
+            width: auto;
+          }
+          input {
+            width: 80px;
+          }
+        }
+      }
+
+      .submit {
+        margin-top: 13px;
+      }
+
       &.slide-left {
         display: block;
         -webkit-animation: slide-left-create .5s ease-out;
         -moz-animation: slide-left-create .5s ease-out;
-        transform: translateX(20%);
+        transform: translateX(0%);
       }
       &.slide-right {
         display: block;
@@ -97,10 +124,10 @@
 
 @-webkit-keyframes slide-left-create {
       0% { -webkit-transform: translateX(180%); }
-    100% { -webkit-transform: translateX(20%); }
+    100% { -webkit-transform: translateX(0%); }
 }
 
 @-webkit-keyframes slide-right-create {
-      0% { -webkit-transform: translateX(20%); }
+      0% { -webkit-transform: translateX(0%); }
     100% { -webkit-transform: translateX(180%); }
 }

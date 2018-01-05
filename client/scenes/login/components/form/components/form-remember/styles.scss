@@ -7,6 +7,8 @@ span {
   content: '';
   clear: both;
   display: table;
+  position: relative;
+  left: -2px;
   label {
     display: initial;
   }
@@ -32,7 +34,7 @@ span {
     width: 16px;
     height: 15px;
     display: block;
-    margin-left: 40px;
+    margin-left: 54px;
     border-radius: 3px;
     border: 1px solid #d8cece;
     float: left;
@@ -48,7 +50,7 @@ span {
     width: 12px;
     height: 3px;
     top: 0;
-    left: -53px;
+    left: -38px;
     bottom: 0;
     right: 0;
     position: absolute;
