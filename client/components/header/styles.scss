@@ -7,8 +7,8 @@ header {
   clear: both;
   display: table;
   width: 100%;
-  background-color: #c3c3c3;
-  border-bottom: 2px solid #b7b7b7;
+  background-color: white;
+  border-bottom: 2px solid black;
   .wrapper {
     width: 100%;
   }
@@ -21,15 +21,10 @@ nav{
   a {
     margin-right: 30px;
     text-decoration: none;
-    color: white;
+    color: black;
     transition: .25s color;
-    &:hover{
-      color: black;
-    }
     &.active {
-      border-bottom: 1px solid black;
-      color: black;
-      cursor: initial;
+      font-weight: 600;
     }
   }
 }
@@ -39,15 +34,15 @@ nav{
   float: right;
   i {
     cursor: pointer;
-    color: white;
+    color: black;
     margin: 15px 0px;
     font-size: 24px;
     transition: .25s color;
     &:hover{
-      color: black;
+      color: $blue;
     }
     &.active {
-      color: black;
+      color: $blue;
     }
   }
 }
