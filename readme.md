@@ -1,4 +1,4 @@
-# Idk Yet? :sweat_smile:
+# React Authorization Application
 
 ### Client Code Architecture :computer:
 `index.jsx` **->** Root file for the React application. Initializes the Redux store, routes, etc.</br>

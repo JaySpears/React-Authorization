@@ -1,7 +1,7 @@
 {
-  "name": "idkyet",
+  "name": "reactauthorization",
   "version": "1.0.0",
-  "description": "IDK YET!",
+  "description": "React Authorization",
   "main": "index.html",
   "scripts": {
     "start": "nodemon server/index.js --exec babel-node",
